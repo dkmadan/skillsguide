@@ -121,10 +121,10 @@ export default function HomePage() {
               
               {/* Left Image Box */}
               <div className="relative w-1/2 space-y-3">
-                <div className="hero-img-box-1 p-3 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
+                <div className="hero-img-box-1 p-2 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
                   <img 
-                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80" 
-                    alt="Indian Tech Learner" 
+                    src="/images/hero-learner-avatar.jpg" 
+                    alt="Indian Tech Learner Avatar" 
                     className="w-full h-64 object-cover object-top rounded-b-2xl filter contrast-105"
                   />
                 </div>
@@ -132,9 +132,9 @@ export default function HomePage() {
                 {/* Floating Mentor Badge */}
                 <div className="glass-card p-3 rounded-2xl border border-white/10 shadow-floating flex items-center gap-3 bg-[#161926]/90 backdrop-blur-md">
                   <img 
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" 
-                    alt="Mentor" 
-                    className="w-10 h-10 rounded-xl object-cover border border-purple-400/40"
+                    src="/images/hero-mentor-avatar.jpg" 
+                    alt="Ananya Verma Mentor Avatar" 
+                    className="w-11 h-11 rounded-xl object-cover border border-purple-400/40 shrink-0"
                   />
                   <div className="overflow-hidden">
                     <h4 className="text-xs font-bold text-white truncate">Ananya Verma</h4>
@@ -150,7 +150,7 @@ export default function HomePage() {
 
               {/* Right Image Box */}
               <div className="relative w-1/2 space-y-3">
-                <div className="hero-img-box-2 p-3 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
+                <div className="hero-img-box-2 p-2 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
                   
                   {/* Slanted Frosted Tag */}
                   <div className="absolute bottom-6 right-2 left-2 z-20">
@@ -161,8 +161,8 @@ export default function HomePage() {
                   </div>
 
                   <img 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" 
-                    alt="Student" 
+                    src="/images/hero-student-avatar.jpg" 
+                    alt="Female Tech Student Avatar" 
                     className="w-full h-80 object-cover object-top rounded-b-2xl filter contrast-105"
                   />
                 </div>
