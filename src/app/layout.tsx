@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Outfit, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import LayoutClientWrapper from '@/components/LayoutClientWrapper';
 
@@ -82,6 +83,21 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased selection:bg-purple-600 selection:text-white min-h-screen flex flex-col justify-between relative bg-[#0d0f18] text-slate-100">
         
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-H8YRVGPK56"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-H8YRVGPK56');
+          `}
+        </Script>
+
         {/* Ambient Floating Glow Orbs */}
         <div className="fixed top-10 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
         <div className="fixed top-1/3 right-10 w-[450px] h-[450px] bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
