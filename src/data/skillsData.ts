@@ -1,8 +1,9 @@
 export interface SkillDetail {
   slug: string;
   title: string;
-  category: 'tech' | 'business' | 'vocational';
+  category: 'tech' | 'business' | 'vocational' | 'emerging-tech' | 'growth-nocode' | 'creative-media' | 'green-tech' | string;
   categoryLabel: string;
+  domainSlug?: string;
   shortDesc: string;
   longDesc: string;
   heroImage: string;
@@ -36,6 +37,15 @@ export interface SkillDetail {
     answer: string;
   }[];
   relatedSkills: string[];
+  conceptDiagram?: {
+    title: string;
+    caption: string;
+    imageUrl: string;
+    keyPoints: {
+      label: string;
+      description: string;
+    }[];
+  };
 }
 
 export const skillsData: SkillDetail[] = [
@@ -1156,15 +1166,26 @@ export const skillsData: SkillDetail[] = [
 import { additionalSkills } from './additionalSkills';
 import { moreSkillsList } from './moreSkillsCatalog';
 import { expansionSkills } from './expansionSkills';
+import { newDomainSkills } from './newDomainSkills';
 
-export const allSkillsList: SkillDetail[] = [...skillsData, ...additionalSkills, ...moreSkillsList, ...expansionSkills];
+export const allSkillsList: SkillDetail[] = [
+  ...skillsData,
+  ...additionalSkills,
+  ...moreSkillsList,
+  ...expansionSkills,
+  ...newDomainSkills
+];
 
 export const getSkillBySlug = (slug: string): SkillDetail | undefined => {
   return allSkillsList.find(s => s.slug === slug);
 };
 
-export const getSkillsByCategory = (category: 'tech' | 'business' | 'vocational'): SkillDetail[] => {
+export const getSkillsByCategory = (category: string): SkillDetail[] => {
   return allSkillsList.filter(s => s.category === category);
+};
+
+export const getSkillsByDomain = (domainSlug: string): SkillDetail[] => {
+  return allSkillsList.filter(s => s.domainSlug === domainSlug);
 };
 
 

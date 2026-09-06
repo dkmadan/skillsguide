@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { allSkillsList, getSkillBySlug } from '@/data/skillsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
@@ -17,7 +18,9 @@ import {
   ArrowRight, 
   BookOpen, 
   Sparkles,
-  Award
+  Award,
+  Cpu,
+  TrendingUp
 } from 'lucide-react';
 
 interface Props {
@@ -36,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!skill) {
     return {
-      title: 'Skill Track Not Found',
+      title: 'Skill Track Not Found | SkillsGuide.in',
     };
   }
 
@@ -44,8 +47,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${skill.title} Blueprint (2026) | Salary: ${skill.salaryRange}`,
     description: `Complete guide to ${skill.title}. Discover verified Indian salary ranges (${skill.salaryRange}), learning timeline (${skill.timelineWeeks}), interview questions, and top hiring cities.`,
     keywords: [
-      skill.title, `${skill.title} syllabus`, `${skill.title} salary india`,
-      `${skill.title} jobs bangalore`, ...skill.tools
+      skill.title, 
+      `${skill.title} syllabus`, 
+      `${skill.title} salary india`,
+      `${skill.title} jobs bangalore`, 
+      ...skill.tools
     ],
     openGraph: {
       title: `${skill.title} Career Blueprint & Indian Salary Guide`,
@@ -71,7 +77,7 @@ export default async function SkillDetailPage({ params }: Props) {
     notFound();
   }
 
-  const jsonLdData = {
+  const courseJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: skill.title,
@@ -89,15 +95,32 @@ export default async function SkillDetailPage({ params }: Props) {
     }
   };
 
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: skill.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  };
+
   const breadcrumbs = [
     { name: 'Skills Directory', url: '/#skills-catalog' },
-    { name: skill.categoryLabel, url: `/#skills-catalog` },
+    { 
+      name: skill.categoryLabel, 
+      url: skill.domainSlug ? `/category/${skill.domainSlug}` : '/#skills-catalog' 
+    },
     { name: skill.title }
   ];
 
   return (
     <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
-      <JsonLd data={jsonLdData} />
+      <JsonLd data={courseJsonLd} />
+      {skill.faqs && skill.faqs.length > 0 && <JsonLd data={faqJsonLd} />}
       <Breadcrumbs items={breadcrumbs} />
 
       {/* Hero Header */}
@@ -107,18 +130,49 @@ export default async function SkillDetailPage({ params }: Props) {
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{skill.categoryLabel} • Verified 2026 Industry Blueprint</span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>{skill.categoryLabel}</span>
+              </span>
+              {skill.domainSlug && (
+                <Link 
+                  href={`/category/${skill.domainSlug}`}
+                  className="text-xs text-slate-400 hover:text-purple-300 transition-colors underline decoration-purple-500/40"
+                >
+                  View Domain Hub →
+                </Link>
+              )}
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
               {skill.title}
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
               {skill.longDesc}
             </p>
+
+            {/* Hero Image Card */}
+            <div className="relative h-52 sm:h-64 w-full rounded-2xl overflow-hidden border border-slate-800 shadow-xl my-4 group">
+              <Image 
+                src={skill.heroImage} 
+                alt={`${skill.title} Conceptual Visual`}
+                fill 
+                priority
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 60vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
+                <span className="px-2.5 py-1 rounded-md bg-slate-900/90 text-purple-300 font-bold border border-purple-500/30 text-[11px] backdrop-blur-md">
+                  Verified 2026 Curriculum
+                </span>
+                <span className="px-2.5 py-1 rounded-md bg-emerald-950/90 text-emerald-300 font-bold border border-emerald-500/30 text-[11px] backdrop-blur-md">
+                  High-ROI Track
+                </span>
+              </div>
+            </div>
 
             {/* Quick Badges */}
             <div className="pt-2 flex flex-wrap gap-2">
@@ -189,7 +243,7 @@ export default async function SkillDetailPage({ params }: Props) {
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-12 gap-8">
         
-        {/* Left Column: Syllabus & Interview Questions */}
+        {/* Left Column: Concept Diagram, Syllabus & Interview Questions */}
         <div className="lg:col-span-8 space-y-10">
           
           {/* Key Value Highlights */}
@@ -207,6 +261,53 @@ export default async function SkillDetailPage({ params }: Props) {
               ))}
             </div>
           </div>
+
+          {/* DEDICATED TECHNICAL CONCEPT ARCHITECTURE DIAGRAM (If present) */}
+          {skill.conceptDiagram && (
+            <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold mb-2">
+                  <Cpu className="w-3.5 h-3.5" />
+                  <span>Technical Architecture & Concept Breakdown</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                  {skill.conceptDiagram.title}
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                  {skill.conceptDiagram.caption}
+                </p>
+              </div>
+
+              {/* Responsive SVG Technical Graphic */}
+              <figure className="rounded-2xl overflow-hidden border border-slate-800 bg-[#090d16] p-2 sm:p-4 shadow-2xl relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={skill.conceptDiagram.imageUrl} 
+                  alt={`${skill.title} Core Architecture Diagram`}
+                  className="w-full h-auto rounded-xl object-contain max-h-[500px]"
+                  loading="lazy"
+                />
+                <figcaption className="text-[11px] text-slate-400 text-center mt-3 italic">
+                  Figure: Structural Systems & Execution Lifecycle for {skill.title}
+                </figcaption>
+              </figure>
+
+              {/* Key Concept Breakdown Cards */}
+              <div className="grid sm:grid-cols-2 gap-3.5 pt-2">
+                {skill.conceptDiagram.keyPoints.map((pt, idx) => (
+                  <div key={idx} className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                    <h4 className="text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                      <span>{pt.label}</span>
+                    </h4>
+                    <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                      {pt.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* Week-by-Week Syllabus & Projects */}
           <div className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">

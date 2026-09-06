@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { allSkillsList } from '@/data/skillsData';
+import { categoryDomains } from '@/data/categoryData';
 import SalaryExplorer from '@/components/SalaryExplorer';
 import CheatSheetSection from '@/components/CheatSheetSection';
 import HomeClientCatalog from '@/components/HomeClientCatalog';
@@ -19,7 +20,11 @@ import {
   Zap,
   TrendingUp,
   MapPin,
-  FileCheck
+  FileCheck,
+  Cpu,
+  Palette,
+  Leaf,
+  Layers
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -36,6 +41,13 @@ export default function HomePage() {
     }
   };
 
+  const domainIcons: Record<string, React.ReactNode> = {
+    'emerging-tech-ai': <Cpu className="w-5 h-5 text-indigo-400" />,
+    'business-growth-nocode': <TrendingUp className="w-5 h-5 text-amber-400" />,
+    'creative-design-media': <Palette className="w-5 h-5 text-rose-400" />,
+    'green-tech-sustainability': <Leaf className="w-5 h-5 text-teal-400" />
+  };
+
   return (
     <>
       <JsonLd data={jsonLdData} />
@@ -50,7 +62,7 @@ export default function HomePage() {
             {/* Pill Indicator */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold">
               <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
-              <span>E-Learning & High-ROI Skilling Platform</span>
+              <span>E-Learning &amp; High-ROI Skilling Platform</span>
             </div>
 
             {/* Headline */}
@@ -63,7 +75,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed font-normal">
-              Upgrade your career with expert-verified roadmaps, interactive Indian salary benchmarks, and actionable skills—spanning <strong>AI Automation, Data Analytics, Full-Stack, Tally GST, Remote Freelancing, and Creator Tools</strong>.
+              Upgrade your career with expert-verified roadmaps, interactive Indian salary benchmarks, and actionable blueprints—spanning <strong>Generative AI &amp; Agents, Cloud Platform IaC, EV &amp; Battery Systems, Modern No-Code, and UI/UX Design Systems</strong>.
             </p>
 
             {/* Action Buttons */}
@@ -91,21 +103,21 @@ export default function HomePage() {
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <Bookmark className="w-3.5 h-3.5 text-purple-400" />
-                  <span>30+ Tracks</span>
+                  <span>45+ Tracks</span>
                 </div>
                 <p className="text-xs text-slate-300 font-medium">Free Career Guides</p>
               </div>
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <Users className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>120k+</span>
+                  <span>140k+</span>
                 </div>
                 <p className="text-xs text-slate-300 font-medium">Indian Learners</p>
               </div>
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>₹6L - ₹28L</span>
+                  <span>₹6L - ₹35L</span>
                 </div>
                 <p className="text-xs text-slate-300 font-medium">Verified CTC Range</p>
               </div>
@@ -113,24 +125,26 @@ export default function HomePage() {
 
           </div>
 
-          {/* Right Column: Asymmetrical Collage with Cutouts & Floating Glass Badges */}
-          <div className="lg:col-span-6 relative flex items-center justify-center min-h-[480px]">
+          {/* Right Column: Dynamic Visual Showcase */}
+          <div className="lg:col-span-6 relative flex items-center justify-center">
             
-            {/* Collage Container */}
-            <div className="relative w-full max-w-lg flex items-end justify-center gap-4">
+            <div className="relative w-full max-w-lg flex gap-4 items-center">
               
               {/* Left Image Box */}
               <div className="relative w-1/2 space-y-3">
                 <div className="hero-img-box-1 p-2 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
                   <img 
                     src="/images/hero-learner-avatar.jpg" 
-                    alt="Indian Tech Learner Avatar" 
-                    className="w-full h-64 object-cover object-top rounded-b-2xl filter contrast-105"
+                    alt="Young Indian Learner Avatar" 
+                    className="w-full h-72 object-cover object-top rounded-t-2xl filter contrast-105"
                   />
+                  <div className="absolute top-3 left-3 bg-purple-900/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-white border border-purple-500/40">
+                    ⚡ 2026 Ready
+                  </div>
                 </div>
 
-                {/* Floating Mentor Badge */}
-                <div className="glass-card p-3 rounded-2xl border border-white/10 shadow-floating flex items-center gap-3 bg-[#161926]/90 backdrop-blur-md">
+                {/* Mentor Card */}
+                <div className="glass-card p-2.5 rounded-2xl flex items-center gap-2.5 border border-white/10 bg-[#161926]/90 backdrop-blur-md">
                   <img 
                     src="/images/hero-mentor-avatar.jpg" 
                     alt="Ananya Verma Mentor Avatar" 
@@ -176,6 +190,68 @@ export default function HomePage() {
 
             </div>
 
+          </div>
+
+        </div>
+      </section>
+
+      {/* NEW HIGH-DEMAND SUBJECT DOMAINS SHOWCASE */}
+      <section className="py-12 px-4 sm:px-6 lg:px-10 border-t border-slate-800/80 bg-slate-950/20">
+        <div className="max-w-7xl mx-auto">
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>2026 Core Subject Domains</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                High-Demand Career Tracks by Domain
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                Explore specialized career clusters designed for high hiring growth, remote USD compensation, and industrial transformation.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {categoryDomains.map((cat) => (
+              <Link 
+                key={cat.slug}
+                href={`/category/${cat.slug}`}
+                className="glass-card p-6 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-b from-[#14182b]/80 to-[#0e1120]/90"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center border border-slate-800 group-hover:scale-105 transition-transform">
+                      {domainIcons[cat.slug] || <Layers className="w-5 h-5 text-purple-400" />}
+                    </div>
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                      {cat.cagrGrowth}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                      {cat.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                      {cat.shortDesc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
+                  <span className="text-[11px] text-emerald-400 font-bold">
+                    {cat.averageSalary}
+                  </span>
+                  <span className="text-xs font-bold text-purple-400 group-hover:text-purple-300 flex items-center gap-1">
+                    <span>Explore</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
 
         </div>

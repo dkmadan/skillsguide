@@ -3,6 +3,7 @@ import { allSkillsList } from '@/data/skillsData';
 import { allRoadmapsList } from '@/data/roadmapsData';
 import { allSalaryGuidesList } from '@/data/salaryData';
 import { allGlossaryTerms } from '@/data/glossaryData';
+import { categoryDomains } from '@/data/categoryData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://skillsguide.in';
@@ -21,6 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
   ];
+
+  // Dynamic Category Domain Hub Pages
+  const categoryRoutes: MetadataRoute.Sitemap = categoryDomains.map((cat) => ({
+    url: `${baseUrl}/category/${cat.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.95
+  }));
 
   // Dynamic Skill Pages
   const skillRoutes: MetadataRoute.Sitemap = allSkillsList.map((skill) => ({
@@ -56,6 +65,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes,
+    ...categoryRoutes,
     ...skillRoutes,
     ...roadmapRoutes,
     ...salaryRoutes,

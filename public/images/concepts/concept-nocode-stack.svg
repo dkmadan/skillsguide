@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="nocodeBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#17152b" />
+    </linearGradient>
+    <linearGradient id="purplePink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d946ef" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="blueTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" rx="20" fill="url(#nocodeBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="165" height="26" rx="13" fill="#d946ef" fill-opacity="0.18" stroke="#f0abfc" stroke-width="1" />
+    <text x="82" y="17" fill="#f5d0fe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">MODERN NO-CODE STACK</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="20" font-weight="800" font-family="system-ui, sans-serif">Full-Stack Visual App &amp; Webhook Automation Architecture</text>
+  </g>
+
+  <!-- 3-Tier Layered Architecture -->
+  <!-- Layer 1: Frontends (Bubble & Webflow) -->
+  <g transform="translate(40, 130)">
+    <rect width="260" height="340" rx="16" fill="#1e1b4b" fill-opacity="0.6" stroke="#8b5cf6" stroke-width="2" />
+    <rect x="15" y="15" width="230" height="28" rx="8" fill="url(#purplePink)" />
+    <text x="130" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">1. VISUAL FRONTEND LAYER</text>
+
+    <!-- Box A: Bubble -->
+    <g transform="translate(15, 60)">
+      <rect width="230" height="120" rx="10" fill="#0f172a" stroke="#4338ca" />
+      <text x="15" y="24" fill="#c084fc" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Bubble Web Apps</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Responsive Flexbox Canvas Engine</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Custom Workflow Action Logic</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• User Auth &amp; Role-Based Privacy Rules</text>
+      <text x="15" y="100" fill="#e9d5ff" font-size="9" font-weight="700" font-family="system-ui, sans-serif">Complex SaaS MVPs &amp; Portals</text>
+    </g>
+
+    <!-- Box B: Webflow -->
+    <g transform="translate(15, 195)">
+      <rect width="230" height="125" rx="10" fill="#0f172a" stroke="#4338ca" />
+      <text x="15" y="24" fill="#38bdf8" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Webflow CMS &amp; Interactions</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Semantic HTML5 / CSS Box Model</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Dynamic CMS Collections &amp; Filters</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• 60fps Micro-interactions &amp; GSAP</text>
+      <text x="15" y="100" fill="#bae6fd" font-size="9" font-weight="700" font-family="system-ui, sans-serif">High-Converting Marketing Engines</text>
+    </g>
+  </g>
+
+  <!-- Arrow Layer 1 -> Layer 2 -->
+  <path d="M 305 300 L 345 300" stroke="#d946ef" stroke-width="2.5" />
+  <polygon points="345,295 355,300 345,305" fill="#d946ef" />
+
+  <!-- Layer 2: Automation & Webhook Middleware (Make.com & Zapier) -->
+  <g transform="translate(360, 130)">
+    <rect width="260" height="340" rx="16" fill="#0c4a6e" fill-opacity="0.4" stroke="#0284c7" stroke-width="2" />
+    <rect x="15" y="15" width="230" height="28" rx="8" fill="url(#blueTeal)" />
+    <text x="130" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">2. AUTOMATION ROUTER</text>
+
+    <!-- Make.com Scenario -->
+    <g transform="translate(15, 60)">
+      <rect width="230" height="120" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="15" y="24" fill="#38bdf8" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Make.com Multi-Router</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Webhook Ingestion &amp; Instant Triggers</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Router Branches &amp; Conditional Filters</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Iterator &amp; Aggregator Payload Arrays</text>
+      <text x="15" y="100" fill="#7dd3fc" font-size="9" font-weight="700" font-family="system-ui, sans-serif">Complex Business Logic Orchestration</text>
+    </g>
+
+    <!-- Zapier & Webhooks -->
+    <g transform="translate(15, 195)">
+      <rect width="230" height="125" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="15" y="24" fill="#fb923c" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Zapier &amp; Custom API Hooks</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• 5,000+ Native App Connectors</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Stripe Payment Webhook Verification</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• OpenAI API Automation &amp; Enrichment</text>
+      <text x="15" y="100" fill="#fed7aa" font-size="9" font-weight="700" font-family="system-ui, sans-serif">Error Handling &amp; Auto-Replay</text>
+    </g>
+  </g>
+
+  <!-- Arrow Layer 2 -> Layer 3 -->
+  <path d="M 625 300 L 665 300" stroke="#10b981" stroke-width="2.5" />
+  <polygon points="665,295 675,300 665,305" fill="#10b981" />
+
+  <!-- Layer 3: Relational Backend & Data Store (Airtable & Supabase) -->
+  <g transform="translate(680, 130)">
+    <rect width="240" height="340" rx="16" fill="#064e3b" fill-opacity="0.4" stroke="#10b981" stroke-width="2" />
+    <rect x="15" y="15" width="210" height="28" rx="8" fill="#059669" />
+    <text x="120" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">3. RELATIONAL DATABASE</text>
+
+    <!-- Airtable Modeling -->
+    <g transform="translate(15, 60)">
+      <rect width="210" height="120" rx="10" fill="#0f172a" stroke="#047857" />
+      <text x="15" y="24" fill="#34d399" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Airtable Data Models</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Linked Records (1:N &amp; N:M)</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Rollups, Lookups &amp; Formulas</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Airtable Scripts (JavaScript)</text>
+      <text x="15" y="100" fill="#a7f3d0" font-size="9" font-weight="700" font-family="system-ui, sans-serif">Single Source of Truth CRM</text>
+    </g>
+
+    <!-- Live Sync & Portals -->
+    <g transform="translate(15, 195)">
+      <rect width="210" height="125" rx="10" fill="#0f172a" stroke="#047857" />
+      <text x="15" y="24" fill="#a7f3d0" font-size="12" font-weight="800" font-family="system-ui, sans-serif">Sync &amp; Client Portals</text>
+      <text x="15" y="44" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Softr / Noloco Client Portals</text>
+      <text x="15" y="62" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Two-Way Realtime Sync</text>
+      <text x="15" y="80" fill="#cbd5e1" font-size="10" font-family="system-ui, sans-serif">• Automated CSV Exports &amp; Reports</text>
+      <text x="15" y="100" fill="#d1fae5" font-size="9" font-weight="700" font-family="system-ui, sans-serif">Scalable to 100k+ Records</text>
+    </g>
+  </g>
+</svg>

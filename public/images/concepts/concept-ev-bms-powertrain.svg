@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="evBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#061214" />
+      <stop offset="100%" stop-color="#0b1e22" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="amberGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" rx="20" fill="url(#evBg)" stroke="#134e4a" stroke-width="2" />
+  
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="175" height="26" rx="13" fill="#14b8a6" fill-opacity="0.18" stroke="#2dd4bf" stroke-width="1" />
+    <text x="87" y="17" fill="#99f6e4" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">CLEAN MOBILITY &amp; EV</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="20" font-weight="800" font-family="system-ui, sans-serif">EV Powertrain, Battery Management System (BMS) &amp; Fast Charging</text>
+  </g>
+
+  <!-- 4 Stage Powertrain Flow -->
+  <!-- Stage 1: High Voltage Battery Pack & BMS -->
+  <g transform="translate(40, 130)">
+    <rect width="210" height="340" rx="16" fill="#042f2e" fill-opacity="0.5" stroke="#14b8a6" stroke-width="2" />
+    <rect x="15" y="15" width="180" height="28" rx="8" fill="url(#tealGrad)" />
+    <text x="105" y="34" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">1. HV BATTERY &amp; BMS</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#115e59" />
+      <text x="12" y="22" fill="#5eead4" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">NMC / LFP Cell Chemistry</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">400V / 800V Architecture</text>
+    </g>
+
+    <g transform="translate(15, 125)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#115e59" />
+      <text x="12" y="22" fill="#5eead4" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">Active Cell Balancing</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Equalizing voltages to ±5mV</text>
+    </g>
+
+    <g transform="translate(15, 190)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#115e59" />
+      <text x="12" y="22" fill="#5eead4" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">SoC &amp; SoH Estimation</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Extended Kalman Filter (EKF)</text>
+    </g>
+
+    <g transform="translate(15, 255)">
+      <rect width="180" height="65" rx="10" fill="#134e4a" stroke="#14b8a6" stroke-dasharray="3 3" />
+      <text x="90" y="26" fill="#ccfbf1" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Thermal Runaway Guard</text>
+      <text x="90" y="46" fill="#99f6e4" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Liquid cooling jackets &amp; pyro-fuses</text>
+    </g>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 255 300 L 285 300" stroke="#14b8a6" stroke-width="2.5" />
+  <polygon points="285,295 295,300 285,305" fill="#14b8a6" />
+
+  <!-- Stage 2: Power Electronics & Inverter -->
+  <g transform="translate(300, 130)">
+    <rect width="210" height="340" rx="16" fill="#064e3b" fill-opacity="0.4" stroke="#10b981" stroke-width="2" />
+    <rect x="15" y="15" width="180" height="28" rx="8" fill="url(#emeraldGrad2)" />
+    <text x="105" y="34" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">2. TRACTION INVERTER</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#047857" />
+      <text x="12" y="22" fill="#6ee7b7" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">SiC Silicon Carbide</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">High-frequency switching &gt; 98% eff</text>
+    </g>
+
+    <g transform="translate(15, 125)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#047857" />
+      <text x="12" y="22" fill="#6ee7b7" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">DC-to-3-Phase AC</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Space Vector PWM Modulation</text>
+    </g>
+
+    <g transform="translate(15, 190)">
+      <rect width="180" height="50" rx="10" fill="#0f172a" stroke="#047857" />
+      <text x="12" y="22" fill="#6ee7b7" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">Field-Oriented Control (FOC)</text>
+      <text x="12" y="38" fill="#cbd5e1" font-size="9" font-family="system-ui, sans-serif">Instantaneous torque response</text>
+    </g>
+
+    <g transform="translate(15, 255)">
+      <rect width="180" height="65" rx="10" fill="#022c22" stroke="#059669" stroke-dasharray="3 3" />
+      <text x="90" y="26" fill="#a7f3d0" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Regenerative Braking</text>
+      <text x="90" y="46" fill="#6ee7b7" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Kinetic energy recapture to pack</text>
+    </g>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 515 300 L 545 300" stroke="#10b981" stroke-width="2.5" />
+  <polygon points="545,295 555,300 545,305" fill="#10b981" />
+
+  <!-- Stage 3: Electric Motor & Drive -->
+  <g transform="translate(560, 130)">
+    <rect width="180" height="340" rx="16" fill="#1e293b" fill-opacity="0.5" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="15" y="15" width="150" height="28" rx="8" fill="#0284c7" />
+    <text x="90" y="34" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">3. PMSM MOTOR</text>
+
+    <g transform="translate(15, 60)">
+      <rect width="150" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="10" y="22" fill="#7dd3fc" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">Permanent Magnet</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif">High power-density stator</text>
+    </g>
+
+    <g transform="translate(15, 125)">
+      <rect width="150" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="10" y="22" fill="#7dd3fc" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">Single-Speed Gear</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif">Direct wheel differential</text>
+    </g>
+
+    <g transform="translate(15, 190)">
+      <rect width="150" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="10" y="22" fill="#7dd3fc" font-size="10.5" font-weight="700" font-family="system-ui, sans-serif">Torque Vectoring</text>
+      <text x="10" y="38" fill="#94a3b8" font-size="9" font-family="system-ui, sans-serif">Dynamic cornering stability</text>
+    </g>
+
+    <g transform="translate(15, 255)">
+      <rect width="150" height="65" rx="10" fill="#082f49" stroke="#0284c7" stroke-dasharray="3 3" />
+      <text x="75" y="26" fill="#bae6fd" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">0-100 km/h Peak</text>
+      <text x="75" y="46" fill="#7dd3fc" font-size="9" text-anchor="middle" font-family="system-ui, sans-serif">Instant wheel torque delivery</text>
+    </g>
+  </g>
+
+  <!-- Arrow Stage 3 -> Stage 4 -->
+  <path d="M 745 300 L 765 300" stroke="#f59e0b" stroke-width="2.5" />
+  <polygon points="765,295 775,300 765,305" fill="#f59e0b" />
+
+  <!-- Stage 4: Charging Standards -->
+  <g transform="translate(780, 130)">
+    <rect width="140" height="340" rx="16" fill="#451a03" fill-opacity="0.4" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="10" y="15" width="120" height="28" rx="8" fill="url(#amberGrad3)" />
+    <text x="70" y="34" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">4. CHARGING</text>
+
+    <g transform="translate(10, 60)">
+      <rect width="120" height="50" rx="10" fill="#0f172a" stroke="#78350f" />
+      <text x="8" y="22" fill="#fcd34d" font-size="10" font-weight="700" font-family="system-ui, sans-serif">CCS2 / Type 2</text>
+      <text x="8" y="38" fill="#94a3b8" font-size="8.5" font-family="system-ui, sans-serif">Indian &amp; EU Standard</text>
+    </g>
+
+    <g transform="translate(10, 125)">
+      <rect width="120" height="50" rx="10" fill="#0f172a" stroke="#78350f" />
+      <text x="8" y="22" fill="#fcd34d" font-size="10" font-weight="700" font-family="system-ui, sans-serif">350kW DC Fast</text>
+      <text x="8" y="38" fill="#94a3b8" font-size="8.5" font-family="system-ui, sans-serif">10% to 80% in 18 min</text>
+    </g>
+
+    <g transform="translate(10, 190)">
+      <rect width="120" height="50" rx="10" fill="#0f172a" stroke="#78350f" />
+      <text x="8" y="22" fill="#fcd34d" font-size="10" font-weight="700" font-family="system-ui, sans-serif">ISO 15118</text>
+      <text x="8" y="38" fill="#94a3b8" font-size="8.5" font-family="system-ui, sans-serif">Plug &amp; Charge Auth</text>
+    </g>
+
+    <g transform="translate(10, 255)">
+      <rect width="120" height="65" rx="10" fill="#2d1309" stroke="#d97706" stroke-dasharray="3 3" />
+      <text x="60" y="26" fill="#fef3c7" font-size="10" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">V2G Grid Link</text>
+      <text x="60" y="46" fill="#fcd34d" font-size="8.5" text-anchor="middle" font-family="system-ui, sans-serif">Bidirectional Power</text>
+    </g>
+  </g>
+</svg>

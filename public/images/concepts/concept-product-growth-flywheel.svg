@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="pmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="amberGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" rx="20" fill="url(#pmBg)" stroke="#334155" stroke-width="2" />
+  
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="170" height="26" rx="13" fill="#f59e0b" fill-opacity="0.18" stroke="#fbbf24" stroke-width="1" />
+    <text x="85" y="17" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PRODUCT &amp; GROWTH</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="20" font-weight="800" font-family="system-ui, sans-serif">Continuous Product Discovery to Viral Growth Flywheel</text>
+  </g>
+
+  <!-- Flywheel Ring / 4 Quadrants -->
+  <!-- Quad 1: Discovery & User Interviews -->
+  <g transform="translate(60, 130)">
+    <rect width="390" height="155" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#f59e0b" stroke-width="2" />
+    <rect x="15" y="15" width="160" height="26" rx="8" fill="url(#amberGrad2)" />
+    <text x="95" y="32" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">1. PRODUCT DISCOVERY</text>
+    <text x="20" y="68" fill="#ffffff" font-size="13" font-weight="700" font-family="system-ui, sans-serif">Continuous User Research &amp; Empathy</text>
+    <text x="20" y="90" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• 10+ Weekly Customer Interviews (Teresa Torres model)</text>
+    <text x="20" y="108" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Opportunity Solution Trees &amp; Customer Journey Maps</text>
+    <text x="20" y="126" fill="#fde68a" font-size="10" font-weight="600" font-family="system-ui, sans-serif">Output: Validated Problem Statements &amp; Value Propositions</text>
+  </g>
+
+  <!-- Quad 2: PRD & Backlog Prioritization -->
+  <g transform="translate(510, 130)">
+    <rect width="390" height="155" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#6366f1" stroke-width="2" />
+    <rect x="15" y="15" width="160" height="26" rx="8" fill="#4f46e5" />
+    <text x="95" y="32" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">2. PRD &amp; ROADMAP</text>
+    <text x="20" y="68" fill="#ffffff" font-size="13" font-weight="700" font-family="system-ui, sans-serif">Detailed Specs &amp; RICE Scoring</text>
+    <text x="20" y="90" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Comprehensive PRDs in Notion / Confluence</text>
+    <text x="20" y="108" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Reach, Impact, Confidence, Effort (RICE) Ranking</text>
+    <text x="20" y="126" fill="#c7d2fe" font-size="10" font-weight="600" font-family="system-ui, sans-serif">Output: Sprint Stories with Clear Acceptance Criteria (Gherkin)</text>
+  </g>
+
+  <!-- Quad 3: Amplitude Product Analytics -->
+  <g transform="translate(60, 315)">
+    <rect width="390" height="155" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#06b6d4" stroke-width="2" />
+    <rect x="15" y="15" width="175" height="26" rx="8" fill="#0891b2" />
+    <text x="102" y="32" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">3. PRODUCT ANALYTICS</text>
+    <text x="20" y="68" fill="#ffffff" font-size="13" font-weight="700" font-family="system-ui, sans-serif">Amplitude &amp; Mixpanel Event Funnels</text>
+    <text x="20" y="90" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Onboarding Drop-Off Funnels &amp; Time-to-Value (TTV)</text>
+    <text x="20" y="108" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Behavioral Cohort Retention Curves (D1 / D7 / D30)</text>
+    <text x="20" y="126" fill="#a5f3fc" font-size="10" font-weight="600" font-family="system-ui, sans-serif">Output: Root-Cause Diagnosis of User Churn</text>
+  </g>
+
+  <!-- Quad 4: Growth Loops & Viral Expansion -->
+  <g transform="translate(510, 315)">
+    <rect width="390" height="155" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#f43f5e" stroke-width="2" />
+    <rect x="15" y="15" width="175" height="26" rx="8" fill="url(#roseGrad)" />
+    <text x="102" y="32" fill="#ffffff" font-size="11" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">4. VIRAL GROWTH LOOPS</text>
+    <text x="20" y="68" fill="#ffffff" font-size="13" font-weight="700" font-family="system-ui, sans-serif">Product-Led Growth (PLG) Engine</text>
+    <text x="20" y="90" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• Two-Sided Referral Incentives &amp; Viral K-Factor &gt; 1.0</text>
+    <text x="20" y="108" fill="#cbd5e1" font-size="10.5" font-family="system-ui, sans-serif">• High-Velocity A/B Experimentation Sprints (ICE)</text>
+    <text x="20" y="126" fill="#fecdd3" font-size="10" font-weight="600" font-family="system-ui, sans-serif">Output: Compounding Organic Expansion &amp; Net Dollar Retention</text>
+  </g>
+
+  <!-- Center Flywheel Cycle Badge -->
+  <g transform="translate(435, 230)">
+    <circle cx="45" cy="45" r="42" fill="#0f172a" stroke="#f59e0b" stroke-width="2.5" />
+    <text x="45" y="40" fill="#fbbf24" font-size="10" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">CONTINUOUS</text>
+    <text x="45" y="55" fill="#ffffff" font-size="12" font-weight="900" text-anchor="middle" font-family="system-ui, sans-serif">FLYWHEEL</text>
+  </g>
+</svg>

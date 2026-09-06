@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="secBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#18181b" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="purpleGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" rx="20" fill="url(#secBg)" stroke="#27272a" stroke-width="2" />
+  
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="165" height="26" rx="13" fill="#ef4444" fill-opacity="0.18" stroke="#f87171" stroke-width="1" />
+    <text x="82" y="17" fill="#fca5a5" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">CYBER DEFENSE &amp; ATTACK</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="20" font-weight="800" font-family="system-ui, sans-serif">SOC Analyst Tier-1 Triage &amp; Ethical Penetration Testing</text>
+  </g>
+
+  <!-- Left Side: Blue Team SOC Analyst Operations -->
+  <g transform="translate(40, 130)">
+    <rect width="420" height="340" rx="16" fill="#1e293b" fill-opacity="0.4" stroke="#3b82f6" stroke-width="1.5" />
+    <rect x="15" y="15" width="390" height="28" rx="8" fill="url(#blueGrad)" />
+    <text x="210" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">BLUE TEAM: SOC ANALYST LEVEL-1 WORKFLOW</text>
+
+    <!-- Step 1: Telemetry Ingestion -->
+    <g transform="translate(20, 60)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="15" y="22" fill="#93c5fd" font-size="11" font-weight="700" font-family="system-ui, sans-serif">1. Security Telemetry Ingestion</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">SIEM Splunk / Sentinel, Syslog, EDR CrowdStrike, CloudTrail</text>
+    </g>
+
+    <!-- Step 2: Alert Correlation & Triage -->
+    <g transform="translate(20, 125)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="15" y="22" fill="#93c5fd" font-size="11" font-weight="700" font-family="system-ui, sans-serif">2. Alert Correlation &amp; Rule Triage</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Filtering False Positives, Wireshark PCAP analysis, IOC matching</text>
+    </g>
+
+    <!-- Step 3: Incident Containment -->
+    <g transform="translate(20, 190)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#334155" />
+      <text x="15" y="22" fill="#93c5fd" font-size="11" font-weight="700" font-family="system-ui, sans-serif">3. Host Isolation &amp; Containment</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Revoking Active Directory tokens, subnet quarantine, memory dump</text>
+    </g>
+
+    <!-- Step 4: Remediation -->
+    <g transform="translate(20, 255)">
+      <rect width="380" height="65" rx="10" fill="#172554" stroke="#1d4ed8" stroke-dasharray="3 3" />
+      <text x="190" y="26" fill="#bfdbfe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">4. Eradication &amp; Post-Mortem</text>
+      <text x="190" y="46" fill="#93c5fd" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">CompTIA Security+ Standards &amp; NIST CSF IR Playbooks</text>
+    </g>
+  </g>
+
+  <!-- Right Side: Red Team Offensive Penetration Testing -->
+  <g transform="translate(500, 130)">
+    <rect width="420" height="340" rx="16" fill="#271317" fill-opacity="0.4" stroke="#ef4444" stroke-width="1.5" />
+    <rect x="15" y="15" width="390" height="28" rx="8" fill="url(#redGrad)" />
+    <text x="210" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">RED TEAM: ETHICAL HACKING &amp; CLOUD PENTEST</text>
+
+    <!-- Step 1: Recon & OSINT -->
+    <g transform="translate(20, 60)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3f1418" />
+      <text x="15" y="22" fill="#fca5a5" font-size="11" font-weight="700" font-family="system-ui, sans-serif">1. Reconnaissance &amp; OSINT</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Subdomain discovery, Shodan scan, Nmap service enumeration</text>
+    </g>
+
+    <!-- Step 2: Vulnerability Analysis -->
+    <g transform="translate(20, 125)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3f1418" />
+      <text x="15" y="22" fill="#fca5a5" font-size="11" font-weight="700" font-family="system-ui, sans-serif">2. OWASP Top 10 Web Exploitation</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Burp Suite Professional, SQLi, SSRF, IDOR, Broken Object Auth</text>
+    </g>
+
+    <!-- Step 3: Privilege Escalation -->
+    <g transform="translate(20, 190)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3f1418" />
+      <text x="15" y="22" fill="#fca5a5" font-size="11" font-weight="700" font-family="system-ui, sans-serif">3. Privilege Escalation &amp; Cloud (CCSP)</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Linux SUID / Kernel exploits, AWS IAM Role Lateral Movement</text>
+    </g>
+
+    <!-- Step 4: Executive Report -->
+    <g transform="translate(20, 255)">
+      <rect width="380" height="65" rx="10" fill="#450a0a" stroke="#b91c1c" stroke-dasharray="3 3" />
+      <text x="190" y="26" fill="#fecaca" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">4. Proof of Concept &amp; Remediation Fix</text>
+      <text x="190" y="46" fill="#fca5a5" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">CVSS v3.1 Scoring, Executive Briefing &amp; Patch Verification</text>
+    </g>
+  </g>
+</svg>

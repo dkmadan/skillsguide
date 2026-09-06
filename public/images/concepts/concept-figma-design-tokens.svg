@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="figmaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0d18" />
+      <stop offset="100%" stop-color="#141126" />
+    </linearGradient>
+    <linearGradient id="figmaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <linearGradient id="framerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="960" height="540" rx="20" fill="url(#figmaBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 45)">
+    <rect x="0" y="0" width="165" height="26" rx="13" fill="#a855f7" fill-opacity="0.18" stroke="#c084fc" stroke-width="1" />
+    <text x="82" y="17" fill="#e9d5ff" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PRODUCT DESIGN SYSTEM</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="20" font-weight="800" font-family="system-ui, sans-serif">Figma Multi-Mode Tokens &amp; Framer Interactive Micro-Interactions</text>
+  </g>
+
+  <!-- Left Side: Design Tokens Hierarchy in Figma -->
+  <g transform="translate(40, 130)">
+    <rect width="420" height="340" rx="16" fill="#1e1b4b" fill-opacity="0.4" stroke="#a855f7" stroke-width="1.5" />
+    <rect x="15" y="15" width="390" height="28" rx="8" fill="url(#figmaGrad)" />
+    <text x="210" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">FIGMA ATOMIC DESIGN SYSTEM ARCHITECTURE</text>
+
+    <!-- Tier 1: Primitive Tokens -->
+    <g transform="translate(20, 60)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3b1f5e" />
+      <text x="15" y="22" fill="#e9d5ff" font-size="11" font-weight="700" font-family="system-ui, sans-serif">Tier 1: Global Primitive Tokens</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Raw color hex scales (#8b5cf6), base 8pt spacing units, font weights</text>
+    </g>
+
+    <!-- Tier 2: Semantic Tokens -->
+    <g transform="translate(20, 125)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3b1f5e" />
+      <text x="15" y="22" fill="#e9d5ff" font-size="11" font-weight="700" font-family="system-ui, sans-serif">Tier 2: Semantic &amp; Theming Variables</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">color.surface.primary, color.text.muted with Dark/Light mode switching</text>
+    </g>
+
+    <!-- Tier 3: Component Variants -->
+    <g transform="translate(20, 190)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#3b1f5e" />
+      <text x="15" y="22" fill="#e9d5ff" font-size="11" font-weight="700" font-family="system-ui, sans-serif">Tier 3: Auto-Layout 5.0 Component Variants</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Buttons, Modals, Forms with hover/active/disabled state properties</text>
+    </g>
+
+    <!-- Tier 4: Dev Mode Handoff -->
+    <g transform="translate(20, 255)">
+      <rect width="380" height="65" rx="10" fill="#2e1065" stroke="#9333ea" stroke-dasharray="3 3" />
+      <text x="190" y="26" fill="#f5d0fe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Automated Figma Dev Mode Handoff</text>
+      <text x="190" y="46" fill="#e9d5ff" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">Direct CSS Tokens, Tailwind config exports, WCAG 2.2 AAA checks</text>
+    </g>
+  </g>
+
+  <!-- Right Side: Framer / Rive Micro-Interactions & UX -->
+  <g transform="translate(500, 130)">
+    <rect width="420" height="340" rx="16" fill="#0c4a6e" fill-opacity="0.3" stroke="#0284c7" stroke-width="1.5" />
+    <rect x="15" y="15" width="390" height="28" rx="8" fill="url(#framerGrad)" />
+    <text x="210" y="34" fill="#ffffff" font-size="12" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">FRAMER &amp; RIVE TACTILE MICRO-INTERACTIONS</text>
+
+    <!-- Step 1: Physics Springs -->
+    <g transform="translate(20, 60)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="15" y="22" fill="#7dd3fc" font-size="11" font-weight="700" font-family="system-ui, sans-serif">1. Physics-Based Spring Animations</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Stiffness, damping, mass parameters for natural tactile button feedback</text>
+    </g>
+
+    <!-- Step 2: State Machine -->
+    <g transform="translate(20, 125)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="15" y="22" fill="#7dd3fc" font-size="11" font-weight="700" font-family="system-ui, sans-serif">2. Interactive State Machines (Rive)</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Cursor-following mascot avatars, animated checkmarks &amp; loaders</text>
+    </g>
+
+    <!-- Step 3: Scroll Reveals -->
+    <g transform="translate(20, 190)">
+      <rect width="380" height="50" rx="10" fill="#0f172a" stroke="#0369a1" />
+      <text x="15" y="22" fill="#7dd3fc" font-size="11" font-weight="700" font-family="system-ui, sans-serif">3. Scroll-Driven 3D Card Tilts</text>
+      <text x="15" y="38" fill="#94a3b8" font-size="9.5" font-family="system-ui, sans-serif">Dynamic perspective transforms and glassmorphism parallax layers</text>
+    </g>
+
+    <!-- Step 4: Usability Validation -->
+    <g transform="translate(20, 255)">
+      <rect width="380" height="65" rx="10" fill="#082f49" stroke="#0284c7" stroke-dasharray="3 3" />
+      <text x="190" y="26" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Usability Testing &amp; Maze Heatmaps</text>
+      <text x="190" y="46" fill="#7dd3fc" font-size="9.5" text-anchor="middle" font-family="system-ui, sans-serif">Unmoderated user testing validating time-on-task and cognitive friction</text>
+    </g>
+  </g>
+</svg>

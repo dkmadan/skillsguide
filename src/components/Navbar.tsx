@@ -20,7 +20,12 @@ import {
   TrendingUp, 
   BookOpen, 
   ArrowRight,
-  ShieldAlert
+  ShieldAlert,
+  Cpu,
+  Palette,
+  Leaf,
+  Layers,
+  Zap
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -81,191 +86,352 @@ export default function Navbar({
           
           <Link 
             href="/" 
-            className={`px-4 py-2 text-xs font-bold rounded-full transition-all ${pathname === '/' ? 'bg-purple-600 text-white shadow-glow-btn' : 'text-slate-300 hover:text-white'}`}
+            className={`px-3.5 py-2 text-xs font-bold rounded-full transition-all ${pathname === '/' ? 'bg-purple-600 text-white shadow-glow-btn' : 'text-slate-300 hover:text-white'}`}
           >
             Home
           </Link>
 
-          {/* 1. Tech Skills Mega Dropdown */}
+          {/* 1. Emerging Tech & AI Engineering Mega Dropdown */}
           <div 
             className="relative"
-            onMouseEnter={() => setActiveDropdown('tech')}
+            onMouseEnter={() => setActiveDropdown('ai')}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <button 
-              className={`px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 transition-colors ${pathname.startsWith('/skills') ? 'text-purple-300 font-bold' : 'text-slate-300 hover:text-white'}`}
-              onClick={() => toggleDropdown('tech')}
+              className={`px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 transition-colors ${
+                pathname.startsWith('/skills/generative-ai') || 
+                pathname.startsWith('/skills/cloud-platform') || 
+                pathname.startsWith('/skills/cybersecurity') || 
+                pathname.startsWith('/skills/iot-embedded') ||
+                pathname.startsWith('/category/emerging-tech-ai')
+                  ? 'text-purple-300 font-bold' 
+                  : 'text-slate-300 hover:text-white'
+              }`}
+              onClick={() => toggleDropdown('ai')}
             >
-              <Code className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Tech Skills</span>
+              <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Emerging Tech &amp; AI</span>
               <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
 
-            {activeDropdown === 'tech' && (
-              <div className="absolute top-full left-0 mt-2 w-[520px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-3 bg-[#121526]/95 backdrop-blur-2xl">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400 mb-2 block">High-Demand IT & Data</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/data-analytics" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics & BI</div>
-                      <div className="text-[10px] text-slate-400">SQL, Power BI, Advanced Excel, Python</div>
-                    </Link>
-                    <Link href="/skills/ai-prompt-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
-                        <span>AI & Prompt Engineering</span>
-                        <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
-                      </div>
-                      <div className="text-[10px] text-slate-400">RAG, LangChain, Claude, Cursor AI</div>
-                    </Link>
-                    <Link href="/skills/full-stack-web" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">Full-Stack Web Dev</div>
-                      <div className="text-[10px] text-slate-400">Next.js, React, Node.js, PostgreSQL</div>
-                    </Link>
-                    <Link href="/skills/data-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Engineering</div>
-                      <div className="text-[10px] text-slate-400">PySpark, Airflow, Snowflake, Kafka</div>
-                    </Link>
+            {activeDropdown === 'ai' && (
+              <div className="absolute top-full left-0 mt-2 w-[540px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 bg-[#121526]/95 backdrop-blur-2xl">
+                
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400">
+                    Emerging Tech &amp; AI Engineering
+                  </span>
+                  <Link 
+                    href="/category/emerging-tech-ai" 
+                    className="text-[11px] font-bold text-purple-300 hover:text-white flex items-center gap-1"
+                  >
+                    <span>View Domain Hub</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">2026 AI &amp; Infrastructure</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/generative-ai-agentic-workflows" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
+                          <span>Generative AI &amp; Agents</span>
+                          <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
+                        </div>
+                        <div className="text-[10px] text-slate-400">LangChain, MCP, Tool Calling, SLMs</div>
+                      </Link>
+                      
+                      <Link href="/skills/cloud-platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud Platform &amp; SRE</div>
+                        <div className="text-[10px] text-slate-400">Terraform IaC, K8s Operators, Multi-cloud</div>
+                      </Link>
+
+                      <Link href="/skills/cybersecurity-ethical-hacking" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">Cybersecurity &amp; SOC</div>
+                        <div className="text-[10px] text-slate-400">Pentest, Burp Suite, Splunk SIEM, CCSP</div>
+                      </Link>
+
+                      <Link href="/skills/iot-embedded-systems" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">IoT &amp; Embedded Systems</div>
+                        <div className="text-[10px] text-slate-400">Rust, ESP32, Edge AI, Automotive CAN</div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">Data &amp; Core Software</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/data-analytics" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics &amp; BI</div>
+                        <div className="text-[10px] text-slate-400">SQL, Power BI, Advanced Excel, Python</div>
+                      </Link>
+
+                      <Link href="/skills/full-stack-web" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">Full-Stack Web Dev</div>
+                        <div className="text-[10px] text-slate-400">Next.js, React, Node.js, PostgreSQL</div>
+                      </Link>
+
+                      <Link href="/skills/data-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Engineering</div>
+                        <div className="text-[10px] text-slate-400">PySpark, Airflow, Snowflake, Kafka</div>
+                      </Link>
+
+                      <Link href="/skills/ai-prompt-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-purple-300">AI Prompt Engineering</div>
+                        <div className="text-[10px] text-slate-400">RAG Pipelines, Cursor AI, Claude</div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 mb-2 block">Cloud, DevOps & Systems</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/cloud-computing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">AWS & Azure Cloud</div>
-                      <div className="text-[10px] text-slate-400">Solutions Architect, SAA-C03</div>
-                    </Link>
-                    <Link href="/skills/devops-sre" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">DevOps & SRE</div>
-                      <div className="text-[10px] text-slate-400">Docker, Kubernetes (CKA), Terraform</div>
-                    </Link>
-                    <Link href="/skills/cybersecurity" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">Cybersecurity SOC</div>
-                      <div className="text-[10px] text-slate-400">SIEM Splunk, Wireshark, Threat Triage</div>
-                    </Link>
-                    <Link href="/skills/java-spring-boot" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-purple-300">Java & Spring Boot</div>
-                      <div className="text-[10px] text-slate-400">Enterprise Microservices & Banking</div>
-                    </Link>
-                  </div>
-                </div>
               </div>
             )}
           </div>
 
-          {/* 2. Non IT Skills Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setActiveDropdown('nonit')}
-            onMouseLeave={() => setActiveDropdown(null)}
-          >
-            <button 
-              className="px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 text-slate-300 hover:text-white transition-colors"
-              onClick={() => toggleDropdown('nonit')}
-            >
-              <Briefcase className="w-3.5 h-3.5 text-teal-400" />
-              <span>Non IT Skills</span>
-              <ChevronDown className="w-3 h-3 text-slate-400" />
-            </button>
-
-            {activeDropdown === 'nonit' && (
-              <div className="absolute top-full left-0 mt-2 w-[480px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-3 bg-[#121526]/95 backdrop-blur-2xl">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-400 mb-2 block">Commerce & Creator</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/tally-gst" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">Tally Prime & GST</div>
-                      <div className="text-[10px] text-slate-400">GSTR-1, GSTR-3B, TDS, E-Way</div>
-                    </Link>
-                    <Link href="/skills/video-editing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">Video Editing & Reels</div>
-                      <div className="text-[10px] text-slate-400">Premiere Pro, DaVinci, Retention Cuts</div>
-                    </Link>
-                    <Link href="/skills/graphic-figma" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">Graphic Design & UI</div>
-                      <div className="text-[10px] text-slate-400">Canva, Figma Auto-Layout, Ad Kits</div>
-                    </Link>
-                  </div>
-                </div>
-
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 mb-2 block">Support & Services</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/bpo-support" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">BPO & Voice Process</div>
-                      <div className="text-[10px] text-slate-400">Zendesk, Accent, Night Allowance</div>
-                    </Link>
-                    <Link href="/skills/content-writing-seo" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">Content Writing & SEO</div>
-                      <div className="text-[10px] text-slate-400">Blog Articles, Sales Copywriting</div>
-                    </Link>
-                    <Link href="/skills/ecommerce-management" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-teal-300">Amazon & E-Commerce</div>
-                      <div className="text-[10px] text-slate-400">Catalog, PPC Ads, Buy Box</div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 3. Business Skills Dropdown */}
+          {/* 2. Business, Growth & Modern No-Code Mega Dropdown */}
           <div 
             className="relative"
             onMouseEnter={() => setActiveDropdown('business')}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <button 
-              className="px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 text-slate-300 hover:text-white transition-colors"
+              className={`px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 transition-colors ${
+                pathname.startsWith('/skills/product-management') || 
+                pathname.startsWith('/skills/nocode-lowcode') || 
+                pathname.startsWith('/skills/digital-marketing') ||
+                pathname.startsWith('/category/business-growth-nocode')
+                  ? 'text-amber-300 font-bold' 
+                  : 'text-slate-300 hover:text-white'
+              }`}
               onClick={() => toggleDropdown('business')}
             >
               <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
-              <span>Business Skills</span>
+              <span>Business &amp; No-Code</span>
               <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
 
             {activeDropdown === 'business' && (
-              <div className="absolute top-full left-0 mt-2 w-[480px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 grid grid-cols-2 gap-3 bg-[#121526]/95 backdrop-blur-2xl">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 mb-2 block">Growth & Marketing</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/digital-marketing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Performance Marketing</div>
-                      <div className="text-[10px] text-slate-400">Meta Ads, Google Search, GA4, ROAS</div>
-                    </Link>
-                    <Link href="/skills/freelancing-usd" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Global Freelancing (USD)</div>
-                      <div className="text-[10px] text-slate-400">Upwork Proposals, Wise, GST LUT</div>
-                    </Link>
-                    <Link href="/skills/product-management" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Product Management</div>
-                      <div className="text-[10px] text-slate-400">PRDs, Jira Sprints, User Discovery</div>
-                    </Link>
+              <div className="absolute top-full left-0 mt-2 w-[520px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 bg-[#121526]/95 backdrop-blur-2xl">
+                
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">
+                    Business, Growth &amp; Modern No-Code
+                  </span>
+                  <Link 
+                    href="/category/business-growth-nocode" 
+                    className="text-[11px] font-bold text-amber-300 hover:text-white flex items-center gap-1"
+                  >
+                    <span>View Domain Hub</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">Growth &amp; Visual Tech</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/product-management-growth" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
+                          <span>Product &amp; Growth</span>
+                          <span className="px-1 py-0.2 bg-amber-500/20 text-amber-300 text-[8px] rounded font-bold">Top</span>
+                        </div>
+                        <div className="text-[10px] text-slate-400">Discovery, Amplitude, PRDs, PLG</div>
+                      </Link>
+
+                      <Link href="/skills/nocode-lowcode-development" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
+                          <span>No-Code / Low-Code</span>
+                          <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
+                        </div>
+                        <div className="text-[10px] text-slate-400">Bubble, Webflow, Make, Airtable</div>
+                      </Link>
+
+                      <Link href="/skills/digital-marketing-seo-performance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300">SEO &amp; Performance</div>
+                        <div className="text-[10px] text-slate-400">Programmatic SEO, Meta &amp; Google Ads</div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">Commerce &amp; Fluency</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/freelancing-usd" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300">Global Freelancing (USD)</div>
+                        <div className="text-[10px] text-slate-400">Upwork Proposals, Wise, 0% GST</div>
+                      </Link>
+
+                      <Link href="/skills/tally-gst" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300">Tally Prime &amp; GST</div>
+                        <div className="text-[10px] text-slate-400">GSTR-1, 3B, TDS, Invoicing</div>
+                      </Link>
+
+                      <Link href="/skills/advanced-excel" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300">Advanced Excel &amp; MIS</div>
+                        <div className="text-[10px] text-slate-400">XLOOKUP, Power Query, Macros</div>
+                      </Link>
+
+                      <Link href="/skills/communication-english" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-amber-300">Business English &amp; Fluency</div>
+                        <div className="text-[10px] text-slate-400">STAR Framework, Email Polish</div>
+                      </Link>
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-400 mb-2 block">Professional Fluency</span>
-                  <div className="space-y-1">
-                    <Link href="/skills/communication-english" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Business English & Fluency</div>
-                      <div className="text-[10px] text-slate-400">STAR Framework, Email Etiquette</div>
-                    </Link>
-                    <Link href="/skills/advanced-excel" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Advanced Excel & MIS</div>
-                      <div className="text-[10px] text-slate-400">XLOOKUP, Power Query, Macros</div>
-                    </Link>
-                    <Link href="/skills/resume-linkedin" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300">Resume & LinkedIn SEO</div>
-                      <div className="text-[10px] text-slate-400">ATS Formatting, Recruiter DMs</div>
-                    </Link>
-                  </div>
-                </div>
               </div>
             )}
           </div>
 
-          {/* 4. Roadmap Dropdown */}
+          {/* 3. Creative & Design Media Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setActiveDropdown('creative')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button 
+              className={`px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 transition-colors ${
+                pathname.startsWith('/skills/ui-ux-product-design') || 
+                pathname.startsWith('/skills/3d-spatial-computing') ||
+                pathname.startsWith('/category/creative-design-media')
+                  ? 'text-rose-300 font-bold' 
+                  : 'text-slate-300 hover:text-white'
+              }`}
+              onClick={() => toggleDropdown('creative')}
+            >
+              <Palette className="w-3.5 h-3.5 text-rose-400" />
+              <span>Creative &amp; Design</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
+            </button>
+
+            {activeDropdown === 'creative' && (
+              <div className="absolute top-full left-0 mt-2 w-[480px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 bg-[#121526]/95 backdrop-blur-2xl">
+                
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-400">
+                    Creative &amp; Design Media
+                  </span>
+                  <Link 
+                    href="/category/creative-design-media" 
+                    className="text-[11px] font-bold text-rose-300 hover:text-white flex items-center gap-1"
+                  >
+                    <span>View Domain Hub</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">Product &amp; Spatial Experience</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/ui-ux-product-design" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-rose-300 flex items-center gap-1.5">
+                          <span>UI/UX &amp; Product Design</span>
+                          <span className="px-1 py-0.2 bg-rose-500/20 text-rose-300 text-[8px] rounded font-bold">Hot</span>
+                        </div>
+                        <div className="text-[10px] text-slate-400">Figma Tokens, Framer, Rive</div>
+                      </Link>
+
+                      <Link href="/skills/3d-spatial-computing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-rose-300">3D &amp; Spatial Computing</div>
+                        <div className="text-[10px] text-slate-400">Blender, UE5 Nanite, Vision Pro</div>
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">Media &amp; Creator Craft</span>
+                    <div className="space-y-1">
+                      <Link href="/skills/video-editing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-rose-300">Video Editing &amp; Reels</div>
+                        <div className="text-[10px] text-slate-400">Premiere Pro, DaVinci Resolve</div>
+                      </Link>
+
+                      <Link href="/skills/graphic-figma" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-rose-300">Graphic Design &amp; Brand</div>
+                        <div className="text-[10px] text-slate-400">Canva, Figma Ad Kits, Typography</div>
+                      </Link>
+
+                      <Link href="/skills/content-writing-seo" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                        <div className="text-xs font-bold text-white group-hover:text-rose-300">Content Writing &amp; SEO</div>
+                        <div className="text-[10px] text-slate-400">Articles, High-Converting Copy</div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            )}
+          </div>
+
+          {/* 4. Green Tech & Sustainable Industry Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setActiveDropdown('green')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button 
+              className={`px-3.5 py-2 text-xs font-semibold rounded-full flex items-center gap-1 transition-colors ${
+                pathname.startsWith('/skills/ev-battery-tech') || 
+                pathname.startsWith('/skills/solar-renewable') ||
+                pathname.startsWith('/category/green-tech-sustainability')
+                  ? 'text-teal-300 font-bold' 
+                  : 'text-slate-300 hover:text-white'
+              }`}
+              onClick={() => toggleDropdown('green')}
+            >
+              <Leaf className="w-3.5 h-3.5 text-teal-400" />
+              <span>Green Tech</span>
+              <ChevronDown className="w-3 h-3 text-slate-400" />
+            </button>
+
+            {activeDropdown === 'green' && (
+              <div className="absolute top-full left-0 mt-2 w-[380px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 bg-[#121526]/95 backdrop-blur-2xl space-y-2">
+                
+                <div className="flex items-center justify-between pb-3 mb-1 border-b border-white/10">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-400">
+                    Green Tech &amp; Sustainability
+                  </span>
+                  <Link 
+                    href="/category/green-tech-sustainability" 
+                    className="text-[11px] font-bold text-teal-300 hover:text-white flex items-center gap-1"
+                  >
+                    <span>Domain Hub</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                <Link href="/skills/ev-battery-tech" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                  <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5 text-teal-400" />
+                    <span>EV Powertrain &amp; Battery (BMS)</span>
+                    <span className="px-1 py-0.2 bg-teal-500/20 text-teal-300 text-[8px] rounded font-bold">Booming</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 ml-5">Cell Balancing, Inverters, CCS2 Fast Charge</div>
+                </Link>
+
+                <Link href="/skills/solar-renewable-energy-design" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                  <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Solar &amp; Renewable Energy Design</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 ml-5">PVsyst 3D Modeling, Grid Sync, ESG Audits</div>
+                </Link>
+
+                <Link href="/skills/risk-compliance-bfsi" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                  <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
+                    <ShieldAlert className="w-3.5 h-3.5 text-teal-400" />
+                    <span>ESG &amp; Risk Compliance</span>
+                  </div>
+                  <div className="text-[10px] text-slate-400 ml-5">SEBI BRSR Standards, Carbon Offsetting</div>
+                </Link>
+
+              </div>
+            )}
+          </div>
+
+          {/* 5. Roadmap Dropdown */}
           <div 
             className="relative"
             onMouseEnter={() => setActiveDropdown('roadmaps')}
@@ -276,13 +442,13 @@ export default function Navbar({
               onClick={() => toggleDropdown('roadmaps')}
             >
               <MapPin className="w-3.5 h-3.5 text-purple-400" />
-              <span>Roadmap</span>
+              <span>Roadmaps</span>
               <ChevronDown className="w-3 h-3 text-slate-400" />
             </button>
 
             {activeDropdown === 'roadmaps' && (
               <div className="absolute top-full left-0 mt-2 w-[420px] rounded-3xl glass-card p-5 shadow-2xl border border-white/15 animate-in fade-in zoom-in-95 duration-150 space-y-1 bg-[#121526]/95 backdrop-blur-2xl">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400 mb-2 block">Step-by-Step Blueprints</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400 mb-2 block">Step-by-Step Execution Plans</span>
                 <Link href="/roadmaps/data-analytics-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
                   <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics 14-Week Plan</div>
                   <div className="text-[10px] text-slate-400">Excel &rarr; SQL &rarr; Power BI &rarr; Python Pandas</div>
@@ -292,18 +458,18 @@ export default function Navbar({
                   <div className="text-[10px] text-slate-400">React &rarr; Next.js &rarr; Node &rarr; PostgreSQL &rarr; Cloud</div>
                 </Link>
                 <Link href="/roadmaps/freelancing-upwork-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
-                  <div className="text-xs font-bold text-white group-hover:text-purple-300">Upwork & USD Freelancing 8-Week Plan</div>
+                  <div className="text-xs font-bold text-white group-hover:text-purple-300">Upwork &amp; USD Freelancing 8-Week Plan</div>
                   <div className="text-[10px] text-slate-400">Niche &rarr; Proposal Hooks &rarr; Wise &rarr; 0% GST</div>
                 </Link>
                 <Link href="/roadmaps/tally-gst-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
-                  <div className="text-xs font-bold text-white group-hover:text-purple-300">Tally Prime & GST 6-Week Plan</div>
-                  <div className="text-[10px] text-slate-400">Vouchers &rarr; E-Way &rarr; GSTR-1 &rarr; BRS Balance Sheet</div>
+                  <div className="text-xs font-bold text-white group-hover:text-purple-300">Tally Prime &amp; GST 6-Week Plan</div>
+                  <div className="text-[10px] text-slate-400">Vouchers &rarr; E-Way &rarr; GSTR-1 &rarr; Balance Sheet</div>
                 </Link>
               </div>
             )}
           </div>
 
-          {/* 5. Career Tools Hub */}
+          {/* 6. Career Tools Hub */}
           <div 
             className="relative"
             onMouseEnter={() => setActiveDropdown('tools')}
@@ -323,7 +489,7 @@ export default function Navbar({
                 <Link href="/tools/salary-calculator" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
                   <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-2">
                     <Calculator className="w-3.5 h-3.5 text-purple-400" />
-                    <span>Indian Salary & In-Hand Calculator</span>
+                    <span>Indian Salary &amp; In-Hand Calculator</span>
                   </div>
                 </Link>
                 <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
@@ -335,7 +501,7 @@ export default function Navbar({
                 <Link href="/tools/ats-resume" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
                   <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-2">
                     <FileText className="w-3.5 h-3.5 text-indigo-400" />
-                    <span>ATS Resume Builder & Power Verbs</span>
+                    <span>ATS Resume Builder &amp; Power Verbs</span>
                   </div>
                 </Link>
                 <Link href="/glossary" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
@@ -347,7 +513,7 @@ export default function Navbar({
                 <Link href="/disclaimer" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
                   <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                     <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Disclaimer & Data Methodology</span>
+                    <span>Disclaimer &amp; Data Methodology</span>
                   </div>
                 </Link>
               </div>
@@ -414,49 +580,73 @@ export default function Navbar({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-3 p-5 rounded-3xl glass-card border border-white/15 space-y-3 text-xs font-semibold animate-in slide-in-from-top-4 duration-200 bg-[#0d0f18]/95 backdrop-blur-2xl">
+        <div className="lg:hidden mt-3 p-5 rounded-3xl glass-card border border-white/15 space-y-3 text-xs font-semibold animate-in slide-in-from-top-4 duration-200 bg-[#0d0f18]/95 backdrop-blur-2xl max-h-[85vh] overflow-y-auto">
           <Link href="/" className="block p-2.5 rounded-xl text-slate-200 hover:bg-purple-600/20 hover:text-purple-300">
             🏠 Home
           </Link>
           
+          {/* Domain 1: Emerging Tech & AI */}
           <div className="pt-2 border-t border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-purple-400 block mb-1">1. Tech Skills</span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-purple-400">1. Emerging Tech &amp; AI</span>
+              <Link href="/category/emerging-tech-ai" className="text-[10px] text-purple-300 underline">Hub →</Link>
+            </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/data-analytics" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Data Analytics</Link>
-              <Link href="/skills/ai-prompt-engineering" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">AI & Prompts</Link>
-              <Link href="/skills/full-stack-web" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Full-Stack Web</Link>
-              <Link href="/skills/cloud-computing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">AWS / Azure Cloud</Link>
+              <Link href="/skills/generative-ai-agentic-workflows" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Generative AI &amp; Agents</Link>
+              <Link href="/skills/cloud-platform-engineering" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cloud Platform (IaC)</Link>
+              <Link href="/skills/cybersecurity-ethical-hacking" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cybersecurity &amp; SOC</Link>
+              <Link href="/skills/iot-embedded-systems" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">IoT &amp; Embedded Rust</Link>
             </div>
           </div>
 
+          {/* Domain 2: Business & No-Code */}
           <div className="pt-2 border-t border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-teal-400 block mb-1">2. Non IT Skills</span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-amber-400">2. Business, Growth &amp; No-Code</span>
+              <Link href="/category/business-growth-nocode" className="text-[10px] text-amber-300 underline">Hub →</Link>
+            </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/tally-gst" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Tally Prime & GST</Link>
+              <Link href="/skills/product-management-growth" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Product &amp; Growth</Link>
+              <Link href="/skills/nocode-lowcode-development" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">No-Code / Low-Code</Link>
+              <Link href="/skills/digital-marketing-seo-performance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">SEO &amp; Performance</Link>
+              <Link href="/skills/freelancing-usd" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Global Freelancing</Link>
+            </div>
+          </div>
+
+          {/* Domain 3: Creative & Design */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-rose-400">3. Creative &amp; Design Media</span>
+              <Link href="/category/creative-design-media" className="text-[10px] text-rose-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/ui-ux-product-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">UI/UX &amp; Design Tokens</Link>
+              <Link href="/skills/3d-spatial-computing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">3D &amp; Spatial (UE5)</Link>
               <Link href="/skills/video-editing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Video Editing</Link>
               <Link href="/skills/graphic-figma" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Graphic Design</Link>
-              <Link href="/skills/bpo-support" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">BPO & Voice</Link>
             </div>
           </div>
 
+          {/* Domain 4: Green Tech */}
           <div className="pt-2 border-t border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-amber-400 block mb-1">3. Business Skills</span>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-teal-400">4. Green Tech &amp; Sustainability</span>
+              <Link href="/category/green-tech-sustainability" className="text-[10px] text-teal-300 underline">Hub →</Link>
+            </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/digital-marketing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Digital Marketing</Link>
-              <Link href="/skills/communication-english" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Business English</Link>
-              <Link href="/skills/freelancing-usd" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">USD Freelancing</Link>
-              <Link href="/skills/advanced-excel" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Advanced Excel</Link>
+              <Link href="/skills/ev-battery-tech" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">EV Powertrain &amp; BMS</Link>
+              <Link href="/skills/solar-renewable-energy-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Solar PVsyst &amp; ESG</Link>
             </div>
           </div>
 
+          {/* Roadmaps & Tools */}
           <div className="pt-2 border-t border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-purple-400 block mb-1">4. Roadmaps & Tools</span>
+            <span className="text-[10px] uppercase font-bold text-purple-400 block mb-1">5. Roadmaps &amp; Tools</span>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
               <Link href="/roadmaps/data-analytics-plan" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Data Roadmap</Link>
               <Link href="/roadmaps/fullstack-dev-plan" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Fullstack Roadmap</Link>
               <Link href="/tools/salary-calculator" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Salary Calculator</Link>
               <Link href="/glossary" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Glossary</Link>
-              <Link href="/disclaimer" className="p-2 rounded-lg hover:bg-white/5 text-slate-300 col-span-2">Disclaimer & Legal</Link>
             </div>
           </div>
 
