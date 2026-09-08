@@ -413,7 +413,7 @@ export const roadmapsData: RoadmapDetail[] = [
     duration: '16 Weeks',
     weeklyCommitment: '14 Hours / Week',
     difficulty: 'Advanced',
-    heroImage: 'https://images.unsplash.com/photo-1618401471353-b98aedd04e11?auto=format&fit=crop&w=900&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=900&q=80',
     overview: 'Master modern cloud automation. Provision multi-tier infrastructure on AWS with Terraform, package containerized microservices with Docker, orchestrate production Kubernetes clusters, and build automated CI/CD pipelines.',
     salaryExpectation: '₹8.5L – ₹28.0L LPA',
     phases: [

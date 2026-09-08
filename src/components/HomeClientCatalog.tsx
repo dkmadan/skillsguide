@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import CardImage from './CardImage';
 import { SkillDetail } from '@/data/skillsData';
 import { 
   Bookmark, 
@@ -146,15 +146,16 @@ export default function HomeClientCatalog({ skills }: HomeClientCatalogProps) {
                 <div>
                   {/* Visual Card Image Preview */}
                   {skill.heroImage && (
-                    <div className="relative h-36 w-full rounded-2xl overflow-hidden border border-slate-800 mb-4">
-                      <Image 
+                    <div className="relative h-36 w-full rounded-2xl overflow-hidden border border-slate-800 mb-4 bg-slate-950">
+                      <CardImage 
                         src={skill.heroImage}
                         alt={skill.title}
+                        fallbackCategory={skill.categoryLabel}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#101323] via-transparent to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#101323] via-transparent to-transparent pointer-events-none"></div>
                       <div className="absolute top-2.5 left-2.5">
                         <span className="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold bg-slate-900/90 text-purple-300 border border-purple-500/30 backdrop-blur-md">
                           {skill.categoryLabel}

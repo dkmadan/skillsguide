@@ -36,7 +36,7 @@ export const moreSkillsList: SkillDetail[] = [
     categoryLabel: 'Design & Experience',
     shortDesc: 'Design user-centric interfaces, mobile design systems, accessibility (WCAG), and conduct usability testing in Figma.',
     longDesc: 'Product designers shape how millions of users interact with digital platforms like Swiggy, CRED, and Zerodha. Learn user empathy, information architecture, wireframing, and interactive design systems.',
-    heroImage: 'https://images.unsplash.com/photo-1581291518655-9523c932deda?auto=format&fit=crop&w=900&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=900&q=80',
     salaryRange: '₹5.5L – ₹18.0L LPA',
     minSalaryLPA: 5.5,
     maxSalaryLPA: 18.0,

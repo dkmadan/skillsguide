@@ -676,7 +676,7 @@ export const newDomainSkills: SkillDetail[] = [
     categoryLabel: 'Creative & Design',
     shortDesc: 'Master design systems in Figma, component variables, tactile micro-interactions (Framer/Rive), and UX research methodologies.',
     longDesc: 'Product designers shape how humans interact with technology. Master multi-theme design systems in Figma using variables and auto-layout 5.0, create spring-physics micro-interactions in Framer and Rive, conduct qualitative user research and usability testing on Maze, and ensure full WCAG 2.2 accessibility compliance for web and mobile interfaces.',
-    heroImage: 'https://images.unsplash.com/photo-1581291518655-9523c932deda?auto=format&fit=crop&w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=1200&q=80',
     conceptDiagram: {
       title: 'Figma Atomic Design Tokens & Framer Micro-Interaction Architecture',
       caption: 'Hierarchical design system structure spanning primitive global tokens, semantic theming variables, Figma auto-layout components, and Framer interactive state machines.',
@@ -867,7 +867,7 @@ export const newDomainSkills: SkillDetail[] = [
     categoryLabel: 'Green Tech & Mobility',
     shortDesc: 'Master electric vehicle powertrain engineering, Battery Management Systems (BMS), cell balancing, and CCS2 fast charging standards.',
     longDesc: 'The electric mobility revolution is sweeping across two-wheelers, passenger cars, and commercial fleets in India and globally. Master the core engineering of electric vehicle powertrains, Lithium-ion cell chemistry (LFP/NMC), Battery Management Systems (BMS) hardware and active cell balancing, traction inverter thermodynamics, and international fast-charging communication protocols (CCS2, Type-2, and GB/T).',
-    heroImage: 'https://images.unsplash.com/photo-1558441719-8b489c634a1b?auto=format&fit=crop&w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=80',
     conceptDiagram: {
       title: 'EV Powertrain, BMS Control Loop & High-Power Charging Flow',
       caption: 'Four-stage electric vehicle power transmission architecture: HV battery pack with active cell balancing, SiC traction inverter, permanent magnet motor, and CCS2 DC fast charging.',
@@ -961,7 +961,7 @@ export const newDomainSkills: SkillDetail[] = [
     categoryLabel: 'Green Tech & Sustainability',
     shortDesc: 'Master utility-scale solar farm PVsyst 3D modeling, high-voltage grid interconnection, and corporate ESG sustainability compliance.',
     longDesc: 'As global nations commit to Net Zero emissions and India targets 500GW of non-fossil capacity by 2030, solar and renewable energy design has become a high-growth career track. Master PVsyst 3D near-shading simulations, P50/P90 energy yield DPR forecasting, central vs string inverter sizing, high-voltage substation grid interconnection, and corporate ESG compliance auditing under SEBI BRSR and GHG Protocol standards.',
-    heroImage: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=1200&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=1200&q=80',
     conceptDiagram: {
       title: 'Utility Solar Farm PVsyst Simulation & High-Voltage Grid Interconnection',
       caption: 'Four-stage renewable lifecycle: PVsyst 3D yield modeling, central inverter DC/AC conversion, substation grid synchronization, and SEBI BRSR ESG compliance reporting.',

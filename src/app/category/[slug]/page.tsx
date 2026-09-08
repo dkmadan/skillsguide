@@ -8,6 +8,7 @@ import { allSkillsList } from '@/data/skillsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import BookmarkButton from '@/components/BookmarkButton';
+import CardImage from '@/components/CardImage';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -178,15 +179,16 @@ export default async function CategoryDetailPage({ params }: Props) {
               <div className="space-y-4">
                 
                 {/* Card Visual Header */}
-                <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-slate-800">
-                  <Image 
+                <div className="relative h-44 w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-950">
+                  <CardImage 
                     src={skill.heroImage} 
                     alt={skill.title} 
+                    fallbackCategory={skill.categoryLabel}
                     fill 
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none"></div>
                   
                   <div className="absolute top-3 left-3">
                     <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-slate-900/90 text-purple-300 border border-purple-500/30 backdrop-blur-md">

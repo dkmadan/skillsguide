@@ -235,7 +235,7 @@ export const additionalSkills: SkillDetail[] = [
     categoryLabel: 'Retail & E-Com',
     shortDesc: 'Operate seller accounts on Amazon India, Flipkart, Meesho, and Shopify. Master catalog listing, A+ content, and PPC advertising.',
     longDesc: 'India’s e-commerce retail boom has created an enormous requirement for specialists who can manage seller portal catalogs, win the Amazon Buy Box, execute Sponsored Product campaigns, and manage inventory.',
-    heroImage: 'https://images.unsplash.com/photo-1556742049-0a67e5572293?auto=format&fit=crop&w=900&q=80',
+    heroImage: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=900&q=80',
     salaryRange: '₹3.2L – ₹8.5L LPA',
     minSalaryLPA: 3.2,
     maxSalaryLPA: 8.5,

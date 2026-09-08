@@ -7,6 +7,7 @@ import { allSkillsList, getSkillBySlug } from '@/data/skillsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import BookmarkButton from '@/components/BookmarkButton';
+import CardImage from '@/components/CardImage';
 import { 
   Zap, 
   MapPin, 
@@ -158,19 +159,20 @@ export default async function SkillDetailPage({ params }: Props) {
             </p>
 
             {/* Hero Image Card */}
-            <div className="relative h-52 sm:h-64 w-full rounded-2xl overflow-hidden border border-slate-800 shadow-xl my-4 group">
+            <div className="relative h-52 sm:h-64 w-full rounded-2xl overflow-hidden border border-slate-800 shadow-xl my-4 group bg-slate-950">
               <div className="absolute top-3 right-3 z-10">
                 <BookmarkButton slug={skill.slug} title={skill.title} variant="icon" />
               </div>
-              <Image 
+              <CardImage 
                 src={skill.heroImage} 
                 alt={`${skill.title} Conceptual Visual`}
+                fallbackCategory={skill.categoryLabel}
                 fill 
                 priority
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 sizes="(max-width: 768px) 100vw, 60vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none"></div>
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
                 <span className="px-2.5 py-1 rounded-md bg-slate-900/90 text-purple-300 font-bold border border-purple-500/30 text-[11px] backdrop-blur-md">
                   Verified 2026 Curriculum
