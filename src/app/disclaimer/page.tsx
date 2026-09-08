@@ -98,7 +98,7 @@ export default function DisclaimerPage() {
         </section>
 
         <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 text-xs text-slate-400 text-center">
-          For questions, data corrections, or partnership queries, contact us at <strong>dkmadan2k@gmail.com</strong>.
+          For questions, data corrections, or partnership queries, contact us at <strong>support@toytobook.com</strong>.
         </div>
 
       </div>

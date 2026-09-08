@@ -51,7 +51,7 @@ export default function PrivacyPage() {
         <section className="space-y-2">
           <h3 className="text-base font-bold text-white">4. Contact</h3>
           <p>
-            For privacy inquiries, please contact <strong>dkmadan2k@gmail.com</strong>.
+            For privacy inquiries, please contact <strong>support@toytobook.com</strong>.
           </p>
         </section>
 
