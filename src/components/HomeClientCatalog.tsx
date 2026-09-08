@@ -26,12 +26,29 @@ export default function HomeClientCatalog({ skills }: HomeClientCatalogProps) {
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('skillsguide_bookmarks');
-      if (stored) setSavedSlugs(JSON.parse(stored));
-    } catch (e) {
-      console.error(e);
-    }
+    const syncBookmarks = () => {
+      try {
+        const stored = localStorage.getItem('skillsguide_bookmarks');
+        if (stored) setSavedSlugs(JSON.parse(stored));
+        else setSavedSlugs([]);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    syncBookmarks();
+
+    const handleBookmarkEvent = () => {
+      syncBookmarks();
+    };
+
+    window.addEventListener('toggle-bookmark' as any, handleBookmarkEvent);
+    window.addEventListener('storage', syncBookmarks);
+
+    return () => {
+      window.removeEventListener('toggle-bookmark' as any, handleBookmarkEvent);
+      window.removeEventListener('storage', syncBookmarks);
+    };
   }, []);
 
   const handleToggleBookmark = (slug: string) => {

@@ -7,6 +7,7 @@ import { allSkillsList } from '@/data/skillsData';
 import { roadmapsData } from '@/data/roadmapsData';
 import { glossaryTerms } from '@/data/glossaryData';
 import { Search, X, ArrowRight, Code, Briefcase, MapPin, BookOpen } from 'lucide-react';
+import BookmarkButton from './BookmarkButton';
 
 interface GlobalSearchModalProps {
   isOpen: boolean;
@@ -110,13 +111,15 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                   </span>
                   <div className="space-y-1.5">
                     {matchedSkills.map((skill) => (
-                      <Link 
+                      <div 
                         key={skill.slug} 
-                        href={`/skills/${skill.slug}`}
-                        onClick={onClose}
-                        className="p-3 rounded-2xl border border-slate-800 hover:border-purple-500 bg-slate-900/60 hover:bg-purple-500/10 cursor-pointer transition-all flex items-center justify-between group"
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-purple-500 bg-slate-900/60 hover:bg-purple-500/10 transition-all flex items-center justify-between group gap-2"
                       >
-                        <div className="overflow-hidden pr-2">
+                        <Link 
+                          href={`/skills/${skill.slug}`}
+                          onClick={onClose}
+                          className="overflow-hidden flex-1 pr-1 cursor-pointer"
+                        >
                           <div className="font-bold text-white text-xs group-hover:text-purple-300 flex items-center gap-1.5">
                             <Code className="w-3.5 h-3.5 text-purple-400" />
                             <span>{skill.title}</span>
@@ -125,9 +128,18 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                             </span>
                           </div>
                           <p className="text-[11px] text-slate-400 truncate mt-0.5">{skill.shortDesc}</p>
+                        </Link>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <BookmarkButton slug={skill.slug} title={skill.title} variant="icon" />
+                          <Link 
+                            href={`/skills/${skill.slug}`}
+                            onClick={onClose}
+                            className="p-1.5 text-slate-500 hover:text-purple-400"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 shrink-0" />
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -141,21 +153,32 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                   </span>
                   <div className="space-y-1.5">
                     {matchedRoadmaps.map((roadmap) => (
-                      <Link 
+                      <div 
                         key={roadmap.slug} 
-                        href={`/roadmaps/${roadmap.slug}`}
-                        onClick={onClose}
-                        className="p-3 rounded-2xl border border-slate-800 hover:border-emerald-500 bg-slate-900/60 hover:bg-emerald-500/10 cursor-pointer transition-all flex items-center justify-between group"
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-emerald-500 bg-slate-900/60 hover:bg-emerald-500/10 transition-all flex items-center justify-between group gap-2"
                       >
-                        <div>
+                        <Link 
+                          href={`/roadmaps/${roadmap.slug}`}
+                          onClick={onClose}
+                          className="overflow-hidden flex-1 pr-1 cursor-pointer"
+                        >
                           <div className="font-bold text-white text-xs group-hover:text-emerald-300 flex items-center gap-1.5">
                             <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                             <span>{roadmap.title}</span>
                           </div>
                           <p className="text-[11px] text-slate-400 mt-0.5">Target: {roadmap.targetRole} • {roadmap.duration}</p>
+                        </Link>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <BookmarkButton slug={roadmap.slug} title={roadmap.title} variant="icon" />
+                          <Link 
+                            href={`/roadmaps/${roadmap.slug}`}
+                            onClick={onClose}
+                            className="p-1.5 text-slate-500 hover:text-emerald-400"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-400 shrink-0" />
-                      </Link>
+                      </div>
                     ))}
                   </div>
                 </div>

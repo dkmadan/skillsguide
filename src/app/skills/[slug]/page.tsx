@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { allSkillsList, getSkillBySlug } from '@/data/skillsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
+import BookmarkButton from '@/components/BookmarkButton';
 import { 
   Zap, 
   MapPin, 
@@ -130,19 +131,22 @@ export default async function SkillDetailPage({ params }: Props) {
         <div className="grid lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-7 space-y-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>{skill.categoryLabel}</span>
-              </span>
-              {skill.domainSlug && (
-                <Link 
-                  href={`/category/${skill.domainSlug}`}
-                  className="text-xs text-slate-400 hover:text-purple-300 transition-colors underline decoration-purple-500/40"
-                >
-                  View Domain Hub →
-                </Link>
-              )}
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{skill.categoryLabel}</span>
+                </span>
+                {skill.domainSlug && (
+                  <Link 
+                    href={`/category/${skill.domainSlug}`}
+                    className="text-xs text-slate-400 hover:text-purple-300 transition-colors underline decoration-purple-500/40"
+                  >
+                    View Domain Hub →
+                  </Link>
+                )}
+              </div>
+              <BookmarkButton slug={skill.slug} title={skill.title} variant="button" />
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
@@ -155,6 +159,9 @@ export default async function SkillDetailPage({ params }: Props) {
 
             {/* Hero Image Card */}
             <div className="relative h-52 sm:h-64 w-full rounded-2xl overflow-hidden border border-slate-800 shadow-xl my-4 group">
+              <div className="absolute top-3 right-3 z-10">
+                <BookmarkButton slug={skill.slug} title={skill.title} variant="icon" />
+              </div>
               <Image 
                 src={skill.heroImage} 
                 alt={`${skill.title} Conceptual Visual`}
@@ -410,17 +417,21 @@ export default async function SkillDetailPage({ params }: Props) {
                 const relSkill = getSkillBySlug(relSlug);
                 if (!relSkill) return null;
                 return (
-                  <Link 
+                  <div 
                     key={relSlug}
-                    href={`/skills/${relSkill.slug}`}
-                    className="p-3 rounded-xl bg-slate-900/80 hover:bg-purple-500/10 border border-slate-800 hover:border-purple-500/40 flex items-center justify-between transition-all group"
+                    className="p-3 rounded-xl bg-slate-900/80 hover:bg-purple-500/10 border border-slate-800 hover:border-purple-500/40 flex items-center justify-between transition-all group gap-2"
                   >
-                    <div>
-                      <div className="font-bold text-white group-hover:text-purple-300">{relSkill.title}</div>
+                    <Link href={`/skills/${relSkill.slug}`} className="flex-1 min-w-0 pr-1">
+                      <div className="font-bold text-white group-hover:text-purple-300 truncate">{relSkill.title}</div>
                       <div className="text-[10px] text-slate-400">{relSkill.salaryRange}</div>
+                    </Link>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <BookmarkButton slug={relSkill.slug} title={relSkill.title} variant="icon" />
+                      <Link href={`/skills/${relSkill.slug}`} className="p-1 text-slate-500 hover:text-purple-400">
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400" />
-                  </Link>
+                  </div>
                 );
               })}
             </div>

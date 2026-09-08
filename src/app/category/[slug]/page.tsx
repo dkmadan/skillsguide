@@ -7,6 +7,7 @@ import { categoryDomains, getCategoryBySlug } from '@/data/categoryData';
 import { allSkillsList } from '@/data/skillsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
+import BookmarkButton from '@/components/BookmarkButton';
 import { 
   ArrowRight, 
   Sparkles, 
@@ -191,6 +192,10 @@ export default async function CategoryDetailPage({ params }: Props) {
                     <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-slate-900/90 text-purple-300 border border-purple-500/30 backdrop-blur-md">
                       {skill.experienceLevel}
                     </span>
+                  </div>
+
+                  <div className="absolute top-3 right-3 z-10">
+                    <BookmarkButton slug={skill.slug} title={skill.title} variant="icon" />
                   </div>
 
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">

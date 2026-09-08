@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { roadmapsData } from '@/data/roadmapsData';
-import { MapPin, ArrowRight, CheckCircle2, Clock, Target } from 'lucide-react';
+import { MapPin, ArrowRight, Clock, Target } from 'lucide-react';
+import BookmarkButton from './BookmarkButton';
 
 export default function HomeRoadmapTabs() {
   const [activeTab, setActiveTab] = useState<string>('data-analytics-plan');
@@ -34,7 +35,7 @@ export default function HomeRoadmapTabs() {
             <button
               key={r.slug}
               onClick={() => setActiveTab(r.slug)}
-              className={`px-5 py-2.5 rounded-full whitespace-nowrap transition-all flex items-center gap-2 ${
+              className={`px-5 py-2.5 rounded-full whitespace-nowrap transition-all flex items-center gap-2 cursor-pointer ${
                 activeTab === r.slug
                   ? 'bg-purple-600 text-white shadow-glow-btn'
                   : 'glass-card text-slate-300 hover:bg-slate-800 border border-slate-700'
@@ -47,15 +48,18 @@ export default function HomeRoadmapTabs() {
 
         {/* Active Roadmap Card */}
         <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-2 mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-4 mb-6">
             <div>
               <h3 className="text-xl font-black text-white">{activeRoadmap.title}</h3>
               <p className="text-xs text-slate-400 mt-0.5">Target Role: {activeRoadmap.targetRole}</p>
             </div>
-            <span className="inline-flex items-center text-xs font-bold text-purple-300 bg-purple-500/20 px-3 py-1 rounded-full border border-purple-500/30 self-start sm:self-auto gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              <span>⏱ {activeRoadmap.weeklyCommitment}</span>
-            </span>
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <span className="inline-flex items-center text-xs font-bold text-purple-300 bg-purple-500/20 px-3 py-1 rounded-full border border-purple-500/30 gap-1">
+                <Clock className="w-3.5 h-3.5" />
+                <span>⏱ {activeRoadmap.weeklyCommitment}</span>
+              </span>
+              <BookmarkButton slug={activeRoadmap.slug} title={activeRoadmap.title} variant="button" />
+            </div>
           </div>
 
           {/* Phases Grid */}
@@ -87,13 +91,15 @@ export default function HomeRoadmapTabs() {
             <p className="text-xs text-slate-400">
               Verified for 2026 hiring standards across Indian IT, GCCs, and startups.
             </p>
-            <Link 
-              href={`/roadmaps/${activeRoadmap.slug}`}
-              className="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center gap-2 transition-all"
-            >
-              <span>View Full Weekly Syllabus & Resources</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link 
+                href={`/roadmaps/${activeRoadmap.slug}`}
+                className="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center gap-2 transition-all"
+              >
+                <span>View Full Weekly Syllabus & Resources</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </div>
 
         </div>

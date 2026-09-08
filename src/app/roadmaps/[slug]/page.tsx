@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { allRoadmapsList, getRoadmapBySlug } from '@/data/roadmapsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
+import BookmarkButton from '@/components/BookmarkButton';
 import { 
   MapPin, 
   Clock, 
@@ -83,10 +84,13 @@ export default async function RoadmapDetailPage({ params }: Props) {
 
       {/* Hero */}
       <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden mb-10">
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Structured Multi-Week Career Blueprint</span>
+        <div className="max-w-4xl space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Structured Multi-Week Career Blueprint</span>
+            </div>
+            <BookmarkButton slug={roadmap.slug} title={roadmap.title} variant="button" />
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
