@@ -94,8 +94,8 @@ export default function Navbar({
           </div>
         </Link>
 
-        {/* Center: Prominent Big Search Box */}
-        <div className="flex-1 max-w-xl mx-1 sm:mx-4">
+        {/* Center: Prominent Big Search Box (Desktop & Tablet) */}
+        <div className="hidden md:block flex-1 max-w-xl mx-3 lg:mx-6 min-w-0">
           <button 
             onClick={onOpenSearch}
             type="button"
@@ -105,9 +105,8 @@ export default function Navbar({
             <div className="flex items-center gap-2.5 min-w-0 overflow-hidden text-left">
               <Search className="w-4 h-4 text-purple-400 shrink-0 group-hover:text-purple-300 group-hover:scale-110 transition-transform" />
               <span className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-200 truncate">
-                <span className="hidden md:inline">Search 45+ high-income skills, roadmaps, tools, salary guides...</span>
-                <span className="hidden sm:inline md:hidden">Search 45+ skills, roadmaps, tools...</span>
-                <span className="sm:hidden">Search skills &amp; roadmaps...</span>
+                <span className="hidden lg:inline">Search 45+ high-income skills, roadmaps, tools, salary guides...</span>
+                <span className="lg:hidden">Search 45+ skills, roadmaps...</span>
               </span>
             </div>
             
@@ -120,13 +119,25 @@ export default function Navbar({
         </div>
 
         {/* Right Action Icons & CTAs */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           
+          {/* Mobile Quick Search Icon Button (visible on mobile only) */}
+          <button
+            onClick={onOpenSearch}
+            type="button"
+            className="md:hidden p-2 rounded-xl glass-card hover:border-purple-500/50 text-purple-300 hover:text-white transition-all cursor-pointer"
+            title="Search skills & roadmaps"
+            aria-label="Open search"
+          >
+            <Search className="w-4 h-4" />
+          </button>
+
           {/* Bookmarks Drawer Trigger */}
           <button 
             onClick={onOpenBookmarks}
-            className="relative p-2 sm:px-3 sm:py-2 rounded-xl glass-card hover:border-purple-500/50 text-slate-300 hover:text-white transition-all flex items-center gap-1.5"
+            className="relative p-2 sm:px-3 sm:py-2 rounded-xl glass-card hover:border-purple-500/50 text-slate-300 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer"
             title="Saved Roadmaps & Skills"
+            aria-label="Open bookmarks"
           >
             <Bookmark className="w-4 h-4 text-purple-300" />
             <span className="hidden xl:inline text-xs font-semibold text-slate-300">Saved</span>
@@ -140,7 +151,7 @@ export default function Navbar({
           {/* Career Quiz CTA */}
           <button 
             onClick={onOpenQuiz}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card hover:border-amber-500/50 text-xs font-bold text-slate-200 hover:text-amber-300 transition-all group"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card hover:border-amber-500/50 text-xs font-bold text-slate-200 hover:text-amber-300 transition-all group cursor-pointer"
             title="Take 30-Second Career Compass Quiz"
           >
             <Compass className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-45 transition-transform" />
@@ -150,7 +161,7 @@ export default function Navbar({
           {/* Explore Tracks CTA */}
           <Link 
             href="/#skills-catalog"
-            className="hidden md:inline-flex px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-brand-600 to-indigo-600 text-white text-xs font-bold shadow-glow-btn hover:brightness-110 transition-all items-center gap-1.5 shrink-0"
+            className="hidden lg:inline-flex px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 via-brand-600 to-indigo-600 text-white text-xs font-bold shadow-glow-btn hover:brightness-110 transition-all items-center gap-1.5 shrink-0"
           >
             <span>Explore Tracks</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -159,7 +170,7 @@ export default function Navbar({
           {/* Mobile Menu Toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white glass-card"
+            className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white glass-card cursor-pointer"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
