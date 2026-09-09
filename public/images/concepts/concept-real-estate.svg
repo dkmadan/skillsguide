@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="210" height="26" rx="13" fill="#f59e0b" fill-opacity="0.2" stroke="#fbbf24" stroke-width="1" />
+    <text x="105" y="17" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">REAL ESTATE &amp; PROPTECH 2026</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">RERA Compliance, Valuation &amp; Sales Operations</text>
+  </g>
+
+  <!-- Step 1: Project Feasibility & RERA Registration -->
+  <g transform="translate(40, 140)">
+    <rect width="240" height="220" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#3b82f6" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#1d4ed8" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. RERA &amp; VALUATION</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Title Search &amp; Escrow</text>
+    <text x="120" y="95" fill="#93c5fd" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">70% Escrow Account Rules</text>
+    <path d="M 30 120 L 210 120" stroke="#334155" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• 30-Year Title Search Report</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• DCF &amp; Cap Rate Yield Valuation</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• MahaRERA / UP-RERA Filings</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 285 250 L 340 250" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="340,245 350,250 340,255" fill="#f59e0b" />
+
+  <!-- Step 2: PropTech CRM & Mandate Marketing -->
+  <g transform="translate(360, 140)">
+    <rect width="250" height="220" rx="16" fill="#2d1b06" fill-opacity="0.9" stroke="#f59e0b" stroke-width="2" />
+    <rect x="20" y="15" width="210" height="24" rx="6" fill="#b45309" fill-opacity="0.4" />
+    <text x="125" y="32" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. CRM &amp; SITE VISITS</text>
+    <text x="125" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Sell.Do &amp; Salesforce</text>
+    <text x="125" y="95" fill="#fcd34d" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Lead Qualification &amp; VR Walkthroughs</text>
+    <path d="M 30 120 L 220 120" stroke="#78350f" stroke-width="1" />
+    <text x="125" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Channel Partner (CP) Network</text>
+    <text x="125" y="165" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Unit Inventory Management</text>
+    <text x="125" y="185" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Site Visit Closing Conversions</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 615 250 L 670 250" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="670,245 680,250 670,255" fill="#10b981" />
+
+  <!-- Step 3: Allotment, Home Loan & Registry -->
+  <g transform="translate(680, 140)">
+    <rect width="240" height="220" rx="16" fill="#06281e" fill-opacity="0.9" stroke="#10b981" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#059669" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#a7f3d0" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. CLOSING &amp; ASSET OPS</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Sale Deed &amp; Fractional REITs</text>
+    <text x="120" y="95" fill="#6ee7b7" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Stamp Duty &amp; Property Handover</text>
+    <path d="M 30 120 L 210 120" stroke="#065f46" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Tripartite Home Loan Sanctions</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Builder-Buyer Agreement (BBA)</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Commercial CAM &amp; Fractional Yields</text>
+  </g>
+
+  <!-- Bottom Badges -->
+  <g transform="translate(40, 400)">
+    <rect width="880" height="85" rx="12" fill="#13192b" stroke="#1e293b" stroke-width="1" />
+    <text x="440" y="30" fill="#94a3b8" font-size="11.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">REAL ESTATE &amp; PROPTECH PLATFORMS</text>
+    <text x="440" y="60" fill="#e2e8f0" font-size="13" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Sell.Do CRM • Salesforce Property • MahaRERA / RERA Portal • Excel Financial Modeling • Strata / Fractional REITs</text>
+  </g>
+</svg>

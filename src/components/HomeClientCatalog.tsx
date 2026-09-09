@@ -111,10 +111,10 @@ export default function HomeClientCatalog({ skills }: HomeClientCatalogProps) {
             {[
               { label: 'All Tracks', value: 'all' },
               { label: 'Emerging Tech & AI', value: 'emerging-tech' },
+              { label: 'Vocational & Commerce', value: 'vocational' },
               { label: 'Business & No-Code', value: 'growth-nocode' },
-              { label: 'Creative & Design', value: 'creative-media' },
+              { label: 'Creative & Media', value: 'creative-media' },
               { label: 'Green Tech & EV', value: 'green-tech' },
-              { label: 'Core IT & Data', value: 'tech' },
               { label: 'Fresher Friendly', value: 'fresher' }
             ].map(tab => (
               <button

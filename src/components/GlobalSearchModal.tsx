@@ -6,7 +6,10 @@ import { useRouter } from 'next/navigation';
 import { allSkillsList } from '@/data/skillsData';
 import { roadmapsData } from '@/data/roadmapsData';
 import { glossaryTerms } from '@/data/glossaryData';
-import { Search, X, ArrowRight, Code, Briefcase, MapPin, BookOpen } from 'lucide-react';
+import { skillComparisons } from '@/data/skillComparisonsData';
+import { careerRoleComparisons } from '@/data/careerRoleComparisonsData';
+import { toolAlternativesData } from '@/data/toolAlternativesData';
+import { Search, X, ArrowRight, Code, Briefcase, MapPin, BookOpen, Scale, Layers } from 'lucide-react';
 import BookmarkButton from './BookmarkButton';
 
 interface GlobalSearchModalProps {
@@ -51,23 +54,57 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
     s.title.toLowerCase().includes(q) || 
     s.shortDesc.toLowerCase().includes(q) || 
     s.tools.some(t => t.toLowerCase().includes(q))
-  ).slice(0, 6);
+  ).slice(0, 4);
+
+  // Search in Skill vs Skill Comparisons
+  const matchedSkillComparisons = skillComparisons.filter(c => 
+    !q ||
+    c.title.toLowerCase().includes(q) ||
+    c.skillA.name.toLowerCase().includes(q) ||
+    c.skillB.name.toLowerCase().includes(q) ||
+    c.skillA.description.toLowerCase().includes(q) ||
+    c.skillB.description.toLowerCase().includes(q)
+  ).slice(0, 3);
+
+  // Search in Role vs Role Career Guides
+  const matchedRoleComparisons = careerRoleComparisons.filter(c => 
+    !q ||
+    c.title.toLowerCase().includes(q) ||
+    c.roleA.title.toLowerCase().includes(q) ||
+    c.roleB.title.toLowerCase().includes(q) ||
+    c.roleA.summary.toLowerCase().includes(q) ||
+    c.roleB.summary.toLowerCase().includes(q)
+  ).slice(0, 3);
+
+  // Search in Tool Alternatives
+  const matchedToolAlternatives = toolAlternativesData.filter(t => 
+    !q ||
+    t.toolName.toLowerCase().includes(q) ||
+    t.overview.toLowerCase().includes(q) ||
+    t.alternatives.some(a => a.name.toLowerCase().includes(q) || a.tagline.toLowerCase().includes(q))
+  ).slice(0, 3);
 
   // Search in Roadmaps
   const matchedRoadmaps = roadmapsData.filter(r => 
     !q || 
     r.title.toLowerCase().includes(q) || 
     r.targetRole.toLowerCase().includes(q)
-  ).slice(0, 3);
+  ).slice(0, 2);
 
   // Search in Glossary
   const matchedGlossary = glossaryTerms.filter(g => 
     !q || 
     g.term.toLowerCase().includes(q) || 
     g.shortDefinition.toLowerCase().includes(q)
-  ).slice(0, 3);
+  ).slice(0, 2);
 
-  const totalMatches = matchedSkills.length + matchedRoadmaps.length + matchedGlossary.length;
+  const totalMatches = 
+    matchedSkills.length + 
+    matchedSkillComparisons.length + 
+    matchedRoleComparisons.length + 
+    matchedToolAlternatives.length + 
+    matchedRoadmaps.length + 
+    matchedGlossary.length;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-start justify-center p-4 pt-16 sm:pt-24">
@@ -145,25 +182,151 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                 </div>
               )}
 
+              {/* Skill vs Skill Comparisons */}
+              {matchedSkillComparisons.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400 block mb-2">
+                    Skill vs Skill Comparisons ({matchedSkillComparisons.length})
+                  </span>
+                  <div className="space-y-1.5">
+                    {matchedSkillComparisons.map((item) => (
+                      <div 
+                        key={item.slug} 
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-cyan-500 bg-slate-900/60 hover:bg-cyan-500/10 transition-all flex items-center justify-between group gap-2"
+                      >
+                        <Link 
+                          href={`/compare/${item.slug}`}
+                          onClick={onClose}
+                          className="overflow-hidden flex-1 pr-1 cursor-pointer"
+                        >
+                          <div className="font-bold text-white text-xs group-hover:text-cyan-300 flex items-center gap-1.5">
+                            <Scale className="w-3.5 h-3.5 text-cyan-400" />
+                            <span>{item.skillA.name} vs {item.skillB.name}</span>
+                            <span className="text-[9px] px-1.5 py-0.5 bg-slate-800 text-cyan-300 rounded font-normal">
+                              {item.categoryLabel}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{item.skillA.description}</p>
+                        </Link>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <BookmarkButton slug={`compare-${item.slug}`} title={`${item.skillA.name} vs ${item.skillB.name}`} variant="icon" />
+                          <Link 
+                            href={`/compare/${item.slug}`}
+                            onClick={onClose}
+                            className="p-1.5 text-slate-500 hover:text-cyan-400"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Role vs Role Career Guides */}
+              {matchedRoleComparisons.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-400 block mb-2">
+                    Role vs Role Career Guides ({matchedRoleComparisons.length})
+                  </span>
+                  <div className="space-y-1.5">
+                    {matchedRoleComparisons.map((item) => (
+                      <div 
+                        key={item.slug} 
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-indigo-500 bg-slate-900/60 hover:bg-indigo-500/10 transition-all flex items-center justify-between group gap-2"
+                      >
+                        <Link 
+                          href={`/career/compare/${item.slug}`}
+                          onClick={onClose}
+                          className="overflow-hidden flex-1 pr-1 cursor-pointer"
+                        >
+                          <div className="font-bold text-white text-xs group-hover:text-indigo-300 flex items-center gap-1.5">
+                            <Briefcase className="w-3.5 h-3.5 text-indigo-400" />
+                            <span>{item.roleA.title} vs {item.roleB.title}</span>
+                            <span className="text-[9px] px-1.5 py-0.5 bg-slate-800 text-indigo-300 rounded font-normal">
+                              {item.categoryLabel}
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{item.roleA.summary}</p>
+                        </Link>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <BookmarkButton slug={`career-compare-${item.slug}`} title={`${item.roleA.title} vs ${item.roleB.title}`} variant="icon" />
+                          <Link 
+                            href={`/career/compare/${item.slug}`}
+                            onClick={onClose}
+                            className="p-1.5 text-slate-500 hover:text-indigo-400"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tool Alternatives */}
+              {matchedToolAlternatives.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 block mb-2">
+                    Tool Alternatives Matrix ({matchedToolAlternatives.length})
+                  </span>
+                  <div className="space-y-1.5">
+                    {matchedToolAlternatives.map((tool) => (
+                      <div 
+                        key={tool.slug} 
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-emerald-500 bg-slate-900/60 hover:bg-emerald-500/10 transition-all flex items-center justify-between group gap-2"
+                      >
+                        <Link 
+                          href={`/tools/${tool.slug}/alternatives`}
+                          onClick={onClose}
+                          className="overflow-hidden flex-1 pr-1 cursor-pointer"
+                        >
+                          <div className="font-bold text-white text-xs group-hover:text-emerald-300 flex items-center gap-1.5">
+                            <Layers className="w-3.5 h-3.5 text-emerald-400" />
+                            <span>{tool.toolName} Alternatives</span>
+                            <span className="text-[9px] px-1.5 py-0.5 bg-slate-800 text-emerald-300 rounded font-normal">
+                              {tool.alternatives.length} tools
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{tool.overview}</p>
+                        </Link>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <BookmarkButton slug={`tool-alt-${tool.slug}`} title={`${tool.toolName} Alternatives`} variant="icon" />
+                          <Link 
+                            href={`/tools/${tool.slug}/alternatives`}
+                            onClick={onClose}
+                            className="p-1.5 text-slate-500 hover:text-emerald-400"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Roadmaps Matches */}
               {matchedRoadmaps.length > 0 && (
                 <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-400 block mb-2">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400 block mb-2">
                     Curated Roadmaps ({matchedRoadmaps.length})
                   </span>
                   <div className="space-y-1.5">
                     {matchedRoadmaps.map((roadmap) => (
                       <div 
                         key={roadmap.slug} 
-                        className="p-3 rounded-2xl border border-slate-800 hover:border-emerald-500 bg-slate-900/60 hover:bg-emerald-500/10 transition-all flex items-center justify-between group gap-2"
+                        className="p-3 rounded-2xl border border-slate-800 hover:border-amber-500 bg-slate-900/60 hover:bg-amber-500/10 transition-all flex items-center justify-between group gap-2"
                       >
                         <Link 
                           href={`/roadmaps/${roadmap.slug}`}
                           onClick={onClose}
                           className="overflow-hidden flex-1 pr-1 cursor-pointer"
                         >
-                          <div className="font-bold text-white text-xs group-hover:text-emerald-300 flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                          <div className="font-bold text-white text-xs group-hover:text-amber-300 flex items-center gap-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-amber-400" />
                             <span>{roadmap.title}</span>
                           </div>
                           <p className="text-[11px] text-slate-400 mt-0.5">Target: {roadmap.targetRole} • {roadmap.duration}</p>
@@ -173,7 +336,7 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
                           <Link 
                             href={`/roadmaps/${roadmap.slug}`}
                             onClick={onClose}
-                            className="p-1.5 text-slate-500 hover:text-emerald-400"
+                            className="p-1.5 text-slate-500 hover:text-amber-400"
                           >
                             <ArrowRight className="w-3.5 h-3.5" />
                           </Link>

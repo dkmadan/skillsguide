@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="210" height="26" rx="13" fill="#3b82f6" fill-opacity="0.2" stroke="#60a5fa" stroke-width="1" />
+    <text x="105" y="17" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">DEVELOPER VELOCITY 2026</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Internal Developer Platform (IDP) Architecture</text>
+  </g>
+
+  <!-- Step 1: Developer Self-Service Portal -->
+  <g transform="translate(40, 140)">
+    <rect width="240" height="220" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#3b82f6" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#1d4ed8" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. DEVELOPER PORTAL</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Spotify Backstage &amp; Port</text>
+    <text x="120" y="95" fill="#93c5fd" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Software Templates (Golden Paths)</text>
+    <path d="M 30 120 L 210 120" stroke="#334155" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• 1-Click Microservice Scaffolding</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Unified Service Catalog</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Automated TechDocs &amp; Scorecards</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 285 250 L 340 250" stroke="#3b82f6" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="340,245 350,250 340,255" fill="#3b82f6" />
+
+  <!-- Step 2: Declarative Control Plane & GitOps -->
+  <g transform="translate(360, 140)">
+    <rect width="250" height="220" rx="16" fill="#172554" fill-opacity="0.9" stroke="#60a5fa" stroke-width="2" />
+    <rect x="20" y="15" width="210" height="24" rx="6" fill="#2563eb" fill-opacity="0.4" />
+    <text x="125" y="32" fill="#bfdbfe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. CONTROL PLANE &amp; GITOPS</text>
+    <text x="125" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Crossplane &amp; ArgoCD</text>
+    <text x="125" y="95" fill="#93c5fd" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Kubernetes Compositions (CRDs)</text>
+    <path d="M 30 120 L 220 120" stroke="#1e40af" stroke-width="1" />
+    <text x="125" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Universal Cloud API via K8s</text>
+    <text x="125" y="165" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• GitOps Sync with ArgoCD</text>
+    <text x="125" y="185" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Kyverno &amp; OPA Policy Guardrails</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 615 250 L 670 250" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="670,245 680,250 670,255" fill="#8b5cf6" />
+
+  <!-- Step 3: Multi-Cloud Infrastructure & Observability -->
+  <g transform="translate(680, 140)">
+    <rect width="240" height="220" rx="16" fill="#1e1b4b" fill-opacity="0.9" stroke="#8b5cf6" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#4338ca" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#c7d2fe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. MULTI-CLOUD RUNTIMES</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">AWS • Azure • GCP • EKS</text>
+    <text x="120" y="95" fill="#a5b4fc" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Ephemeral Testing Envs &amp; Telemetry</text>
+    <path d="M 30 120 L 210 120" stroke="#3730a3" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Zero Developer Ticket Waiting</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Automated TLS &amp; Ingress Setup</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Dynamic Preview PR Environments</text>
+  </g>
+
+  <!-- Bottom Badges -->
+  <g transform="translate(40, 400)">
+    <rect width="880" height="85" rx="12" fill="#13192b" stroke="#1e293b" stroke-width="1" />
+    <text x="440" y="30" fill="#94a3b8" font-size="11.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PLATFORM ENGINEERING ECOSYSTEM</text>
+    <text x="440" y="60" fill="#e2e8f0" font-size="13" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">Backstage • Crossplane • Terraform • ArgoCD • Kubernetes CRDs • Kyverno • AWS/Azure • Helm</text>
+  </g>
+</svg>

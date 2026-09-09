@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="200" height="26" rx="13" fill="#f59e0b" fill-opacity="0.2" stroke="#fbbf24" stroke-width="1" />
+    <text x="100" y="17" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">RELIABILITY &amp; OPS 2026</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Site Reliability Engineering &amp; Observability Loop</text>
+  </g>
+
+  <!-- Step 1: OpenTelemetry Instrumentation -->
+  <g transform="translate(40, 140)">
+    <rect width="240" height="220" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#3b82f6" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#1d4ed8" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. TELEMETRY SIGNALS</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">OpenTelemetry (OTel)</text>
+    <text x="120" y="95" fill="#93c5fd" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Metrics • Traces • Logs (MELT)</text>
+    <path d="M 30 120 L 210 120" stroke="#334155" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Distributed Span Tracing</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Prometheus Exporters &amp; Logs</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• eBPF Kernel Network Probing</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 285 250 L 340 250" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="340,245 350,250 340,255" fill="#f59e0b" />
+
+  <!-- Step 2: SLOs, Error Budgets & Alerting -->
+  <g transform="translate(360, 140)">
+    <rect width="250" height="220" rx="16" fill="#2d1b06" fill-opacity="0.9" stroke="#f59e0b" stroke-width="2" />
+    <rect x="20" y="15" width="210" height="24" rx="6" fill="#b45309" fill-opacity="0.4" />
+    <text x="125" y="32" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. SLO &amp; ERROR BUDGETS</text>
+    <text x="125" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Grafana &amp; Datadog</text>
+    <text x="125" y="95" fill="#fcd34d" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">99.99% Availability Targets</text>
+    <path d="M 30 120 L 220 120" stroke="#78350f" stroke-width="1" />
+    <text x="125" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• SLI/SLO Target Calculation</text>
+    <text x="125" y="165" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Burn Rate Alerts via PagerDuty</text>
+    <text x="125" y="185" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Automated Deployment Freezes</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M 615 250 L 670 250" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="670,245 680,250 670,255" fill="#ef4444" />
+
+  <!-- Step 3: Chaos Engineering & Auto-Remediation -->
+  <g transform="translate(680, 140)">
+    <rect width="240" height="220" rx="16" fill="#2a0a0a" fill-opacity="0.9" stroke="#ef4444" stroke-width="1.5" />
+    <rect x="20" y="15" width="200" height="24" rx="6" fill="#b91c1c" fill-opacity="0.3" />
+    <text x="120" y="32" fill="#fca5a5" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. CHAOS &amp; RESILIENCE</text>
+    <text x="120" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Chaos Mesh &amp; Runbooks</text>
+    <text x="120" y="95" fill="#f87171" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Blameless Post-Mortems</text>
+    <path d="M 30 120 L 210 120" stroke="#7f1d1d" stroke-width="1" />
+    <text x="120" y="145" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Fault Injection (Pod/Network Kill)</text>
+    <text x="120" y="165" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Self-Healing K8s Operators</text>
+    <text x="120" y="185" fill="#94a3b8" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Incident Command &amp; RCA</text>
+  </g>
+
+  <!-- Bottom Badges -->
+  <g transform="translate(40, 400)">
+    <rect width="880" height="85" rx="12" fill="#13192b" stroke="#1e293b" stroke-width="1" />
+    <text x="440" y="30" fill="#94a3b8" font-size="11.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">OBSERVABILITY &amp; SRE TOOLS</text>
+    <text x="440" y="60" fill="#e2e8f0" font-size="13" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">OpenTelemetry • Prometheus • Grafana • Datadog • PagerDuty • Chaos Mesh • LitmusChaos • eBPF</text>
+  </g>
+</svg>

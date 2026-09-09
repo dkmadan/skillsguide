@@ -22,7 +22,8 @@ import {
   Palette,
   Leaf,
   Zap,
-  Calculator
+  Calculator,
+  Scale
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -207,10 +208,14 @@ export default function Navbar({
             >
               <button 
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/skills/ai-agents') || 
+                  pathname.startsWith('/skills/platform-engineering') || 
+                  pathname.startsWith('/skills/sre') || 
+                  pathname.startsWith('/skills/finops') || 
+                  pathname.startsWith('/skills/data-governance') || 
                   pathname.startsWith('/skills/generative-ai') || 
                   pathname.startsWith('/skills/cloud-platform') || 
                   pathname.startsWith('/skills/cybersecurity') || 
-                  pathname.startsWith('/skills/iot-embedded') ||
                   pathname.startsWith('/category/emerging-tech-ai') ||
                   activeDropdown === 'ai'
                     ? 'text-purple-300 bg-purple-500/10 font-bold' 
@@ -225,7 +230,7 @@ export default function Navbar({
 
               {activeDropdown === 'ai' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[560px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[620px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
@@ -245,40 +250,63 @@ export default function Navbar({
 
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          2026 AI &amp; Infrastructure
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-300 mb-2 block">
+                          Autonomous AI &amp; IDPs (2026)
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/generative-ai-agentic-workflows" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/ai-agents-llm-apps" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
-                              <span>Generative AI &amp; Agents</span>
+                              <span>AI Agents &amp; LLM Apps</span>
                               <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
                             </div>
-                            <div className="text-[10px] text-slate-400">LangChain, MCP, Tool Calling, SLMs</div>
-                          </Link>
-                          
-                          <Link href="/skills/cloud-platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud Platform &amp; SRE</div>
-                            <div className="text-[10px] text-slate-400">Terraform IaC, K8s Operators, Multi-cloud</div>
+                            <div className="text-[10px] text-slate-400">LangGraph, Anthropic MCP, ReAct, SLMs</div>
                           </Link>
 
-                          <Link href="/skills/cybersecurity-ethical-hacking" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Cybersecurity &amp; SOC</div>
-                            <div className="text-[10px] text-slate-400">Pentest, Burp Suite, Splunk SIEM, CCSP</div>
+                          <Link href="/skills/platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
+                              <span>Platform Engineering</span>
+                              <span className="px-1 py-0.2 bg-indigo-500/20 text-indigo-300 text-[8px] rounded font-bold">IDP</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Backstage, Crossplane, Terraform, K8s</div>
                           </Link>
 
-                          <Link href="/skills/iot-embedded-systems" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-purple-300">IoT &amp; Embedded Systems</div>
-                            <div className="text-[10px] text-slate-400">Rust, ESP32, Edge AI, Automotive CAN</div>
+                          <Link href="/skills/sre" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">SRE &amp; Observability</div>
+                            <div className="text-[10px] text-slate-400">OpenTelemetry, SLOs, Prometheus, Chaos</div>
+                          </Link>
+
+                          <Link href="/skills/finops" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud FinOps (Cost Ops)</div>
+                            <div className="text-[10px] text-slate-400">FOCUS Spec, Kubecost, Infracost CI/CD</div>
+                          </Link>
+
+                          <Link href="/skills/data-governance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Governance &amp; Lineage</div>
+                            <div className="text-[10px] text-slate-400">Collibra, DPDP 2023, Great Expectations</div>
                           </Link>
                         </div>
                       </div>
 
                       <div>
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          Data &amp; Core Software
+                          Applied AI &amp; Infrastructure
                         </span>
                         <div className="space-y-1">
+                          <Link href="/skills/generative-ai-agentic-workflows" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Generative AI Workflows</div>
+                            <div className="text-[10px] text-slate-400">LangChain, RAG Pipelines, QLoRA</div>
+                          </Link>
+
+                          <Link href="/skills/cloud-platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud Infrastructure</div>
+                            <div className="text-[10px] text-slate-400">AWS / Azure Architecture, Multi-Cloud</div>
+                          </Link>
+
+                          <Link href="/skills/cybersecurity-ethical-hacking" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Cybersecurity &amp; SOC</div>
+                            <div className="text-[10px] text-slate-400">Pentesting, Splunk SIEM, Zero-Trust</div>
+                          </Link>
+
                           <Link href="/skills/data-analytics" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics &amp; BI</div>
                             <div className="text-[10px] text-slate-400">SQL, Power BI, Advanced Excel, Python</div>
@@ -286,17 +314,7 @@ export default function Navbar({
 
                           <Link href="/skills/full-stack-web" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Full-Stack Web Dev</div>
-                            <div className="text-[10px] text-slate-400">Next.js, React, Node.js, PostgreSQL</div>
-                          </Link>
-
-                          <Link href="/skills/data-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Engineering</div>
-                            <div className="text-[10px] text-slate-400">PySpark, Airflow, Snowflake, Kafka</div>
-                          </Link>
-
-                          <Link href="/skills/ai-prompt-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-purple-300">AI Prompt Engineering</div>
-                            <div className="text-[10px] text-slate-400">RAG Pipelines, Cursor AI, Claude</div>
+                            <div className="text-[10px] text-slate-400">Next.js, TypeScript, PostgreSQL</div>
                           </Link>
                         </div>
                       </div>
@@ -307,7 +325,7 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 2. Business, Growth & Modern No-Code Mega Dropdown */}
+            {/* 2. Business, Vocational & Growth Mega Dropdown */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('business')}
@@ -315,9 +333,13 @@ export default function Navbar({
             >
               <button 
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/skills/gst-practitioner') || 
+                  pathname.startsWith('/skills/medical-coding') || 
+                  pathname.startsWith('/skills/logistics-supply-chain') || 
+                  pathname.startsWith('/skills/insurance') || 
+                  pathname.startsWith('/skills/real-estate') || 
                   pathname.startsWith('/skills/product-management') || 
                   pathname.startsWith('/skills/nocode-lowcode') || 
-                  pathname.startsWith('/skills/digital-marketing') ||
                   pathname.startsWith('/category/business-growth-nocode') ||
                   activeDropdown === 'business'
                     ? 'text-amber-300 bg-amber-500/10 font-bold' 
@@ -326,19 +348,19 @@ export default function Navbar({
                 onClick={() => toggleDropdown('business')}
               >
                 <TrendingUp className="w-3.5 h-3.5 text-amber-400" />
-                <span>Business &amp; No-Code</span>
+                <span>Vocational &amp; Business</span>
                 <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${activeDropdown === 'business' ? 'rotate-180 text-amber-300' : ''}`} />
               </button>
 
               {activeDropdown === 'business' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[540px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[620px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">
-                          Business, Growth &amp; Modern No-Code
+                          Vocational Depth &amp; High-Growth Business
                         </span>
                       </div>
                       <Link 
@@ -352,8 +374,46 @@ export default function Navbar({
 
                     <div className="grid grid-cols-2 gap-3">
                       <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 mb-2 block">
+                          Vocational Depth &amp; BFSI
+                        </span>
+                        <div className="space-y-1">
+                          <Link href="/skills/gst-practitioner" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
+                              <span>GST Practitioner &amp; Tax</span>
+                              <span className="px-1 py-0.2 bg-amber-500/20 text-amber-300 text-[8px] rounded font-bold">Govt</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">GSTR-1, 3B, ITC Reconcile, E-Invoicing</div>
+                          </Link>
+
+                          <Link href="/skills/medical-coding" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
+                              <span>Medical Coding &amp; CPC</span>
+                              <span className="px-1 py-0.2 bg-emerald-500/20 text-emerald-300 text-[8px] rounded font-bold">RCM</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">ICD-10-CM, CPT, HCPCS, AAPC CPC</div>
+                          </Link>
+
+                          <Link href="/skills/logistics-supply-chain" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300">Logistics &amp; Supply Chain</div>
+                            <div className="text-[10px] text-slate-400">SAP SCM/MM, WMS, Cold-Chain, 3PL</div>
+                          </Link>
+
+                          <Link href="/skills/insurance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300">Insurance &amp; TPA Claims</div>
+                            <div className="text-[10px] text-slate-400">Underwriting, Cashless Pre-Auth, FWA</div>
+                          </Link>
+
+                          <Link href="/skills/real-estate" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300">Real Estate &amp; RERA Ops</div>
+                            <div className="text-[10px] text-slate-400">Sell.Do CRM, RERA Escrow, REIT Yields</div>
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div>
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          Growth &amp; Visual Tech
+                          Modern Growth &amp; No-Code
                         </span>
                         <div className="space-y-1">
                           <Link href="/skills/product-management-growth" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
@@ -365,43 +425,23 @@ export default function Navbar({
                           </Link>
 
                           <Link href="/skills/nocode-lowcode-development" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
-                              <span>No-Code / Low-Code</span>
-                              <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
-                            </div>
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300">No-Code / Low-Code</div>
                             <div className="text-[10px] text-slate-400">Bubble, Webflow, Make, Airtable</div>
                           </Link>
 
                           <Link href="/skills/digital-marketing-seo-performance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-amber-300">SEO &amp; Performance</div>
+                            <div className="text-xs font-bold text-white group-hover:text-amber-300">SEO &amp; Performance Ads</div>
                             <div className="text-[10px] text-slate-400">Programmatic SEO, Meta &amp; Google Ads</div>
                           </Link>
-                        </div>
-                      </div>
 
-                      <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          Commerce &amp; Fluency
-                        </span>
-                        <div className="space-y-1">
                           <Link href="/skills/freelancing-usd" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Global Freelancing (USD)</div>
                             <div className="text-[10px] text-slate-400">Upwork Proposals, Wise, 0% GST</div>
                           </Link>
 
-                          <Link href="/skills/tally-gst" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-amber-300">Tally Prime &amp; GST</div>
-                            <div className="text-[10px] text-slate-400">GSTR-1, 3B, TDS, Invoicing</div>
-                          </Link>
-
                           <Link href="/skills/advanced-excel" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Advanced Excel &amp; MIS</div>
                             <div className="text-[10px] text-slate-400">XLOOKUP, Power Query, Macros</div>
-                          </Link>
-
-                          <Link href="/skills/communication-english" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-amber-300">Business English &amp; Fluency</div>
-                            <div className="text-[10px] text-slate-400">STAR Framework, Email Polish</div>
                           </Link>
                         </div>
                       </div>
@@ -412,7 +452,7 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 3. Creative & Design Media Dropdown */}
+            {/* 3. Creative & Creator Economy Mega Dropdown */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('creative')}
@@ -420,6 +460,10 @@ export default function Navbar({
             >
               <button 
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/skills/youtube-ops') || 
+                  pathname.startsWith('/skills/podcast-production') || 
+                  pathname.startsWith('/skills/newsletter-growth') || 
+                  pathname.startsWith('/skills/community-management') || 
                   pathname.startsWith('/skills/ui-ux-product-design') || 
                   pathname.startsWith('/skills/3d-spatial-computing') ||
                   pathname.startsWith('/category/creative-design-media') ||
@@ -430,19 +474,19 @@ export default function Navbar({
                 onClick={() => toggleDropdown('creative')}
               >
                 <Palette className="w-3.5 h-3.5 text-rose-400" />
-                <span>Creative &amp; Design</span>
+                <span>Creator &amp; Creative</span>
                 <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${activeDropdown === 'creative' ? 'rotate-180 text-rose-300' : ''}`} />
               </button>
 
               {activeDropdown === 'creative' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[500px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[600px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-rose-400 animate-pulse"></span>
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-400">
-                          Creative &amp; Design Media
+                          Creator Economy &amp; Creative Design Media
                         </span>
                       </div>
                       <Link 
@@ -456,8 +500,38 @@ export default function Navbar({
 
                     <div className="grid grid-cols-2 gap-3">
                       <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-rose-300 mb-2 block">
+                          Creator Economy Systems (2026)
+                        </span>
+                        <div className="space-y-1">
+                          <Link href="/skills/youtube-ops" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-rose-300 flex items-center gap-1.5">
+                              <span>YouTube Ops &amp; Packaging</span>
+                              <span className="px-1 py-0.2 bg-rose-500/20 text-rose-300 text-[8px] rounded font-bold">Hot</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">CTR Packaging, Retention Hooks, VidIQ</div>
+                          </Link>
+
+                          <Link href="/skills/podcast-production" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-rose-300">Podcast Production</div>
+                            <div className="text-[10px] text-slate-400">Descript, -16 LUFS Audio, RSS Syndication</div>
+                          </Link>
+
+                          <Link href="/skills/newsletter-growth" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-rose-300">Newsletter Publishing</div>
+                            <div className="text-[10px] text-slate-400">Beehiiv, DMARC Deliverability, Sponsors</div>
+                          </Link>
+
+                          <Link href="/skills/community-management" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-rose-300">Community Management</div>
+                            <div className="text-[10px] text-slate-400">Discord, Circle.so, Retention Flywheels</div>
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div>
                         <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          Product &amp; Spatial Experience
+                          Product &amp; Spatial Design
                         </span>
                         <div className="space-y-1">
                           <Link href="/skills/ui-ux-product-design" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
@@ -472,14 +546,7 @@ export default function Navbar({
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">3D &amp; Spatial Computing</div>
                             <div className="text-[10px] text-slate-400">Blender, UE5 Nanite, Vision Pro</div>
                           </Link>
-                        </div>
-                      </div>
 
-                      <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
-                          Media &amp; Creator Craft
-                        </span>
-                        <div className="space-y-1">
                           <Link href="/skills/video-editing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Video Editing &amp; Reels</div>
                             <div className="text-[10px] text-slate-400">Premiere Pro, DaVinci Resolve</div>
@@ -488,11 +555,6 @@ export default function Navbar({
                           <Link href="/skills/graphic-figma" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Graphic Design &amp; Brand</div>
                             <div className="text-[10px] text-slate-400">Canva, Figma Ad Kits, Typography</div>
-                          </Link>
-
-                          <Link href="/skills/content-writing-seo" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
-                            <div className="text-xs font-bold text-white group-hover:text-rose-300">Content Writing &amp; SEO</div>
-                            <div className="text-[10px] text-slate-400">Articles, High-Converting Copy</div>
                           </Link>
                         </div>
                       </div>
@@ -628,7 +690,72 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 6. Career Tools Hub */}
+            {/* 6. Compare & Alternatives Hub Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setActiveDropdown('compare')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button 
+                className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/compare') || pathname.startsWith('/career/compare') || pathname.startsWith('/tools/alternatives') || activeDropdown === 'compare'
+                    ? 'text-cyan-300 bg-cyan-500/10 font-bold' 
+                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+                onClick={() => toggleDropdown('compare')}
+              >
+                <Scale className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Compare</span>
+                <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${activeDropdown === 'compare' ? 'rotate-180 text-cyan-300' : ''}`} />
+              </button>
+
+              {activeDropdown === 'compare' && (
+                <div className="absolute top-full right-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-[420px] rounded-2xl glass-card p-4 shadow-2xl border border-white/15 space-y-2 bg-[#121526]/98 backdrop-blur-2xl">
+                    <div className="flex items-center justify-between pb-2 mb-1 border-b border-white/10">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400">
+                        Side-by-Side Face-Offs &amp; Alternatives
+                      </span>
+                    </div>
+
+                    <Link href="/compare" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Cpu className="w-3.5 h-3.5 text-purple-400" />
+                          <span>Skill vs Skill Comparisons</span>
+                        </div>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-mono">35+ Stacks</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Python vs Java, React vs Vue, AWS vs Azure</div>
+                    </Link>
+
+                    <Link href="/career/compare" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Scale className="w-3.5 h-3.5 text-indigo-400" />
+                          <span>Role vs Role Career Guides</span>
+                        </div>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono">25+ Roles</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Dev vs SRE, Data Analyst vs Scientist, PM vs BA</div>
+                    </Link>
+
+                    <Link href="/tools/alternatives" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Top Tool Alternatives Matrix</span>
+                        </div>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono">Free &amp; FOSS</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Figma, Jira, Tableau, GitHub, ChatGPT replacements</div>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 7. Career Tools Hub */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('tools')}
@@ -636,7 +763,7 @@ export default function Navbar({
             >
               <button 
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
-                  pathname.startsWith('/tools') || pathname.startsWith('/glossary') || activeDropdown === 'tools'
+                  pathname.startsWith('/tools/salary') || pathname.startsWith('/tools/career-compass') || pathname.startsWith('/tools/roi') || pathname.startsWith('/tools/ats') || pathname.startsWith('/glossary') || activeDropdown === 'tools'
                     ? 'text-amber-300 bg-amber-500/10 font-bold' 
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
@@ -726,6 +853,20 @@ export default function Navbar({
             🏠 Home
           </Link>
           
+          {/* Compare & Alternatives Mobile Links */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-cyan-400">Compare &amp; Alternatives</span>
+              <Link href="/compare" className="text-[10px] text-cyan-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Skill vs Skill</Link>
+              <Link href="/career/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Role vs Role</Link>
+              <Link href="/tools/alternatives" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Tool Alternatives</Link>
+              <Link href="/compare/python-vs-javascript" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Python vs JS</Link>
+            </div>
+          </div>
+
           {/* Domain 1: Emerging Tech & AI */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
@@ -733,38 +874,44 @@ export default function Navbar({
               <Link href="/category/emerging-tech-ai" className="text-[10px] text-purple-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/generative-ai-agentic-workflows" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Generative AI &amp; Agents</Link>
-              <Link href="/skills/cloud-platform-engineering" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cloud Platform (IaC)</Link>
-              <Link href="/skills/cybersecurity-ethical-hacking" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cybersecurity &amp; SOC</Link>
-              <Link href="/skills/iot-embedded-systems" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">IoT &amp; Embedded Rust</Link>
+              <Link href="/skills/ai-agents-llm-apps" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">AI Agents &amp; LLMs</Link>
+              <Link href="/skills/platform-engineering" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Platform Eng (IDP)</Link>
+              <Link href="/skills/sre" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">SRE &amp; Observability</Link>
+              <Link href="/skills/finops" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cloud FinOps (Cost)</Link>
+              <Link href="/skills/data-governance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Data Governance</Link>
+              <Link href="/skills/generative-ai-agentic-workflows" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">GenAI Workflows</Link>
             </div>
           </div>
 
-          {/* Domain 2: Business & No-Code */}
+          {/* Domain 2: Vocational & Business */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-amber-400">2. Business, Growth &amp; No-Code</span>
+              <span className="text-[10px] uppercase font-bold text-amber-400">2. Vocational &amp; High-Growth</span>
               <Link href="/category/business-growth-nocode" className="text-[10px] text-amber-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/gst-practitioner" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">GST Practitioner</Link>
+              <Link href="/skills/medical-coding" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Medical Coding (CPC)</Link>
+              <Link href="/skills/logistics-supply-chain" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Logistics &amp; SCM</Link>
+              <Link href="/skills/insurance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Insurance &amp; TPA</Link>
+              <Link href="/skills/real-estate" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Real Estate (RERA)</Link>
               <Link href="/skills/product-management-growth" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Product &amp; Growth</Link>
-              <Link href="/skills/nocode-lowcode-development" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">No-Code / Low-Code</Link>
-              <Link href="/skills/digital-marketing-seo-performance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">SEO &amp; Performance</Link>
-              <Link href="/skills/freelancing-usd" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Global Freelancing</Link>
             </div>
           </div>
 
-          {/* Domain 3: Creative & Design */}
+          {/* Domain 3: Creator & Design */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-rose-400">3. Creative &amp; Design Media</span>
+              <span className="text-[10px] uppercase font-bold text-rose-400">3. Creator &amp; Design Media</span>
               <Link href="/category/creative-design-media" className="text-[10px] text-rose-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/ui-ux-product-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">UI/UX &amp; Design Tokens</Link>
+              <Link href="/skills/youtube-ops" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">YouTube Operations</Link>
+              <Link href="/skills/podcast-production" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Podcast Production</Link>
+              <Link href="/skills/newsletter-growth" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Newsletter Publishing</Link>
+              <Link href="/skills/community-management" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Community Mgmt</Link>
+              <Link href="/skills/ui-ux-product-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">UI/UX Product Design</Link>
               <Link href="/skills/3d-spatial-computing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">3D &amp; Spatial (UE5)</Link>
-              <Link href="/skills/video-editing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Video Editing</Link>
-              <Link href="/skills/graphic-figma" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Graphic Design</Link>
             </div>
           </div>
 

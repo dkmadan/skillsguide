@@ -1167,13 +1167,15 @@ import { additionalSkills } from './additionalSkills';
 import { moreSkillsList } from './moreSkillsCatalog';
 import { expansionSkills } from './expansionSkills';
 import { newDomainSkills } from './newDomainSkills';
+import { curatedTracksSkills } from './curatedTracksSkills';
 
 export const allSkillsList: SkillDetail[] = [
   ...skillsData,
   ...additionalSkills,
   ...moreSkillsList,
   ...expansionSkills,
-  ...newDomainSkills
+  ...newDomainSkills,
+  ...curatedTracksSkills
 ];
 
 export const getSkillBySlug = (slug: string): SkillDetail | undefined => {

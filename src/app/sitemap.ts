@@ -4,6 +4,9 @@ import { allRoadmapsList } from '@/data/roadmapsData';
 import { allSalaryGuidesList } from '@/data/salaryData';
 import { allGlossaryTerms } from '@/data/glossaryData';
 import { categoryDomains } from '@/data/categoryData';
+import { skillComparisons } from '@/data/skillComparisonsData';
+import { careerRoleComparisons } from '@/data/careerRoleComparisonsData';
+import { toolAlternativesData } from '@/data/toolAlternativesData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://skillsguide.in';
@@ -11,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
+    { url: `${baseUrl}/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/career/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/tools/alternatives`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/tools/salary-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/tools/career-compass`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
@@ -55,6 +61,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85
   }));
 
+  // Dynamic Skill vs Skill Comparison Pages
+  const compareRoutes: MetadataRoute.Sitemap = skillComparisons.map((c) => ({
+    url: `${baseUrl}/compare/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
+  // Dynamic Role vs Role Career Guides
+  const careerCompareRoutes: MetadataRoute.Sitemap = careerRoleComparisons.map((c) => ({
+    url: `${baseUrl}/career/compare/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
+  // Dynamic Tool Alternatives Pages
+  const toolAlternativeRoutes: MetadataRoute.Sitemap = toolAlternativesData.map((t) => ({
+    url: `${baseUrl}/tools/${t.slug}/alternatives`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
   // Dynamic Glossary Term Pages
   const glossaryRoutes: MetadataRoute.Sitemap = allGlossaryTerms.map((term) => ({
     url: `${baseUrl}/glossary/${term.slug}`,
@@ -69,6 +99,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...skillRoutes,
     ...roadmapRoutes,
     ...salaryRoutes,
+    ...compareRoutes,
+    ...careerCompareRoutes,
+    ...toolAlternativeRoutes,
     ...glossaryRoutes
   ];
 }
+

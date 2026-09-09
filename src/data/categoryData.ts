@@ -31,7 +31,12 @@ export const categoryDomains: CategoryDomain[] = [
     hiringVolume: '38,000+ Active Openings',
     topHubs: ['Bengaluru', 'Hyderabad', 'Pune', 'Gurugram', 'Remote Global'],
     topicSlugs: [
+      'ai-agents-llm-apps',
       'generative-ai-agentic-workflows',
+      'platform-engineering',
+      'sre',
+      'finops',
+      'data-governance',
       'cloud-platform-engineering',
       'cybersecurity-ethical-hacking',
       'iot-embedded-systems'
@@ -54,7 +59,14 @@ export const categoryDomains: CategoryDomain[] = [
     topicSlugs: [
       'product-management-growth',
       'nocode-lowcode-development',
-      'digital-marketing-seo-performance'
+      'digital-marketing-seo-performance',
+      'gst-practitioner',
+      'medical-coding',
+      'logistics-supply-chain',
+      'insurance',
+      'real-estate',
+      'newsletter-growth',
+      'community-management'
     ]
   },
   {
@@ -73,7 +85,9 @@ export const categoryDomains: CategoryDomain[] = [
     topHubs: ['Bengaluru', 'Mumbai', 'Pune', 'Hyderabad', 'Chennai'],
     topicSlugs: [
       'ui-ux-product-design',
-      '3d-spatial-computing'
+      '3d-spatial-computing',
+      'youtube-ops',
+      'podcast-production'
     ]
   },
   {
