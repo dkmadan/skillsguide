@@ -230,7 +230,7 @@ export default function Navbar({
 
               {activeDropdown === 'ai' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[620px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[620px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
@@ -254,7 +254,7 @@ export default function Navbar({
                           Autonomous AI &amp; IDPs (2026)
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/ai-agents-llm-apps" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/ai-agents-llm-apps" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
                               <span>AI Agents &amp; LLM Apps</span>
                               <span className="px-1 py-0.2 bg-purple-500/20 text-purple-300 text-[8px] rounded font-bold">Hot</span>
@@ -262,7 +262,7 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">LangGraph, Anthropic MCP, ReAct, SLMs</div>
                           </Link>
 
-                          <Link href="/skills/platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/platform-engineering" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
                               <span>Platform Engineering</span>
                               <span className="px-1 py-0.2 bg-indigo-500/20 text-indigo-300 text-[8px] rounded font-bold">IDP</span>
@@ -270,17 +270,17 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">Backstage, Crossplane, Terraform, K8s</div>
                           </Link>
 
-                          <Link href="/skills/sre" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/sre" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">SRE &amp; Observability</div>
                             <div className="text-[10px] text-slate-400">OpenTelemetry, SLOs, Prometheus, Chaos</div>
                           </Link>
 
-                          <Link href="/skills/finops" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/finops" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud FinOps (Cost Ops)</div>
                             <div className="text-[10px] text-slate-400">FOCUS Spec, Kubecost, Infracost CI/CD</div>
                           </Link>
 
-                          <Link href="/skills/data-governance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/data-governance" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Governance &amp; Lineage</div>
                             <div className="text-[10px] text-slate-400">Collibra, DPDP 2023, Great Expectations</div>
                           </Link>
@@ -292,27 +292,27 @@ export default function Navbar({
                           Applied AI &amp; Infrastructure
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/generative-ai-agentic-workflows" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/generative-ai-agentic-workflows" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Generative AI Workflows</div>
                             <div className="text-[10px] text-slate-400">LangChain, RAG Pipelines, QLoRA</div>
                           </Link>
 
-                          <Link href="/skills/cloud-platform-engineering" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/cloud-platform-engineering" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Cloud Infrastructure</div>
                             <div className="text-[10px] text-slate-400">AWS / Azure Architecture, Multi-Cloud</div>
                           </Link>
 
-                          <Link href="/skills/cybersecurity-ethical-hacking" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/cybersecurity-ethical-hacking" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Cybersecurity &amp; SOC</div>
                             <div className="text-[10px] text-slate-400">Pentesting, Splunk SIEM, Zero-Trust</div>
                           </Link>
 
-                          <Link href="/skills/data-analytics" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/data-analytics" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics &amp; BI</div>
                             <div className="text-[10px] text-slate-400">SQL, Power BI, Advanced Excel, Python</div>
                           </Link>
 
-                          <Link href="/skills/full-stack-web" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/full-stack-web" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-purple-300">Full-Stack Web Dev</div>
                             <div className="text-[10px] text-slate-400">Next.js, TypeScript, PostgreSQL</div>
                           </Link>
@@ -354,7 +354,7 @@ export default function Navbar({
 
               {activeDropdown === 'business' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[620px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[620px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
@@ -378,7 +378,7 @@ export default function Navbar({
                           Vocational Depth &amp; BFSI
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/gst-practitioner" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/gst-practitioner" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
                               <span>GST Practitioner &amp; Tax</span>
                               <span className="px-1 py-0.2 bg-amber-500/20 text-amber-300 text-[8px] rounded font-bold">Govt</span>
@@ -386,7 +386,7 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">GSTR-1, 3B, ITC Reconcile, E-Invoicing</div>
                           </Link>
 
-                          <Link href="/skills/medical-coding" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/medical-coding" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
                               <span>Medical Coding &amp; CPC</span>
                               <span className="px-1 py-0.2 bg-emerald-500/20 text-emerald-300 text-[8px] rounded font-bold">RCM</span>
@@ -394,17 +394,17 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">ICD-10-CM, CPT, HCPCS, AAPC CPC</div>
                           </Link>
 
-                          <Link href="/skills/logistics-supply-chain" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/logistics-supply-chain" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Logistics &amp; Supply Chain</div>
                             <div className="text-[10px] text-slate-400">SAP SCM/MM, WMS, Cold-Chain, 3PL</div>
                           </Link>
 
-                          <Link href="/skills/insurance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/insurance" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Insurance &amp; TPA Claims</div>
                             <div className="text-[10px] text-slate-400">Underwriting, Cashless Pre-Auth, FWA</div>
                           </Link>
 
-                          <Link href="/skills/real-estate" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/real-estate" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Real Estate &amp; RERA Ops</div>
                             <div className="text-[10px] text-slate-400">Sell.Do CRM, RERA Escrow, REIT Yields</div>
                           </Link>
@@ -416,7 +416,7 @@ export default function Navbar({
                           Modern Growth &amp; No-Code
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/product-management-growth" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/product-management-growth" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
                               <span>Product &amp; Growth</span>
                               <span className="px-1 py-0.2 bg-amber-500/20 text-amber-300 text-[8px] rounded font-bold">Top</span>
@@ -424,22 +424,22 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">Discovery, Amplitude, PRDs, PLG</div>
                           </Link>
 
-                          <Link href="/skills/nocode-lowcode-development" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/nocode-lowcode-development" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">No-Code / Low-Code</div>
                             <div className="text-[10px] text-slate-400">Bubble, Webflow, Make, Airtable</div>
                           </Link>
 
-                          <Link href="/skills/digital-marketing-seo-performance" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/digital-marketing-seo-performance" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">SEO &amp; Performance Ads</div>
                             <div className="text-[10px] text-slate-400">Programmatic SEO, Meta &amp; Google Ads</div>
                           </Link>
 
-                          <Link href="/skills/freelancing-usd" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/freelancing-usd" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Global Freelancing (USD)</div>
                             <div className="text-[10px] text-slate-400">Upwork Proposals, Wise, 0% GST</div>
                           </Link>
 
-                          <Link href="/skills/advanced-excel" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/advanced-excel" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-amber-300">Advanced Excel &amp; MIS</div>
                             <div className="text-[10px] text-slate-400">XLOOKUP, Power Query, Macros</div>
                           </Link>
@@ -480,7 +480,7 @@ export default function Navbar({
 
               {activeDropdown === 'creative' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[600px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[600px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15">
                     
                     <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
@@ -504,7 +504,7 @@ export default function Navbar({
                           Creator Economy Systems (2026)
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/youtube-ops" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/youtube-ops" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300 flex items-center gap-1.5">
                               <span>YouTube Ops &amp; Packaging</span>
                               <span className="px-1 py-0.2 bg-rose-500/20 text-rose-300 text-[8px] rounded font-bold">Hot</span>
@@ -512,17 +512,17 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">CTR Packaging, Retention Hooks, VidIQ</div>
                           </Link>
 
-                          <Link href="/skills/podcast-production" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/podcast-production" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Podcast Production</div>
                             <div className="text-[10px] text-slate-400">Descript, -16 LUFS Audio, RSS Syndication</div>
                           </Link>
 
-                          <Link href="/skills/newsletter-growth" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/newsletter-growth" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Newsletter Publishing</div>
                             <div className="text-[10px] text-slate-400">Beehiiv, DMARC Deliverability, Sponsors</div>
                           </Link>
 
-                          <Link href="/skills/community-management" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/community-management" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Community Management</div>
                             <div className="text-[10px] text-slate-400">Discord, Circle.so, Retention Flywheels</div>
                           </Link>
@@ -534,7 +534,7 @@ export default function Navbar({
                           Product &amp; Spatial Design
                         </span>
                         <div className="space-y-1">
-                          <Link href="/skills/ui-ux-product-design" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/ui-ux-product-design" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300 flex items-center gap-1.5">
                               <span>UI/UX &amp; Product Design</span>
                               <span className="px-1 py-0.2 bg-rose-500/20 text-rose-300 text-[8px] rounded font-bold">Hot</span>
@@ -542,17 +542,17 @@ export default function Navbar({
                             <div className="text-[10px] text-slate-400">Figma Tokens, Framer, Rive</div>
                           </Link>
 
-                          <Link href="/skills/3d-spatial-computing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/3d-spatial-computing" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">3D &amp; Spatial Computing</div>
                             <div className="text-[10px] text-slate-400">Blender, UE5 Nanite, Vision Pro</div>
                           </Link>
 
-                          <Link href="/skills/video-editing" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/video-editing" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Video Editing &amp; Reels</div>
                             <div className="text-[10px] text-slate-400">Premiere Pro, DaVinci Resolve</div>
                           </Link>
 
-                          <Link href="/skills/graphic-figma" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                          <Link href="/skills/graphic-figma" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                             <div className="text-xs font-bold text-white group-hover:text-rose-300">Graphic Design &amp; Brand</div>
                             <div className="text-[10px] text-slate-400">Canva, Figma Ad Kits, Typography</div>
                           </Link>
@@ -589,7 +589,7 @@ export default function Navbar({
 
               {activeDropdown === 'green' && (
                 <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[390px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 bg-[#121526]/98 backdrop-blur-2xl space-y-2">
+                  <div className="w-[390px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15 space-y-2">
                     
                     <div className="flex items-center justify-between pb-3 mb-1 border-b border-white/10">
                       <div className="flex items-center gap-2">
@@ -607,7 +607,7 @@ export default function Navbar({
                       </Link>
                     </div>
 
-                    <Link href="/skills/ev-battery-tech" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/skills/ev-battery-tech" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
                         <Zap className="w-3.5 h-3.5 text-teal-400" />
                         <span>EV Powertrain &amp; Battery (BMS)</span>
@@ -616,7 +616,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5">Cell Balancing, Inverters, CCS2 Fast Charge</div>
                     </Link>
 
-                    <Link href="/skills/solar-renewable-energy-design" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/skills/solar-renewable-energy-design" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
                         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                         <span>Solar &amp; Renewable Energy Design</span>
@@ -624,7 +624,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5">PVsyst 3D Modeling, Grid Sync, ESG Audits</div>
                     </Link>
 
-                    <Link href="/skills/risk-compliance-bfsi" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/skills/risk-compliance-bfsi" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
                         <ShieldAlert className="w-3.5 h-3.5 text-teal-400" />
                         <span>ESG &amp; Risk Compliance</span>
@@ -658,7 +658,7 @@ export default function Navbar({
 
               {activeDropdown === 'roadmaps' && (
                 <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[430px] rounded-2xl glass-card p-5 shadow-2xl border border-white/15 space-y-1 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[430px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15 space-y-1">
                     <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400">
                         Step-by-Step Execution Plans
@@ -666,22 +666,22 @@ export default function Navbar({
                       <span className="text-[10px] text-slate-400">Structured Timelines</span>
                     </div>
 
-                    <Link href="/roadmaps/data-analytics-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/roadmaps/data-analytics-plan" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-purple-300">Data Analytics 14-Week Plan</div>
                       <div className="text-[10px] text-slate-400">Excel &rarr; SQL &rarr; Power BI &rarr; Python Pandas</div>
                     </Link>
 
-                    <Link href="/roadmaps/fullstack-dev-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/roadmaps/fullstack-dev-plan" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-purple-300">Full-Stack Web Dev 18-Week Plan</div>
                       <div className="text-[10px] text-slate-400">React &rarr; Next.js &rarr; Node &rarr; PostgreSQL &rarr; Cloud</div>
                     </Link>
 
-                    <Link href="/roadmaps/freelancing-upwork-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/roadmaps/freelancing-upwork-plan" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-purple-300">Upwork &amp; USD Freelancing 8-Week Plan</div>
                       <div className="text-[10px] text-slate-400">Niche &rarr; Proposal Hooks &rarr; Wise &rarr; 0% GST</div>
                     </Link>
 
-                    <Link href="/roadmaps/tally-gst-plan" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/roadmaps/tally-gst-plan" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-purple-300">Tally Prime &amp; GST 6-Week Plan</div>
                       <div className="text-[10px] text-slate-400">Vouchers &rarr; E-Way &rarr; GSTR-1 &rarr; Balance Sheet</div>
                     </Link>
@@ -711,14 +711,14 @@ export default function Navbar({
 
               {activeDropdown === 'compare' && (
                 <div className="absolute top-full right-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[420px] rounded-2xl glass-card p-4 shadow-2xl border border-white/15 space-y-2 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[420px] rounded-2xl nav-dropdown-menu p-4 shadow-2xl border border-white/15 space-y-2">
                     <div className="flex items-center justify-between pb-2 mb-1 border-b border-white/10">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider text-cyan-400">
                         Side-by-Side Face-Offs &amp; Alternatives
                       </span>
                     </div>
 
-                    <Link href="/compare" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/compare" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Cpu className="w-3.5 h-3.5 text-purple-400" />
@@ -729,7 +729,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">Python vs Java, React vs Vue, AWS vs Azure</div>
                     </Link>
 
-                    <Link href="/career/compare" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/career/compare" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Scale className="w-3.5 h-3.5 text-indigo-400" />
@@ -740,7 +740,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">Dev vs SRE, Data Analyst vs Scientist, PM vs BA</div>
                     </Link>
 
-                    <Link href="/tools/alternatives" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/tools/alternatives" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-cyan-300 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
@@ -776,14 +776,14 @@ export default function Navbar({
 
               {activeDropdown === 'tools' && (
                 <div className="absolute top-full right-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[360px] rounded-2xl glass-card p-4 shadow-2xl border border-white/15 space-y-1 bg-[#121526]/98 backdrop-blur-2xl">
+                  <div className="w-[360px] rounded-2xl nav-dropdown-menu p-4 shadow-2xl border border-white/15 space-y-1">
                     <div className="pb-2 mb-1 border-b border-white/10">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">
                         Interactive Career Utilities
                       </span>
                     </div>
 
-                    <Link href="/tools/salary-calculator" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/tools/salary-calculator" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <Calculator className="w-3.5 h-3.5 text-purple-400" />
                         <span>Indian Salary &amp; In-Hand Calculator</span>
@@ -791,7 +791,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">CTC to take-home, PF &amp; New Tax Regime</div>
                     </Link>
 
-                    <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <Compass className="w-3.5 h-3.5 text-emerald-400" />
                         <span>30-Sec Career Compass Quiz</span>
@@ -799,7 +799,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">Algorithmic role &amp; track recommendation</div>
                     </Link>
 
-                    <Link href="/tools/ats-resume" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/tools/ats-resume" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <FileText className="w-3.5 h-3.5 text-indigo-400" />
                         <span>ATS Resume Builder &amp; Power Verbs</span>
@@ -807,7 +807,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">Score 85%+ on recruiter ATS software</div>
                     </Link>
 
-                    <Link href="/glossary" className="block p-2.5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/glossary" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <BookOpen className="w-3.5 h-3.5 text-teal-400" />
                         <span>Interactive Skilling Glossary</span>
@@ -815,7 +815,7 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">Jargon demystified in plain Hinglish/English</div>
                     </Link>
 
-                    <Link href="/disclaimer" className="block p-2 rounded-xl hover:bg-white/5 transition-colors group">
+                    <Link href="/disclaimer" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-slate-400 group-hover:text-slate-200 flex items-center gap-2">
                         <ShieldAlert className="w-3.5 h-3.5 text-slate-500" />
                         <span>Disclaimer &amp; Data Methodology</span>
@@ -835,7 +835,7 @@ export default function Navbar({
       {/* MOBILE DRAWER                                                             */}
       {/* ========================================================================= */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 mx-4 p-5 rounded-3xl glass-card border border-white/15 space-y-3 text-xs font-semibold animate-in slide-in-from-top-4 duration-200 bg-[#0d0f18]/98 backdrop-blur-2xl max-h-[85vh] overflow-y-auto shadow-2xl">
+        <div className="lg:hidden mt-2 mx-4 p-5 rounded-3xl nav-mobile-drawer border border-white/15 space-y-3 text-xs font-semibold animate-in slide-in-from-top-4 duration-200 max-h-[85vh] overflow-y-auto shadow-2xl">
           
           {/* Mobile Big Search trigger */}
           <button 

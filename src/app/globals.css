@@ -65,6 +65,23 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Opaque High-Contrast Dropdown & Overlay Menus */
+.nav-dropdown-menu {
+  background: #0f1326 !important;
+  background-color: #0f1326 !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.14) !important;
+  opacity: 1 !important;
+  z-index: 60 !important;
+}
+
+.nav-mobile-drawer {
+  background: #0d1020 !important;
+  background-color: #0d1020 !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.14) !important;
+  opacity: 1 !important;
+  z-index: 60 !important;
+}
+
 /* Hero Image Cutouts matching reference collage */
 .hero-img-box-1 {
   border-radius: 40px 18px 40px 40px;
