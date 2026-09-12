@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="pharmaBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#pharmaBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="230" height="26" rx="13" fill="#0d9488" fill-opacity="0.2" stroke="#2dd4bf" stroke-width="1" />
+    <text x="115" y="17" fill="#5eead4" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PHARMACEUTICAL PIPELINE</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Drug Discovery, GMP Manufacturing &amp; Pharmacovigilance</text>
+  </g>
+
+  <!-- Step 1: Clinical Research & QA -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#2dd4bf" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0d9488" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#99f6e4" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. CLINICAL RESEARCH &amp; QA</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Trials &amp; Data Ops</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">GCP • MedDRA • CDISC SDTM</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Protocol Design &amp; Ethics</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Electronic Data Capture (EDC)</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Clinical Data Validation</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#2dd4bf" />
+
+  <!-- Step 2: GMP Manufacturing & QC -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#3b82f6" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#2563eb" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bfdbfe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. GMP PRODUCTION &amp; QC</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Formulation &amp; Assay</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">cGMP • HPLC • Dissolution Testing</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Active Pharma Ingredient (API)</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Batch Record &amp; Deviation Mgmt</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Stability &amp; Method Validation</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#3b82f6" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#3b82f6" />
+
+  <!-- Step 3: Regulatory Affairs & Safety -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#10b981" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#059669" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#a7f3d0" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. REGULATORY &amp; SAFETY</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">PV &amp; Dossier Filing</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">eCTD • US FDA / CDSCO • ICSR</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Adverse Event Signal Detection</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Periodic Safety Update (PSUR)</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• CTD Modules 1-5 Submissions</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#2dd4bf" font-size="12" font-weight="700" font-family="system-ui, sans-serif">GLOBAL PHARMA STANDARDS &amp; AUDITING:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">WHO-GMP • US FDA 21 CFR Part 11 • ICH E6(R2) • Argus Safety • Oracle Inform EDC • CDSCO Form 44 • LIMS Automated Workflows</text>
+  </g>
+</svg>

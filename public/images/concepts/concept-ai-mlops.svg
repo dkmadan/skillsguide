@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="aiBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#311042" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#aiBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="220" height="26" rx="13" fill="#a855f7" fill-opacity="0.2" stroke="#c084fc" stroke-width="1" />
+    <text x="110" y="17" fill="#e9d5ff" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">ENTERPRISE AI &amp; MLOPS</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">LLM Observability, Multimodal Pipelines &amp; AI Security</text>
+  </g>
+
+  <!-- Step 1: Multimodal Data & Model Serving -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#c084fc" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#9333ea" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#f3e8ff" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. MULTIMODAL &amp; SERVING</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Inference &amp; Embeddings</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">vLLM • Triton • Qdrant • LoRA</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Vision, Audio &amp; Text Modalities</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• KV Cache &amp; PagedAttention</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Parameter-Efficient Fine-Tuning</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#c084fc" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#c084fc" />
+
+  <!-- Step 2: LLM Evaluation & Observability -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0284c7" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. EVALS &amp; OBSERVABILITY</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">RAG Metrics &amp; Tracing</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Ragas • LangSmith • Arize Phoenix</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Faithfulness &amp; Answer Relevancy</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Token Cost &amp; Latency Profiling</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Semantic Drift &amp; Outliers</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#38bdf8" />
+
+  <!-- Step 3: AI Security & Governance -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#f43f5e" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#e11d48" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#fecdd3" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. AI SECURITY &amp; GOVERNANCE</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Guardrails &amp; Red Teaming</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">OWASP Top 10 LLM • NeMo • Guardrails AI</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Prompt Injection &amp; Jailbreak Defense</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• PII Redaction &amp; Secret Leaks</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Model Auditability &amp; Risk Cards</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#c084fc" font-size="12" font-weight="700" font-family="system-ui, sans-serif">CORE AI/ML STACK &amp; FRAMEWORKS:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">PyTorch • Hugging Face • LangSmith • Ragas • MLflow • Ray Train • vLLM • NVIDIA NeMo Guardrails • Kubernetes Ray Operator</text>
+  </g>
+</svg>

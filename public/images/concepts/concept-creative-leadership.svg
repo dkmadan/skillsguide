@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="leadBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#3b0764" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#leadBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="240" height="26" rx="13" fill="#c026d3" fill-opacity="0.2" stroke="#e879f9" stroke-width="1" />
+    <text x="120" y="17" fill="#f5d0fe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">LEADERSHIP &amp; DESIGN MEDIA</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Design Systems, Unreal Engine, Public Speaking &amp; Executive Negotiation</text>
+  </g>
+
+  <!-- Step 1: UX Research & Design Systems -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#e879f9" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#c026d3" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#fae8ff" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. UX &amp; DESIGN SYSTEMS</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Research &amp; Tokens</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Figma • Framer • Tokens Studio</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Qualitative User Interviews &amp; Heatmaps</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Multi-Brand Token Architecture</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Micro-Interactions &amp; Framer Motion</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#e879f9" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#e879f9" />
+
+  <!-- Step 2: Interactive Media & Game Dev -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0284c7" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. 3D &amp; GAME TECH</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Unreal 5 &amp; VFX</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Lumen • Nanite • Blueprints • C++</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Real-Time Photorealistic Shaders</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Spatial AR/VR Interaction Models</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Audio &amp; Podcast Mixing Stems</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#38bdf8" />
+
+  <!-- Step 3: Executive Leadership & Negotiation -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#d97706" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. INFLUENCE &amp; LEADERSHIP</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Speaking &amp; Strategy</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">BATNA • Storytelling • OKRs</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• High-Stakes Commercial Negotiation</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Keynote Delivery &amp; Visual Decks</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Cross-Functional Team Mentorship</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#e879f9" font-size="12" font-weight="700" font-family="system-ui, sans-serif">CREATIVE &amp; EXECUTIVE SUITE:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">Figma 2026 • Unreal Engine 5.4 • Webflow • Framer • Adobe Premiere &amp; After Effects • Harvard Negotiation Framework (PON) • Toastmasters Competencies</text>
+  </g>
+</svg>

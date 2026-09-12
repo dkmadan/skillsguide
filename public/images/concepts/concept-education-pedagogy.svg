@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="eduBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="eduBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="eduAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="eduEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#eduBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="220" height="26" rx="13" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1" />
+    <text x="110" y="17" fill="#7dd3fc" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PEDAGOGICAL EXCELLENCE</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Modern Instructional &amp; Classroom Delivery Lifecycle</text>
+  </g>
+
+  <!-- Step 1: Curriculum & Instructional Design -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0284c7" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. INSTRUCTIONAL DESIGN</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Curriculum &amp; Bloom's</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">ADDIE • Backward Design • NEP 2020</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Learning Objectives &amp; Rubrics</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Differentiated Instruction</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Multimodal Content Assets</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#38bdf8" />
+
+  <!-- Step 2: Classroom & EdTech Delivery -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#d97706" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. INTERACTIVE DELIVERY</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">EdTech &amp; Engagement</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">LMS • Classroom Management</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Active Student Engagement</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Positive Behavior Frameworks</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Hybrid &amp; Asynchronous LMS</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#f59e0b" />
+
+  <!-- Step 3: Assessment, Counseling & Leadership -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#1e293b" fill-opacity="0.8" stroke="#10b981" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#059669" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#a7f3d0" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. EVALUATION &amp; OUTCOMES</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Assessment &amp; Growth</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Formative Metrics • Counseling</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Continuous Diagnostic Testing</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Academic &amp; Career Guidance</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• School Leadership &amp; Auditing</text>
+  </g>
+
+  <!-- Bottom Banner: Standards & Frameworks -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#38bdf8" font-size="12" font-weight="700" font-family="system-ui, sans-serif">NATIONAL PEDAGOGY STANDARDS &amp; TOOLS:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">NEP 2020 Guidelines • Canvas LMS • Google Classroom • Bloom's Revised Taxonomy • Nearpod • Edmodo • Differentiated Special Ed</text>
+  </g>
+</svg>

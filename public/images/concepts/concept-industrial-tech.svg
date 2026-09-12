@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="indBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#14532d" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#indBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="230" height="26" rx="13" fill="#16a34a" fill-opacity="0.2" stroke="#4ade80" stroke-width="1" />
+    <text x="115" y="17" fill="#86efac" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">INDUSTRY 4.0 &amp; CORE TECH</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">Industrial Automation, Robotics, AUTOSAR &amp; Smart Manufacturing</text>
+  </g>
+
+  <!-- Step 1: CAD/CAM & Additive Engineering -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#4ade80" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#16a34a" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bbf7d0" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. DESIGN &amp; TOOLING</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">CAD, CAM &amp; CNC</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">SolidWorks • CATIA • G-Code</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Parametric 3D Solid Modeling</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Multi-Axis CNC Toolpath Generation</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Additive 3D Slicing &amp; Prototyping</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#4ade80" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#4ade80" />
+
+  <!-- Step 2: Automation, PLC & SCADA -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0284c7" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. CONTROL &amp; ROBOTICS</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">PLC, SCADA &amp; HMI</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Siemens TIA • Allen-Bradley • Modbus</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Ladder Logic &amp; Structured Text (ST)</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Real-Time SCADA Telemetry</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Industrial Sensor &amp; Actuator Wiring</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#38bdf8" />
+
+  <!-- Step 3: Embedded & AUTOSAR -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#d97706" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#fde68a" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. EMBEDDED &amp; AUTOMOTIVE</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">AUTOSAR &amp; ECUs</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">CAN / LIN • Vector DaVinci • ISO 26262</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Automotive ECU Layer Architecture</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Functional Safety (ASIL-D Standards)</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Hardware-in-the-Loop (HIL) Testing</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#4ade80" font-size="12" font-weight="700" font-family="system-ui, sans-serif">ENGINEERING STANDARDS &amp; SUITE:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">Siemens SIMATIC S7-1200 • Rockwell Studio 5000 • Vector CANoe • Dassault SolidWorks • Autodesk Fusion 360 • Fanuc Robot Controllers</text>
+  </g>
+</svg>

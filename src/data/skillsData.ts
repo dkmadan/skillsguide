@@ -1172,6 +1172,14 @@ import { moreSkillsList } from './moreSkillsCatalog';
 import { expansionSkills } from './expansionSkills';
 import { newDomainSkills } from './newDomainSkills';
 import { curatedTracksSkills } from './curatedTracksSkills';
+import { educationPedagogySkills } from './educationPedagogySkills';
+import { pharmaHealthcareSkills } from './pharmaHealthcareSkills';
+import { lawLegalSkills } from './lawLegalSkills';
+import { accountingFinanceSkills } from './accountingFinanceSkills';
+import { advancedAiDataTechSkills } from './advancedAiDataTechSkills';
+import { enterpriseErpBusinessSkills } from './enterpriseErpBusinessSkills';
+import { marketingOperationsCoreEngSkills } from './marketingOperationsCoreEngSkills';
+import { designMediaSoftSkills } from './designMediaSoftSkills';
 
 export const allSkillsList: SkillDetail[] = [
   ...skillsData,
@@ -1179,7 +1187,15 @@ export const allSkillsList: SkillDetail[] = [
   ...moreSkillsList,
   ...expansionSkills,
   ...newDomainSkills,
-  ...curatedTracksSkills
+  ...curatedTracksSkills,
+  ...educationPedagogySkills,
+  ...pharmaHealthcareSkills,
+  ...lawLegalSkills,
+  ...accountingFinanceSkills,
+  ...advancedAiDataTechSkills,
+  ...enterpriseErpBusinessSkills,
+  ...marketingOperationsCoreEngSkills,
+  ...designMediaSoftSkills,
 ];
 
 export const getSkillBySlug = (slug: string): SkillDetail | undefined => {
@@ -1193,6 +1209,7 @@ export const getSkillsByCategory = (category: string): SkillDetail[] => {
 export const getSkillsByDomain = (domainSlug: string): SkillDetail[] => {
   return allSkillsList.filter(s => s.domainSlug === domainSlug);
 };
+
 
 
 

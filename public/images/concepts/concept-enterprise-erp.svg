@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="erpBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="960" height="540" rx="20" fill="url(#erpBg)" stroke="#1e293b" stroke-width="2" />
+  
+  <g transform="translate(40, 40)">
+    <rect x="0" y="0" width="230" height="26" rx="13" fill="#3b82f6" fill-opacity="0.2" stroke="#60a5fa" stroke-width="1" />
+    <text x="115" y="17" fill="#93c5fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">ENTERPRISE SYSTEMS &amp; CLOUD</text>
+    <text x="0" y="55" fill="#f8fafc" font-size="22" font-weight="800" font-family="system-ui, sans-serif">SAP S/4HANA, Salesforce, ServiceNow &amp; Power Platform</text>
+  </g>
+
+  <!-- Step 1: Core Enterprise ERP & Supply Chain -->
+  <g transform="translate(40, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#60a5fa" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#2563eb" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bfdbfe" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">1. ENTERPRISE ERP CORE</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">SAP S/4HANA &amp; SCM</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">FICO • MM • SD • ABAP Core</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Procure-to-Pay (P2P) Workflows</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Order-to-Cash (O2C) Management</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Master Data Governance (MDG)</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 305 255 L 345 255" stroke="#60a5fa" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="345,250 355,255 345,260" fill="#60a5fa" />
+
+  <!-- Step 2: CRM & Enterprise Service Management -->
+  <g transform="translate(350, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#38bdf8" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#0284c7" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#bae6fd" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">2. CRM &amp; ITSM CLOUD</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Salesforce &amp; ServiceNow</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Flows • Apex • ITIL • CMDB</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Omnichannel Case &amp; Lead Routing</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Incident &amp; Change Management</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Security Profiles &amp; Permission Sets</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 615 255 L 655 255" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+  <polygon points="655,250 665,255 655,260" fill="#38bdf8" />
+
+  <!-- Step 3: Low-Code & RPA Automation -->
+  <g transform="translate(660, 140)">
+    <rect width="260" height="230" rx="16" fill="#0f172a" fill-opacity="0.9" stroke="#a855f7" stroke-width="1.5" />
+    <rect x="20" y="15" width="220" height="24" rx="6" fill="#7e22ce" fill-opacity="0.3" />
+    <text x="130" y="32" fill="#e9d5ff" font-size="11" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">3. LOW-CODE &amp; RPA</text>
+    <text x="130" y="70" fill="#ffffff" font-size="15" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">Power Platform &amp; UiPath</text>
+    <text x="130" y="95" fill="#94a3b8" font-size="12" text-anchor="middle" font-family="system-ui, sans-serif">Power Apps • Automate • Bots</text>
+    <path d="M 30 120 L 230 120" stroke="#334155" stroke-width="1" />
+    <text x="130" y="145" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Enterprise Canvas &amp; Model-Driven Apps</text>
+    <text x="130" y="170" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• Unattended Bot Execution &amp; OCR</text>
+    <text x="130" y="195" fill="#cbd5e1" font-size="11" text-anchor="middle" font-family="system-ui, sans-serif">• REST / OData Cross-System Connectors</text>
+  </g>
+
+  <!-- Bottom Banner -->
+  <g transform="translate(40, 410)">
+    <rect width="880" height="85" rx="14" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="30" y="35" fill="#60a5fa" font-size="12" font-weight="700" font-family="system-ui, sans-serif">ENTERPRISE PLATFORMS &amp; CERTIFICATIONS:</text>
+    <text x="30" y="60" fill="#94a3b8" font-size="12" font-family="system-ui, sans-serif">SAP S/4HANA Cloud • Salesforce Administrator (ADM 201) • ServiceNow CSA / CAD • Microsoft Power Automate • UiPath Studio • Workato Integration</text>
+  </g>
+</svg>
