@@ -25,7 +25,8 @@ import {
   Zap,
   Calculator,
   Scale,
-  Briefcase
+  Briefcase,
+  Layers
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -202,7 +203,183 @@ export default function Navbar({
               Home
             </Link>
 
-            {/* 1. Emerging Tech & AI Engineering Mega Dropdown */}
+            {/* 1. All 10 Domain Hubs Mega Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setActiveDropdown('domains')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button 
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/category/') || activeDropdown === 'domains'
+                    ? 'text-purple-300 bg-purple-500/10 font-bold' 
+                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+                onClick={() => toggleDropdown('domains')}
+              >
+                <Layers className="w-3.5 h-3.5 text-purple-400" />
+                <span>All Domains</span>
+                <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${activeDropdown === 'domains' ? 'rotate-180 text-purple-300' : ''}`} />
+              </button>
+
+              {activeDropdown === 'domains' && (
+                <div className="absolute top-full left-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-[740px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15">
+                    
+                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400">
+                          10 Career Domain Hubs &amp; Specialized Blueprints
+                        </span>
+                      </div>
+                      <Link 
+                        href="/#skills-catalog" 
+                        className="text-[11px] font-bold text-purple-300 hover:text-white flex items-center gap-1 group/hub"
+                      >
+                        <span>Full Skills Catalog ({trackCount}+ Tracks)</span>
+                        <ArrowRight className="w-3 h-3 group-hover/hub:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 text-xs">
+                      <Link href="/category/emerging-tech-ai" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-indigo-500/20 text-indigo-300 shrink-0">
+                          <Cpu className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
+                            <span>Emerging Tech &amp; AI</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">16 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">AI Agents, LLMs, SRE, FinOps, Cloud, Security</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/education-pedagogy" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-sky-500/20 text-sky-300 shrink-0">
+                          <BookOpen className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-sky-300 flex items-center gap-1.5">
+                            <span>Education &amp; Pedagogy</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-300 font-mono">14 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">NEP 2020, EdTech, Special Ed, School Admin</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/pharma-healthcare-life-sciences" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-300 shrink-0">
+                          <Sparkles className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-emerald-300 flex items-center gap-1.5">
+                            <span>Pharmacy &amp; Healthcare</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-mono">17 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">Clinical Pharmacy, Pharmacovigilance, CDM, GMP</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/law-legal-operations" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-pink-500/20 text-pink-300 shrink-0">
+                          <Scale className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-pink-300 flex items-center gap-1.5">
+                            <span>Law &amp; Corporate Governance</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 font-mono">15 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">Corporate M&amp;A, IP Patents, DPDP Act, Litigation</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/accounting-corporate-finance" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-amber-500/20 text-amber-300 shrink-0">
+                          <Calculator className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-amber-300 flex items-center gap-1.5">
+                            <span>Accounting &amp; Finance</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">14 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">GST Filings, Financial Modeling, Ind AS, US GAAP</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/industrial-automation-engineering" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-cyan-500/20 text-cyan-300 shrink-0">
+                          <Zap className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-cyan-300 flex items-center gap-1.5">
+                            <span>Industrial Automation &amp; Eng</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-300 font-mono">14 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">PLC &amp; SCADA, Robotics ROS2, IoT, CNC Machining</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/enterprise-erp-crm" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-purple-500/20 text-purple-300 shrink-0">
+                          <Briefcase className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-purple-300 flex items-center gap-1.5">
+                            <span>Enterprise ERP &amp; CRM</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-mono">13 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">SAP S/4HANA, Salesforce, Oracle, Microsoft Dynamics</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/business-growth-nocode" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-orange-500/20 text-orange-300 shrink-0">
+                          <TrendingUp className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-orange-300 flex items-center gap-1.5">
+                            <span>Vocational &amp; High Growth</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-orange-500/20 text-orange-300 font-mono">10 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">Product Mgmt, Logistics, Medical Coding, No-Code</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/creative-design-media" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-rose-500/20 text-rose-300 shrink-0">
+                          <Palette className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-rose-300 flex items-center gap-1.5">
+                            <span>Creator Economy &amp; Media</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 font-mono">10 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">UI/UX Figma, YouTube Ops, 3D Spatial Blender</div>
+                        </div>
+                      </Link>
+
+                      <Link href="/category/green-tech-sustainability" className="p-2.5 rounded-xl hover:bg-white/10 transition-all group flex items-start gap-2.5">
+                        <div className="p-2 rounded-lg bg-teal-500/20 text-teal-300 shrink-0">
+                          <Leaf className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-white group-hover:text-teal-300 flex items-center gap-1.5">
+                            <span>Green Tech &amp; Sustainability</span>
+                            <span className="text-[9px] px-1.5 py-0.2 rounded bg-teal-500/20 text-teal-300 font-mono">3 Tracks</span>
+                          </div>
+                          <div className="text-[10px] text-slate-400 leading-tight mt-0.5">EV BMS Battery Tech, Solar PVsyst, ESG Audits</div>
+                        </div>
+                      </Link>
+                    </div>
+
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 2. Emerging Tech & AI Engineering Mega Dropdown */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('ai')}
@@ -879,90 +1056,119 @@ export default function Navbar({
             <kbd className="px-2 py-0.5 text-[9px] bg-slate-800 rounded font-mono text-purple-300">⌘K</kbd>
           </button>
 
-          <Link href="/" className="block p-2.5 rounded-xl text-slate-200 hover:bg-purple-600/20 hover:text-purple-300">
-            🏠 Home
-          </Link>
+          <div className="flex items-center justify-between pt-1">
+            <Link href="/" className="p-2 rounded-xl text-slate-200 hover:bg-purple-600/20 hover:text-purple-300">
+              🏠 Home
+            </Link>
+            <Link href="/journeys" className="p-2 rounded-xl text-purple-300 hover:bg-purple-600/20 font-bold">
+              🚀 Learner Journeys
+            </Link>
+          </div>
           
-          {/* Compare & Alternatives Mobile Links */}
+          {/* Domain 1: Pharmacy, Healthcare & Life Sciences */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-cyan-400">Compare &amp; Alternatives</span>
-              <Link href="/compare" className="text-[10px] text-cyan-300 underline">Hub →</Link>
+              <span className="text-[10px] uppercase font-bold text-emerald-400">1. Pharmacy &amp; Healthcare</span>
+              <Link href="/category/pharma-healthcare-life-sciences" className="text-[10px] text-emerald-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Skill vs Skill</Link>
-              <Link href="/career/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Role vs Role</Link>
-              <Link href="/tools/alternatives" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Tool Alternatives</Link>
-              <Link href="/compare/python-vs-javascript" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Python vs JS</Link>
+              <Link href="/skills/clinical-pharmacy" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Clinical Pharmacy</Link>
+              <Link href="/skills/pharmacovigilance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Pharmacovigilance</Link>
+              <Link href="/skills/clinical-research" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Clinical Trials</Link>
+              <Link href="/skills/regulatory-affairs" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Regulatory Affairs</Link>
             </div>
           </div>
 
-          {/* Domain 1: Emerging Tech & AI */}
+          {/* Domain 2: Law & Corporate Governance */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-purple-400">1. Emerging Tech &amp; AI</span>
+              <span className="text-[10px] uppercase font-bold text-pink-400">2. Law &amp; Governance</span>
+              <Link href="/category/law-legal-operations" className="text-[10px] text-pink-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/corporate-law" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Corporate M&amp;A Law</Link>
+              <Link href="/skills/intellectual-property-law" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">IP &amp; Patents</Link>
+              <Link href="/skills/contract-drafting" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Contract Drafting</Link>
+              <Link href="/skills/cyber-law" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cyber &amp; DPDP Law</Link>
+            </div>
+          </div>
+
+          {/* Domain 3: Education & Pedagogy */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-sky-400">3. Education &amp; Pedagogy</span>
+              <Link href="/category/education-pedagogy" className="text-[10px] text-sky-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/teaching-pedagogy" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Teaching Pedagogy</Link>
+              <Link href="/skills/instructional-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Instructional Design</Link>
+              <Link href="/skills/special-education" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Special Education</Link>
+              <Link href="/skills/educational-leadership" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">School Admin</Link>
+            </div>
+          </div>
+
+          {/* Domain 4: Accounting, Finance & ERP */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-amber-400">4. Accounting, Finance &amp; ERP</span>
+              <Link href="/category/accounting-corporate-finance" className="text-[10px] text-amber-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/gst-accounting-tally-prime" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">GST &amp; Tally Prime</Link>
+              <Link href="/skills/financial-modeling-valuation" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Financial Modeling</Link>
+              <Link href="/skills/salesforce-administration" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Salesforce Admin</Link>
+              <Link href="/skills/sap-s4hana-fico" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">SAP S/4HANA FICO</Link>
+            </div>
+          </div>
+
+          {/* Domain 5: Industrial Automation & Core Eng */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-cyan-400">5. Automation &amp; Core Eng</span>
+              <Link href="/category/industrial-automation-engineering" className="text-[10px] text-cyan-300 underline">Hub →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1 text-[11px]">
+              <Link href="/skills/industrial-automation-plc-scada" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">PLC &amp; SCADA Ops</Link>
+              <Link href="/skills/robotics-automation" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Robotics &amp; ROS2</Link>
+              <Link href="/skills/ev-battery-tech" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">EV Battery BMS</Link>
+              <Link href="/skills/solar-renewable-energy-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Solar Renewable</Link>
+            </div>
+          </div>
+
+          {/* Domain 6: Emerging Tech & AI */}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] uppercase font-bold text-purple-400">6. Emerging Tech &amp; AI</span>
               <Link href="/category/emerging-tech-ai" className="text-[10px] text-purple-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
               <Link href="/skills/ai-agents-llm-apps" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">AI Agents &amp; LLMs</Link>
               <Link href="/skills/platform-engineering" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Platform Eng (IDP)</Link>
               <Link href="/skills/sre" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">SRE &amp; Observability</Link>
-              <Link href="/skills/finops" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cloud FinOps (Cost)</Link>
-              <Link href="/skills/data-governance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Data Governance</Link>
-              <Link href="/skills/generative-ai-agentic-workflows" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">GenAI Workflows</Link>
+              <Link href="/skills/cybersecurity-ethical-hacking" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Cybersecurity</Link>
             </div>
           </div>
 
-          {/* Domain 2: Vocational & Business */}
+          {/* Domain 7: Creator & Design Media */}
           <div className="pt-2 border-t border-slate-800">
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-amber-400">2. Vocational &amp; High-Growth</span>
-              <Link href="/category/business-growth-nocode" className="text-[10px] text-amber-300 underline">Hub →</Link>
-            </div>
-            <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/gst-practitioner" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">GST Practitioner</Link>
-              <Link href="/skills/medical-coding" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Medical Coding (CPC)</Link>
-              <Link href="/skills/logistics-supply-chain" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Logistics &amp; SCM</Link>
-              <Link href="/skills/insurance" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Insurance &amp; TPA</Link>
-              <Link href="/skills/real-estate" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Real Estate (RERA)</Link>
-              <Link href="/skills/product-management-growth" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Product &amp; Growth</Link>
-            </div>
-          </div>
-
-          {/* Domain 3: Creator & Design */}
-          <div className="pt-2 border-t border-slate-800">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-rose-400">3. Creator &amp; Design Media</span>
+              <span className="text-[10px] uppercase font-bold text-rose-400">7. Creator &amp; Design Media</span>
               <Link href="/category/creative-design-media" className="text-[10px] text-rose-300 underline">Hub →</Link>
             </div>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/youtube-ops" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">YouTube Operations</Link>
-              <Link href="/skills/podcast-production" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Podcast Production</Link>
-              <Link href="/skills/newsletter-growth" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Newsletter Publishing</Link>
-              <Link href="/skills/community-management" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Community Mgmt</Link>
               <Link href="/skills/ui-ux-product-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">UI/UX Product Design</Link>
-              <Link href="/skills/3d-spatial-computing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">3D &amp; Spatial (UE5)</Link>
+              <Link href="/skills/youtube-ops" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">YouTube Operations</Link>
+              <Link href="/skills/3d-spatial-computing" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">3D &amp; Spatial Blender</Link>
+              <Link href="/skills/podcast-production" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Podcast Production</Link>
             </div>
           </div>
 
-          {/* Domain 4: Green Tech */}
+          {/* Compare & Tools */}
           <div className="pt-2 border-t border-slate-800">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold text-teal-400">4. Green Tech &amp; Sustainability</span>
-              <Link href="/category/green-tech-sustainability" className="text-[10px] text-teal-300 underline">Hub →</Link>
-            </div>
+            <span className="text-[10px] uppercase font-bold text-cyan-400 block mb-1">8. Compare, Tools &amp; Compass</span>
             <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/skills/ev-battery-tech" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">EV Powertrain &amp; BMS</Link>
-              <Link href="/skills/solar-renewable-energy-design" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Solar PVsyst &amp; ESG</Link>
-            </div>
-          </div>
-
-          {/* Roadmaps & Tools */}
-          <div className="pt-2 border-t border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-purple-400 block mb-1">5. Roadmaps &amp; Tools</span>
-            <div className="grid grid-cols-2 gap-1 text-[11px]">
-              <Link href="/roadmaps/data-analytics-plan" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Data Roadmap</Link>
-              <Link href="/roadmaps/fullstack-dev-plan" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Fullstack Roadmap</Link>
+              <Link href="/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Skill Comparisons</Link>
+              <Link href="/career/compare" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Role vs Role</Link>
               <Link href="/tools/salary-calculator" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Salary Calculator</Link>
               <Link href="/glossary" className="p-2 rounded-lg hover:bg-white/5 text-slate-300">Glossary</Link>
             </div>
