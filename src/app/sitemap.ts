@@ -8,15 +8,19 @@ import { skillComparisons } from '@/data/skillComparisonsData';
 import { careerRoleComparisons } from '@/data/careerRoleComparisonsData';
 import { toolAlternativesData } from '@/data/toolAlternativesData';
 
+import { learnerJourneys } from '@/data/journeysData';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://skillsguide.in';
 
   // Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
+    { url: `${baseUrl}/journeys`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/career/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/tools/alternatives`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/tools/application-tracker`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/tools/salary-calculator`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/tools/career-compass`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
@@ -93,9 +97,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8
   }));
 
+  // Dynamic Learner Journey Pages
+  const journeyRoutes: MetadataRoute.Sitemap = learnerJourneys.map((j) => ({
+    url: `${baseUrl}/journeys/${j.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
   return [
     ...staticRoutes,
     ...categoryRoutes,
+    ...journeyRoutes,
     ...skillRoutes,
     ...roadmapRoutes,
     ...salaryRoutes,

@@ -29,12 +29,13 @@ CALCULATE(
     term: 'RAG (Retrieval-Augmented Generation)',
     slug: 'rag',
     category: 'AI',
-    shortDefinition: 'An AI framework that dynamically retrieves private documents from a vector database to provide accurate, grounded context to Large Language Models.',
-    fullExplanation: 'RAG prevents LLM hallucinations by retrieving factual chunks of text from internal knowledge bases (PDFs, SQL databases, customer tickets) and injecting them into the prompt before generating the final answer. It eliminates the high cost and latency of retraining or fine-tuning models.',
-    exampleOrSnippet: `// Standard RAG Workflow:
-1. User Query -> Embedding Model -> Vector DB similarity search
-2. Top 3 matching document chunks retrieved
-3. LLM Prompt: "Answer query based ONLY on Context: [Chunks] User: [Query]"`,
+    shortDefinition: 'An AI architecture that retrieves relevant document chunks from external databases and injects them as dynamic context into a Large Language Model prompt.',
+    fullExplanation: 'Retrieval-Augmented Generation (RAG) grounds LLM outputs in domain-specific or private data without requiring full model retraining. While RAG significantly reduces factual errors by supplying source context, it does not eliminate hallucinations entirely. Common failure modes include retrieval misses (semantic mismatch between query and vector embeddings), chunk fragmentation (splitting critical context across chunk boundaries), and generation hallucination (the model ignoring or misinterpreting retrieved context when ambiguous). Reference: Lewis et al. (2020), "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks", NeurIPS. [Reviewed: January 2025]',
+    exampleOrSnippet: `// Production RAG Architecture:
+1. Ingestion: Document -> Semantic Chunking -> Vector Embeddings -> Indexing
+2. Retrieval: User Query -> Query Embedding -> Top-K Vector Search + Hybrid BM25 Keyword Search
+3. Re-Ranking: Cross-Encoder scores retrieved chunks for contextual relevance
+4. Synthesis: LLM receives Prompt + Top Chunks -> Grounded Answer with Source Attribution`,
     relatedSkillSlug: 'ai-prompt-engineering',
     relatedSkillName: 'AI & Prompt Engineering'
   },

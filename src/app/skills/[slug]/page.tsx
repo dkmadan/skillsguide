@@ -3,26 +3,34 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
-import { allSkillsList, getSkillBySlug } from '@/data/skillsData';
+import { getSkillBySlug, allSkillsList } from '@/data/skillsData';
+import { getFlagshipTrackDetails } from '@/data/flagshipTracksData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import BookmarkButton from '@/components/BookmarkButton';
 import CardImage from '@/components/CardImage';
 import { 
-  Zap, 
+  CheckCircle2, 
   MapPin, 
   Clock, 
   IndianRupee, 
-  CheckCircle2, 
   Briefcase, 
-  Layers, 
-  HelpCircle, 
   ArrowRight, 
-  BookOpen, 
-  Sparkles,
+  Layers, 
+  Cpu, 
+  HelpCircle, 
+  Sparkles, 
+  TrendingUp, 
+  FileText,
+  AlertCircle,
+  Lightbulb,
+  CheckSquare,
+  ExternalLink,
+  Laptop,
+  Users,
+  Target,
   Award,
-  Cpu,
-  TrendingUp
+  BookOpen
 } from 'lucide-react';
 
 interface Props {
@@ -41,32 +49,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!skill) {
     return {
-      title: 'Skill Track Not Found | SkillsGuide.in',
+      title: 'Skill Not Found | SkillsGuide.in',
     };
   }
 
   return {
-    title: `${skill.title} Blueprint (2026) | Salary: ${skill.salaryRange}`,
-    description: `Complete guide to ${skill.title}. Discover verified Indian salary ranges (${skill.salaryRange}), learning timeline (${skill.timelineWeeks}), interview questions, and top hiring cities.`,
+    title: `${skill.title} Guide | Learning Timeline & Projects`,
+    description: `Complete guide to ${skill.title}. Discover Indian salary ranges (${skill.salaryRange}), learning timeline (${skill.timelineWeeks}), interview questions, and top hiring cities.`,
     keywords: [
-      skill.title, 
-      `${skill.title} syllabus`, 
+      skill.title,
+      `${skill.title} roadmap`,
       `${skill.title} salary india`,
-      `${skill.title} jobs bangalore`, 
-      ...skill.tools
+      `${skill.title} interview questions`,
+      'skills guide india'
     ],
     openGraph: {
-      title: `${skill.title} Career Blueprint & Indian Salary Guide`,
+      title: `${skill.title} - Complete Career Blueprint`,
       description: skill.shortDesc,
       url: `https://skillsguide.in/skills/${skill.slug}`,
-      images: [
-        {
-          url: skill.heroImage,
-          width: 1200,
-          height: 630,
-          alt: skill.title
-        }
-      ]
+      type: 'article',
     }
   };
 }
@@ -78,6 +79,8 @@ export default async function SkillDetailPage({ params }: Props) {
   if (!skill) {
     notFound();
   }
+
+  const flagship = getFlagshipTrackDetails(slug);
 
   const courseJsonLd = {
     '@context': 'https://schema.org',
@@ -120,13 +123,13 @@ export default async function SkillDetailPage({ params }: Props) {
   ];
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+    <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto space-y-10">
       <JsonLd data={courseJsonLd} />
       {skill.faqs && skill.faqs.length > 0 && <JsonLd data={faqJsonLd} />}
       <Breadcrumbs items={breadcrumbs} />
 
       {/* Hero Header */}
-      <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden mb-10">
+      <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -175,10 +178,10 @@ export default async function SkillDetailPage({ params }: Props) {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none"></div>
               <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs">
                 <span className="px-2.5 py-1 rounded-md bg-slate-900/90 text-purple-300 font-bold border border-purple-500/30 text-[11px] backdrop-blur-md">
-                  Verified 2026 Curriculum
+                  Curated 2026 Curriculum Guide
                 </span>
                 <span className="px-2.5 py-1 rounded-md bg-emerald-950/90 text-emerald-300 font-bold border border-emerald-500/30 text-[11px] backdrop-blur-md">
-                  High-ROI Track
+                  Project-Based Track
                 </span>
               </div>
             </div>
@@ -201,21 +204,21 @@ export default async function SkillDetailPage({ params }: Props) {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block font-medium">Expected CTC</span>
+                <span className="text-[10px] text-slate-400 block font-medium">Expected CTC Range</span>
                 <strong className="text-base sm:text-lg font-black text-emerald-400 mt-0.5 block">
                   {skill.salaryRange}
                 </strong>
               </div>
 
               <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block font-medium">Learning Timeline</span>
+                <span className="text-[10px] text-slate-400 block font-medium">Estimated Timeline</span>
                 <strong className="text-base sm:text-lg font-black text-purple-300 mt-0.5 block">
                   {skill.timelineWeeks}
                 </strong>
               </div>
 
               <div className="p-3.5 bg-slate-900 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block font-medium">Hiring Openings</span>
+                <span className="text-[10px] text-slate-400 block font-medium">Demand Scope</span>
                 <strong className="text-xs sm:text-sm font-bold text-white mt-0.5 block">
                   {skill.hiringVolume}
                 </strong>
@@ -241,7 +244,7 @@ export default async function SkillDetailPage({ params }: Props) {
               href="/tools/career-compass"
               className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center justify-center gap-2 transition-all mt-2"
             >
-              <span>Take Career Match</span>
+              <span>Explore Career Compass Match</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -249,7 +252,310 @@ export default async function SkillDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Main Content Grid */}
+      {/* Flagship Upgraded Track Sections (If Present) */}
+      {flagship && (
+        <div className="space-y-10">
+          
+          {/* Section 1: Fit & Work Reality */}
+          <div className="grid md:grid-cols-2 gap-8">
+            
+            {/* Fit Profile */}
+            <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-purple-400 font-black text-lg">
+                <Target className="w-5 h-5" />
+                <h2>Is This Path the Right Fit for You?</h2>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <strong className="text-emerald-400 block mb-1">✓ Who This Path Suits:</strong>
+                  <ul className="text-slate-300 space-y-1 list-disc list-inside">
+                    {flagship.fitProfile.whoThisPathSuits.map((item, i) => (
+                      <li key={i} className="leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80">
+                  <strong className="text-cyan-300 block mb-1">📋 Prerequisites:</strong>
+                  <ul className="text-slate-300 space-y-1 list-disc list-inside">
+                    {flagship.fitProfile.prerequisites.map((item, i) => (
+                      <li key={i} className="leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80">
+                  <strong className="text-amber-300 block mb-1">⚠️ When to Consider Another Path:</strong>
+                  <ul className="text-slate-400 space-y-1 list-disc list-inside">
+                    {flagship.fitProfile.reasonsToConsiderAnotherPath.map((item, i) => (
+                      <li key={i} className="leading-relaxed">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Work Reality */}
+            <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
+              <div className="flex items-center gap-2 text-indigo-400 font-black text-lg">
+                <Briefcase className="w-5 h-5" />
+                <h2>Day-to-Day Work Reality</h2>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div>
+                  <strong className="text-slate-200 block mb-1">Typical Tasks:</strong>
+                  <ul className="text-slate-300 space-y-1 list-disc list-inside">
+                    {flagship.workReality.dailyTasks.map((t, i) => (
+                      <li key={i} className="leading-relaxed">{t}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80">
+                  <strong className="text-slate-200 block mb-1">Tangible Deliverables:</strong>
+                  <ul className="text-slate-300 space-y-1 list-disc list-inside">
+                    {flagship.workReality.typicalDeliverables.map((d, i) => (
+                      <li key={i} className="leading-relaxed">{d}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80">
+                  <strong className="text-slate-200 block mb-1">Key Stakeholders:</strong>
+                  <p className="text-slate-400 leading-relaxed">
+                    {flagship.workReality.keyStakeholders.join(' • ')}
+                  </p>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+          {/* Section 2: Learning Commitment & Equipment */}
+          <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4 bg-slate-900/60">
+            <h2 className="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <Laptop className="w-4 h-4 text-cyan-400" />
+              <span>Learning Commitment & Necessary Equipment</span>
+            </h2>
+            <div className="grid sm:grid-cols-3 gap-4 text-xs">
+              <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Total Study Hours</span>
+                <strong className="text-sm font-bold text-purple-300 block">{flagship.learningCommitment.estimatedHours}</strong>
+              </div>
+              <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Assumed Starting Knowledge</span>
+                <p className="text-slate-300">{flagship.learningCommitment.assumedStartingKnowledge}</p>
+              </div>
+              <div className="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Necessary Equipment</span>
+                <p className="text-slate-300">{flagship.learningCommitment.necessaryEquipment}</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 3: Weekly Curated Resources */}
+          <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+            <div>
+              <h2 className="text-xl font-black text-white flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-purple-400" />
+                <span>Weekly Selected Learning Resources & Expected Outputs</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">Curated documentation, practice platforms, and specific milestone outputs for each phase.</p>
+            </div>
+
+            <div className="space-y-4">
+              {flagship.weeklyCuratedResources.map((res, idx) => (
+                <div key={idx} className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3 text-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                      {res.weekRange}
+                    </span>
+                    <h3 className="text-sm font-bold text-white">{res.focusTopic}</h3>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-3 pt-1">
+                    <div className="space-y-2">
+                      <span className="text-[10px] uppercase font-bold text-emerald-400 block">Selected Free Resources:</span>
+                      {res.freeResources.map((f, fIdx) => (
+                        <div key={fIdx} className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-0.5">
+                          <a href={f.url} target="_blank" rel="noreferrer" className="font-semibold text-purple-300 hover:underline flex items-center gap-1">
+                            <span>{f.title}</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                          <p className="text-[11px] text-slate-400">{f.note} ({f.format})</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {res.paidOptions && res.paidOptions.length > 0 && (
+                      <div className="space-y-2">
+                        <span className="text-[10px] uppercase font-bold text-amber-400 block">Optional Paid Certifications:</span>
+                        {res.paidOptions.map((p, pIdx) => (
+                          <div key={pIdx} className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-0.5">
+                            <span className="font-semibold text-white">{p.title}</span>
+                            <div className="text-[11px] text-slate-400 flex items-center justify-between">
+                              <span>{p.provider}</span>
+                              <strong className="text-amber-300">{p.cost}</strong>
+                            </div>
+                            <p className="text-[10px] text-slate-500">{p.note}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-800 text-xs text-emerald-400 font-medium">
+                    🎯 <strong>Expected Milestone Output:</strong> {res.expectedOutput}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 4: Project Packs with Datasets, Briefs & Assessment Rubrics */}
+          <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold mb-2">
+                <Layers className="w-3.5 h-3.5" />
+                <span>Verifiable Proof of Work</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Project Packs with Open Datasets & Assessment Rubrics
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">Real-world commercial briefs learners can execute independently and assess against industry rubrics.</p>
+            </div>
+
+            <div className="space-y-6">
+              {flagship.projectPacks.map((proj) => (
+                <div key={proj.id} className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="text-base font-bold text-white">{proj.title}</h3>
+                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      {proj.difficulty}
+                    </span>
+                  </div>
+
+                  {/* Dataset Context */}
+                  <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-1">
+                    <strong className="text-cyan-300 block">📊 Open Dataset / Context: {proj.datasetOrContext.name}</strong>
+                    <p className="text-slate-400 leading-relaxed">{proj.datasetOrContext.description} (Source: {proj.datasetOrContext.source})</p>
+                  </div>
+
+                  {/* Business Brief */}
+                  <div className="text-xs text-slate-300 leading-relaxed">
+                    <strong className="text-white block mb-0.5">Business Scenario Brief:</strong>
+                    {proj.businessBrief}
+                  </div>
+
+                  {/* Starter Steps */}
+                  <div className="space-y-1 text-xs">
+                    <strong className="text-purple-300 block">Step-by-Step Starter Blueprint:</strong>
+                    <ol className="text-slate-300 space-y-1 list-decimal list-inside">
+                      {proj.starterSteps.map((step, sIdx) => (
+                        <li key={sIdx} className="leading-relaxed">{step}</li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  {/* Sample Output */}
+                  <div className="text-xs text-slate-300">
+                    <strong className="text-emerald-400 block mb-0.5">Sample Deliverable Specification:</strong>
+                    <p className="text-slate-400">{proj.sampleOutputDescription}</p>
+                  </div>
+
+                  {/* Rubric Table */}
+                  <div className="pt-2 border-t border-slate-800 space-y-2">
+                    <strong className="text-xs uppercase tracking-wider text-slate-400 block">Self-Assessment Scoring Rubric:</strong>
+                    <div className="space-y-1.5 text-xs">
+                      {proj.rubric.map((rub, rIdx) => (
+                        <div key={rIdx} className="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800/80 flex items-start justify-between gap-3">
+                          <div>
+                            <span className="font-semibold text-slate-200">{rub.criterion}</span>
+                            <p className="text-[11px] text-slate-400 mt-0.5">{rub.guidance}</p>
+                          </div>
+                          <strong className="text-purple-300 text-xs shrink-0">{rub.weight}</strong>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 5: Readiness Checks */}
+          <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
+            <h2 className="text-lg font-black text-white flex items-center gap-2">
+              <CheckSquare className="w-5 h-5 text-emerald-400" />
+              <span>Independent Readiness Checks (Before Applying)</span>
+            </h2>
+            <p className="text-xs text-slate-400">Can you independently perform these practical tasks without looking up syntax?</p>
+
+            <div className="grid sm:grid-cols-2 gap-3 pt-2">
+              {flagship.readinessChecks.map((chk, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-1.5 text-xs">
+                  <strong className="text-white font-bold flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span>{chk.task}</span>
+                  </strong>
+                  <p className="text-slate-400 leading-relaxed text-[11px]">
+                    <strong>Validation:</strong> {chk.howToValidate}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Section 6: Hiring Preparation */}
+          <section className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
+            <div>
+              <h2 className="text-xl font-black text-white flex items-center gap-2">
+                <Users className="w-5 h-5 text-indigo-400" />
+                <span>Hiring Preparation & Scenario Interview Exercises</span>
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">Realistic scenario questions, sample responses, and common mistakes.</p>
+            </div>
+
+            <div className="space-y-4">
+              {flagship.hiringPreparation.interviewExercises.map((ex, idx) => (
+                <div key={idx} className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2.5 text-xs">
+                  <h4 className="font-bold text-white text-sm text-purple-300">
+                    Scenario Question {idx + 1}: {ex.question}
+                  </h4>
+                  <div className="p-2.5 bg-slate-950 rounded-xl border border-slate-800/80 text-slate-300">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Context:</span>
+                    {ex.scenario}
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-2.5 pt-1">
+                    <div className="p-3 bg-emerald-950/20 border border-emerald-500/30 rounded-xl space-y-1">
+                      <strong className="text-emerald-400 text-xs block">✓ What a Strong Answer Demonstrates:</strong>
+                      <p className="text-slate-300 text-[11px] leading-relaxed">{ex.whatGoodLooksLike}</p>
+                    </div>
+                    <div className="p-3 bg-rose-950/20 border border-rose-500/30 rounded-xl space-y-1">
+                      <strong className="text-rose-400 text-xs block">✗ Common Mistakes to Avoid:</strong>
+                      <p className="text-slate-300 text-[11px] leading-relaxed">{ex.commonMistakes}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-2 text-xs">
+              <strong className="text-slate-200 block">Portfolio & Application Strategy:</strong>
+              <ul className="text-slate-300 space-y-1 list-disc list-inside">
+                {flagship.hiringPreparation.portfolioStrategy.map((ps, i) => (
+                  <li key={i}>{ps}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      )}
+
+      {/* Main Content Grid (Syllabus, Concept Diagrams & Standard FAQs) */}
       <div className="grid lg:grid-cols-12 gap-8">
         
         {/* Left Column: Concept Diagram, Syllabus & Interview Questions */}
@@ -259,7 +565,7 @@ export default async function SkillDetailPage({ params }: Props) {
           <div className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10">
             <h2 className="text-xl font-black text-white mb-4 flex items-center gap-2">
               <Award className="w-5 h-5 text-purple-400" />
-              <span>Why This Skill Pays Off in 2026</span>
+              <span>Core Track Highlights</span>
             </h2>
             <div className="space-y-2.5">
               {skill.keyHighlights.map((hl, i) => (
@@ -323,9 +629,9 @@ export default async function SkillDetailPage({ params }: Props) {
             <div>
               <h2 className="text-xl font-black text-white flex items-center gap-2">
                 <Layers className="w-5 h-5 text-indigo-400" />
-                <span>Structured Week-by-Week Learning Syllabus</span>
+                <span>Structured Phase-by-Phase Syllabus</span>
               </h2>
-              <p className="text-xs text-slate-400 mt-1">Focus on build-by-doing milestones rather than passive video lectures.</p>
+              <p className="text-xs text-slate-400 mt-1">Focus on build-by-doing milestones rather than passive video consumption.</p>
             </div>
 
             <div className="space-y-6">
@@ -356,7 +662,7 @@ export default async function SkillDetailPage({ params }: Props) {
           <div className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
             <h2 className="text-xl font-black text-white flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-purple-400" />
-              <span>Top Interview Questions & Answers</span>
+              <span>Technical Interview Questions & Answers</span>
             </h2>
 
             <div className="space-y-4">
@@ -441,13 +747,13 @@ export default async function SkillDetailPage({ params }: Props) {
 
           {/* Career CTA */}
           <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-900/40 via-indigo-900/30 to-slate-950 border border-purple-500/30 text-center space-y-3">
-            <h4 className="text-sm font-bold text-white">Not sure if {skill.title} is right for you?</h4>
-            <p className="text-xs text-slate-300">Take our 30-second career quiz to find your highest-ROI match.</p>
+            <h4 className="text-sm font-bold text-white">Need a Personalized Career Plan?</h4>
+            <p className="text-xs text-slate-300">Take our 20+ Signal Career Compass to assess aptitude and discover suitable roadmaps.</p>
             <Link 
               href="/tools/career-compass"
               className="inline-block w-full py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn transition-all"
             >
-              Start Free Quiz
+              Start Career Compass
             </Link>
           </div>
 

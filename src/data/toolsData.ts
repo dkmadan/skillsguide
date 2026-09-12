@@ -125,39 +125,44 @@ FROM MonthlyRevenue;`
   resume: {
     id: 'resume',
     title: 'ATS Single-Column Plain Text Resume Template',
-    badge: 'ATS Score 95+',
+    badge: 'Machine-Readable Format',
     badgeColor: 'emerald',
-    description: 'Plain-text ATS-compliant markdown template optimized for Naukri, Instahyre, and LinkedIn recruiter parsing algorithms.',
+    description: 'Plain-text ATS-compliant markdown template structured for readability, standard section taxonomy, and verifiable quantifiable impact.',
     content: `# [YOUR FULL NAME]
 [City, State, India] | [+91 XXXXX XXXXX] | [your.email@gmail.com]
-LinkedIn: linkedin.com/in/yourname | GitHub: github.com/yourname | Portfolio: yourportfolio.com
+LinkedIn: linkedin.com/in/[your-handle] | GitHub: github.com/[your-handle] | Portfolio: [yourportfolio.com]
 
 ## PROFESSIONAL SUMMARY
-Results-driven [Target Job Title] with hands-on expertise in [3 Core Tools, e.g. SQL, Power BI, Python]. Built and deployed [X real-world projects], optimizing business workflows by [X%]. Passionate about turning complex data into actionable executive insights.
+[Target Job Title] with hands-on project experience in [3 Core Tools/Languages, e.g. SQL, Power BI, Python]. Built [X completed end-to-end projects] analyzing [describe domain datasets, e.g. e-commerce logistics and loan risk]. Skilled in translating business questions into interactive dashboards, automated pipelines, and documented insights.
 
 ## CORE TECHNICAL SKILLS
-- Languages & Tools: SQL (Window Functions, CTEs), Power BI (DAX, Star Schema), Python (Pandas, NumPy), Excel (Power Query, XLOOKUP)
-- Competencies: Data Modeling, Dashboard Design, A/B Testing, ETL Pipelines, Business MIS Reporting
+- Languages & Databases: SQL (PostgreSQL/MySQL: Window Functions, CTEs, Indexing), Python (Pandas, NumPy, Matplotlib)
+- BI & Visualization: Power BI (DAX Measures, Star Schema, Power Query ETL), Advanced Excel (Dynamic Arrays, XLOOKUP)
+- Core Competencies: Dimensional Data Modeling, KPI Dashboard Design, Cohort Retention Analysis, Business MIS Reporting
 
 ## FEATURED PROJECTS
-### Swiggy / Zomato Delivery Analytics Dashboard | Power BI, SQL, DAX
-- Engineered a Star Schema dimensional model connecting 150,000+ delivery records, reducing report refresh latency by 45%.
-- Formulated 20+ custom DAX measures (CALCULATE, Time-Intelligence) to analyze average delivery times, rider payouts, and regional margins.
-- Live Interactive Dashboard: [novypro.com/project/link] | GitHub: [github.com/yourname/project]
+### [Project 1 Title: e.g. E-Commerce Delivery Analytics Dashboard] | [Tools: e.g. Power BI, PostgreSQL, DAX]
+- Engineered a Star Schema dimensional model connecting [X,000+ records / X tables], improving data refresh efficiency by [X% measured before vs after query tuning].
+- Formulated [X+ custom DAX measures / SQL queries] (e.g. CALCULATE, Time-Intelligence) to analyze [Key Metric 1: e.g. average turnaround time] and [Key Metric 2: e.g. regional margin variations].
+- Delivered an interactive executive report with automated drill-through filters; published documentation and schema diagrams to GitHub.
+- Live Interactive Dashboard: [link to public portfolio/NovyPro] | GitHub Repository: [github.com/your-handle/project-repo]
 
-### Indian FinTech Loan Default Risk Analyzer | Python, Pandas, Scikit-Learn
-- Performed exploratory data analysis (EDA) on 80,000 banking loan records to identify high-risk customer default triggers.
-- Developed an interactive Streamlit dashboard allowing loan officers to simulate borrower default probabilities.
+### [Project 2 Title: e.g. Retail Loan Risk Classification Model] | [Tools: e.g. Python, Scikit-Learn, Streamlit]
+- Performed exploratory data analysis (EDA) across [X,000+ open benchmark records, e.g. Kaggle / RBI dataset] to identify correlation between [Variable A] and [Variable B].
+- Implemented and evaluated baseline classification models, achieving [X% Precision / Recall / F1-Score] validated via cross-validation.
+- Deployed a lightweight interactive web interface on Streamlit Community Cloud enabling users to test custom parameter scenarios.
+- Live Web Application: [link to Streamlit/HuggingFace demo] | GitHub Repository: [github.com/your-handle/project-repo]
 
-## WORK EXPERIENCE
-### [Company Name] | [Job Title] | [City, India]
-[Month, Year] – Present
-- Automated daily and weekly sales MIS reporting using Power Query and advanced Excel, saving 12 manual team hours per week.
-- Collaborated with cross-functional sales and finance leads to reconcile monthly revenue variations, achieving 99.4% reporting accuracy.
+## WORK EXPERIENCE / APPRENTICESHIPS
+### [Company / Organization Name] | [Job Title / Intern Role] | [City, India]
+[Month, Year] – [Month, Year / Present]
+- [Action Verb] [specific business task or workflow] using [Tools], resulting in [Measurable Outcome: e.g. automated daily MIS reporting, saving ~X manual hours weekly].
+- Collaborated with [Stakeholder Team, e.g. Sales / Finance / Operations leads] to reconcile [Deliverable, e.g. monthly inventory discrepancies], achieving [X% verified data completeness].
+- Documented standard operating procedures (SOPs) and query repositories for internal team knowledge sharing.
 
 ## EDUCATION & CERTIFICATIONS
-- Bachelor of Technology / Commerce / Science | [University Name] | [Graduation Year]
-- Microsoft Certified: Power BI Data Analyst Associate (PL-300) | [Year]`
+- Bachelor of [Degree, e.g. Technology / Commerce / Science] | [University / College Name] | [Graduation Year]
+- [Relevant Certification Name, e.g. Microsoft Certified: Power BI Data Analyst Associate (PL-300)] | [Year]`
   },
   excel: {
     id: 'excel',

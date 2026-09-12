@@ -24,7 +24,8 @@ import {
   Leaf,
   Zap,
   Calculator,
-  Scale
+  Scale,
+  Briefcase
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -638,7 +639,19 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 5. Roadmap Dropdown */}
+            {/* 5. Journeys Link */}
+            <Link 
+              href="/journeys" 
+              className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                pathname.startsWith('/journeys')
+                  ? 'bg-purple-600 text-white shadow-glow-btn' 
+                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+              }`}
+            >
+              Journeys
+            </Link>
+
+            {/* 6. Roadmap Dropdown */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('roadmaps')}
@@ -691,7 +704,7 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 6. Compare & Alternatives Hub Dropdown */}
+            {/* 7. Compare & Alternatives Hub Dropdown */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('compare')}
@@ -756,7 +769,7 @@ export default function Navbar({
               )}
             </div>
 
-            {/* 7. Career Tools Hub */}
+            {/* 8. Career Tools Hub */}
             <div 
               className="relative"
               onMouseEnter={() => setActiveDropdown('tools')}
@@ -764,7 +777,7 @@ export default function Navbar({
             >
               <button 
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
-                  pathname.startsWith('/tools/salary') || pathname.startsWith('/tools/career-compass') || pathname.startsWith('/tools/roi') || pathname.startsWith('/tools/ats') || pathname.startsWith('/glossary') || activeDropdown === 'tools'
+                  pathname.startsWith('/tools') || pathname.startsWith('/glossary') || activeDropdown === 'tools'
                     ? 'text-amber-300 bg-amber-500/10 font-bold' 
                     : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
@@ -777,12 +790,36 @@ export default function Navbar({
 
               {activeDropdown === 'tools' && (
                 <div className="absolute top-full right-0 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="w-[360px] rounded-2xl nav-dropdown-menu p-4 shadow-2xl border border-white/15 space-y-1">
+                  <div className="w-[380px] rounded-2xl nav-dropdown-menu p-4 shadow-2xl border border-white/15 space-y-1">
                     <div className="pb-2 mb-1 border-b border-white/10">
                       <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-400">
                         Interactive Career Utilities
                       </span>
                     </div>
+
+                    <Link href="/tools/application-tracker" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                        <Briefcase className="w-3.5 h-3.5 text-purple-400" />
+                        <span>Job Application &amp; Interview Tracker</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Private pipeline tracking saved to browser</div>
+                    </Link>
+
+                    <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                        <Compass className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>Career Compass (20+ Signals)</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Comprehensive career assessment</div>
+                    </Link>
+
+                    <Link href="/tools/roi-calculator" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
+                      <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
+                        <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>Career ROI &amp; Payback Calculator</span>
+                      </div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">3-tier scenarios with opportunity costs</div>
+                    </Link>
 
                     <Link href="/tools/salary-calculator" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
@@ -792,20 +829,12 @@ export default function Navbar({
                       <div className="text-[10px] text-slate-400 ml-5.5">CTC to take-home, PF &amp; New Tax Regime</div>
                     </Link>
 
-                    <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
-                      <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
-                        <Compass className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>Career Compass Quiz</span>
-                      </div>
-                      <div className="text-[10px] text-slate-400 ml-5.5">Algorithmic role &amp; track recommendation</div>
-                    </Link>
-
                     <Link href="/tools/ats-resume" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <FileText className="w-3.5 h-3.5 text-indigo-400" />
-                        <span>ATS Resume Builder &amp; Power Verbs</span>
+                        <span>ATS Resume &amp; Action Verbs Checklist</span>
                       </div>
-                      <div className="text-[10px] text-slate-400 ml-5.5">Score 85%+ on recruiter ATS software</div>
+                      <div className="text-[10px] text-slate-400 ml-5.5">Machine-readable single-column template</div>
                     </Link>
 
                     <Link href="/glossary" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">

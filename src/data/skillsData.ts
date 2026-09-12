@@ -761,101 +761,105 @@ export const skillsData: SkillDetail[] = [
   },
   {
     slug: 'freelancing-usd',
-    title: 'Global Freelancing & Remote USD Work',
+    title: 'Global Freelancing & Remote Service Delivery',
     category: 'business',
-    categoryLabel: 'Earn in USD from India',
-    shortDesc: 'Win international clients on Upwork/Fiverr, pitch high-converting proposals, receive USD via Wise, and claim 0% export GST with LUT.',
-    longDesc: 'Tap into global currency arbitrage by delivering tech, design, marketing, or virtual services to US, European, and Australian clients while living in India. Learn profile optimization, the "First 2 Lines" proposal framework, and Indian banking compliance.',
+    categoryLabel: 'International Service Exports',
+    shortDesc: 'Win international clients on platforms and direct outreach, structure professional contracts, receive USD/EUR via compliant inward remittance, and navigate GST LUT and Section 44ADA.',
+    longDesc: 'Deliver technical, design, marketing, or virtual services to international clients while based in India. Learn precise service positioning, value-focused proposal messaging, Indian foreign inward remittance compliance (FIRC/FIRA), GST zero-rated export rules under LUT, and Section 44ADA presumptive taxation.',
     heroImage: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
-    salaryRange: '₹80,000 – ₹3,50,000 / Month',
-    minSalaryLPA: 9.6,
-    maxSalaryLPA: 35.0,
-    averageSalaryLPA: 18.0,
+    salaryRange: '₹60,000 – ₹2,50,000 / Month (Gross)',
+    minSalaryLPA: 7.2,
+    maxSalaryLPA: 30.0,
+    averageSalaryLPA: 14.0,
     timelineWeeks: '6 – 8 Weeks',
-    hiringVolume: 'Global Remote Market',
+    hiringVolume: 'Independent Client Marketplace',
     experienceLevel: 'All Levels',
-    topCities: ['Work from Anywhere in India'],
-    tools: ['Upwork', 'Fiverr', 'Wise / Payoneer', 'Loom', 'GST Portal (LUT)', 'Notion Client Portals'],
+    topCities: ['Remote across India'],
+    tools: ['Upwork / Direct Invoicing', 'Wise Business / RazorpayX', 'Loom', 'GST Portal (LUT)', 'Notion Client Portals'],
     keyHighlights: [
-      'Earn $20 to $60/hour directly from overseas clients without moving abroad',
-      'Learn legal Indian GST Letter of Undertaking (LUT) for 0% tax on software/service exports',
-      'Build long-term monthly retainers with international businesses'
+      'Learn how to package specific deliverables rather than selling undifferentiated hours',
+      'Understand GST Letter of Undertaking (LUT) for zero-rated service export invoicing',
+      'Understand real take-home income math: gross billings minus platform cuts, forex fees, software, and income tax'
     ],
     syllabus: [
       {
-        phase: 'Phase 1: High-Ticket Niche & Profile Proof',
+        phase: 'Phase 1: Service Packaging & Portfolio Proof',
         weeks: 'Weeks 1 - 2',
-        topics: ['Narrow positioning (e.g., "Shopify Speed Optimization Specialist")', 'Portfolio case studies formatted with problem-action-results', 'Loom 60-second video introduction showing live work'],
-        project: '100% Optimized Upwork & LinkedIn Freelance Profile with 3 case studies.'
+        topics: ['Narrow niche positioning (e.g. Web Performance Specialist, B2B SaaS Copywriter)', 'Documenting problem-solution-result case studies', 'Asynchronous Loom screen recording demonstrating live project capabilities'],
+        project: 'Service offer sheet with 3 verified public case study walk-throughs.'
       },
       {
-        phase: 'Phase 2: High-Converting Proposal Bidding Strategy',
+        phase: 'Phase 2: Client Outreach, Proposals & Discovery Calls',
         weeks: 'Weeks 3 - 5',
-        topics: ['The "First 2 Lines" proposal formula that gets 80%+ view rates', 'Spotting high-value clients and filtering low-budget tire-kickers', 'Conducting discovery calls and scope of work contracts'],
-        project: 'Submitting 20 tailored proposals and booking first 3 international client discovery calls.'
+        topics: ['Writing relevant, problem-first proposal hooks tailored to client requirements', 'Qualifying clients to filter out scope-creep and payment risks', 'Structuring statement of work (SOW) agreements with milestone payment terms'],
+        project: 'Submitting 15 tailored client proposals and conducting mock client discovery calls.'
       },
       {
-        phase: 'Phase 3: Indian Inward Remittance, Wise & Tax LUT',
+        phase: 'Phase 3: Inward Remittance, Banking & Indian Tax Compliance',
         weeks: 'Weeks 6 - 8',
-        topics: ['Wise Business and local FIRC (Foreign Inward Remittance Certificate)', 'Applying for GST LUT (Letter of Undertaking) online for 0% export GST', 'Section 44ADA presumptive taxation for Indian freelance professionals'],
-        project: 'Complete Freelance Business Operating Setup ready to receive USD/EUR/GBP.'
+        topics: ['Foreign Inward Remittance Advice (e-FIRA / FIRC) documentation for export proof', 'Applying for GST LUT (Letter of Undertaking) online for 0% export GST invoicing', 'Section 44ADA presumptive taxation vs. regular tax regimes for freelance professionals'],
+        project: 'Complete compliant freelancer operating kit: Invoicing template, LUT filing checklist, and net take-home spreadsheet.'
       }
     ],
     jobRoles: [
-      { title: 'Independent Remote Contractor', salary: '₹1.0L – ₹3.5L / month', demand: 'High' },
-      { title: 'Freelance Agency Founder', salary: '₹3.0L – ₹10.0L / month', demand: 'Growing' }
+      { title: 'Independent Remote Specialist', salary: '₹80,000 – ₹2.5L / month (Gross)', demand: 'Active' },
+      { title: 'B2B Service Consultant', salary: '₹1.5L – ₹4.0L / month (Gross)', demand: 'Specialized' }
     ],
     interviewQuestions: [
       {
-        question: 'What is GST LUT (Letter of Undertaking) for Indian Freelancers?',
-        answer: 'GST LUT allows registered Indian service providers to export services to foreign clients at 0% GST (zero-rated supply) without paying IGST upfront and waiting for refunds.'
+        question: 'What is GST LUT (Letter of Undertaking) and does it eliminate Income Tax?',
+        answer: 'No. GST LUT allows registered Indian exporters to supply services to foreign clients at 0% GST (zero-rated supply under Section 16 of the IGST Act) without paying 18% IGST upfront. However, Income Tax still applies on all profits under standard income tax provisions or Section 44ADA.'
+      },
+      {
+        question: 'How do you calculate real net take-home pay from gross USD freelancing income?',
+        answer: 'Net Take-Home = Gross USD Invoiced - Platform Service Fees (10-20%) - Inward Forex Conversion Spreads (1-2%) - Operating Expenses (Software, Hardware, Internet) - Direct Income Tax / Advance Tax.'
       }
     ],
     faqs: [
-      { question: 'Is it hard to get the first job on Upwork?', answer: 'It is hard only if you send copy-pasted generic bids. By addressing the client’s exact pain point in the first 2 lines and attaching a short Loom screen recording, conversion jumps 5x.' }
+      { question: 'What is the best way to stand out when applying for freelance projects?', answer: 'Address the client’s specific technical bottleneck in the opening sentences and provide a short, tailored video or code sample directly relevant to their problem, rather than copying generic resume text.' }
     ],
     relatedSkills: ['digital-marketing', 'video-editing', 'graphic-figma', 'communication-english']
   },
   {
     slug: 'resume-linkedin',
-    title: 'ATS Resume & LinkedIn Optimization',
+    title: 'ATS Resume & Professional Outreach',
     category: 'business',
-    categoryLabel: 'Immediate High ROI',
-    shortDesc: 'Craft single-column ATS-parsing resumes, optimize Naukri/LinkedIn recruiter algorithms, and execute cold DM outreach.',
-    longDesc: 'Most job applications are rejected by Applicant Tracking Systems (ATS) before a human recruiter ever sees them. Learn how to format high-score resumes, optimize LinkedIn headlines and keywords, and write high-response cold messages to hiring managers.',
+    categoryLabel: 'Career Search Strategy',
+    shortDesc: 'Craft single-column ATS-parsing resumes, structure standard taxonomy headings, and execute value-first outreach to hiring leads.',
+    longDesc: 'Learn how to format clean machine-readable resumes that pass applicant tracking parsers, highlight verifiable project metrics, and initiate value-focused professional outreach on LinkedIn without generic mass messaging.',
     heroImage: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=900&q=80',
-    salaryRange: '3x to 5x More Interview Callbacks',
+    salaryRange: 'Higher Interview Callbacks',
     minSalaryLPA: 5.0,
     maxSalaryLPA: 25.0,
     averageSalaryLPA: 12.0,
-    timelineWeeks: '1 Weekend (48 Hours)',
+    timelineWeeks: '1 Weekend',
     hiringVolume: 'Universal Advantage',
     experienceLevel: 'All Levels',
     topCities: ['Pan-India'],
-    tools: ['ATS Parsers', 'LinkedIn Creator Mode', 'Naukri Recruiter Search', 'Overleaf / Plain Text', 'Hunter.io'],
+    tools: ['ATS Parsers', 'LinkedIn Profile Optimization', 'Naukri Recruiter Indexing', 'Plain Text / Markdown', 'Hunter.io'],
     keyHighlights: [
-      'Single highest ROI weekend investment you can make in your professional journey',
-      'Transforms single-digit callback rates into multiple competing interview offers',
-      'Teaches proactive outreach to bypass crowded job portals entirely'
+      'Learn how applicant tracking systems parse single-column text vs broken multi-column layouts',
+      'Format quantitative bullet points using Google’s X-Y-Z formula with genuine project metrics',
+      'Execute value-first professional outreach to hiring leads with custom project demonstrations'
     ],
     syllabus: [
       {
-        phase: 'Phase 1: ATS Formatting & Action-Verb Bullets',
+        phase: 'Phase 1: ATS Formatting & Quantifiable Project Bullets',
         weeks: 'Step 1 (Day 1)',
-        topics: ['Single-column clean typography without tables, textboxes, or icons', 'Google "X-Y-Z" formula: Accomplished [X] as measured by [Y] by doing [Z]', 'Keyword alignment against target Job Descriptions (JD)'],
-        project: 'ATS 90+ Score Industry-Tailored Resume.'
+        topics: ['Single-column clean typography without tables, textboxes, or nested graphics', 'Google "X-Y-Z" formula: Accomplished [X] as measured by [Y] by doing [Z]', 'Aligning relevant technical keywords against target Job Descriptions without stuffing'],
+        project: 'Machine-readable tailored resume with verifiable project placeholders.'
       },
       {
-        phase: 'Phase 2: LinkedIn & Naukri Recruiter SEO',
+        phase: 'Phase 2: LinkedIn Search Optimization & Profile Proof',
         weeks: 'Step 2 (Day 2)',
-        topics: ['Keyword stuffing the Headline and About sections naturally', 'Showcasing featured media, GitHub links, and recommendations', 'Daily profile refreshing algorithm hack for Naukri search rankings'],
-        project: 'All-Star LinkedIn Profile & 100% Completed Naukri Account.'
+        topics: ['Structuring clear Headline and About sections around target skills', 'Showcasing featured media, live project links, and peer endorsements', 'Maintaining active profile status for recruiter search visibility'],
+        project: 'Optimized LinkedIn profile and complete Naukri candidate profile.'
       },
       {
-        phase: 'Phase 3: Cold DM Scripts & Hiring Manager Outreach',
+        phase: 'Phase 3: Value-First Outreach & Hiring Lead Conversations',
         weeks: 'Step 3 (Ongoing)',
-        topics: ['Identifying engineering leads and HR decision makers', 'The 4-line value-first cold LinkedIn DM template', 'Follow-up cadences that do not sound desperate'],
-        project: 'Sending 15 targeted outreach messages yielding 3+ interview requests.'
+        topics: ['Identifying relevant department leads and hiring managers', 'The 4-line value-first professional message framework', 'Respectful follow-up cadences sharing new project milestones'],
+        project: 'Targeted outreach campaign sharing personalized project demonstrations with hiring leads.'
       }
     ],
     jobRoles: [

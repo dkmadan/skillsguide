@@ -20,7 +20,12 @@ import {
   Layers, 
   TrendingUp, 
   Compass,
-  ArrowUpRight
+  ArrowUpRight,
+  Info,
+  ShieldCheck,
+  Zap,
+  Wrench,
+  FileCheck
 } from 'lucide-react';
 
 interface Props {
@@ -44,8 +49,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${category.title} Blueprints (2026) | Salary: ${category.averageSalary}`,
-    description: `Complete guide to ${category.title}. Discover verified 2026 Indian salary benchmarks (${category.averageSalary}), learning timelines, top hiring hubs, and step-by-step career tracks.`,
+    title: `${category.title} Guides | Career Pathways & Market Insights`,
+    description: `Complete guide to ${category.title}. Discover contextual Indian salary benchmarks (${category.averageSalary}), learning timelines, top hiring hubs, and step-by-step career tracks.`,
     keywords: [
       category.title,
       `${category.title} jobs india`,
@@ -54,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'career roadmaps india'
     ],
     openGraph: {
-      title: `${category.title} Career Blueprints & Indian Salary Guide`,
+      title: `${category.title} Career Blueprints & Indian Market Guide`,
       description: category.shortDesc,
       url: `https://skillsguide.in/category/${category.slug}`,
       type: 'website',
@@ -125,33 +130,81 @@ export default async function CategoryDetailPage({ params }: Props) {
         <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-6 border-t border-slate-800">
           <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
             <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Industry Growth</span>
-            <strong className="text-base sm:text-lg font-black text-emerald-400 mt-1 block">
+            <strong className="text-sm sm:text-base font-black text-emerald-400 mt-1 block">
               {category.cagrGrowth}
             </strong>
           </div>
 
           <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
             <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Expected Indian CTC</span>
-            <strong className="text-base sm:text-lg font-black text-purple-300 mt-1 block">
+            <strong className="text-sm sm:text-base font-black text-purple-300 mt-1 block">
               {category.averageSalary}
             </strong>
           </div>
 
           <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
             <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Hiring Demand</span>
-            <strong className="text-base sm:text-lg font-black text-cyan-400 mt-1 block">
+            <strong className="text-xs sm:text-sm font-bold text-cyan-400 mt-1 block">
               {category.hiringVolume}
             </strong>
           </div>
 
           <div className="p-4 bg-slate-900/80 rounded-2xl border border-slate-800">
-            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Top Tech Hubs</span>
+            <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Top Hubs</span>
             <strong className="text-xs sm:text-sm font-bold text-slate-200 mt-1 block truncate" title={category.topHubs.join(', ')}>
               {category.topHubs.slice(0, 3).join(', ')}
             </strong>
           </div>
         </div>
+
+        {/* Source and Methodology Annotation */}
+        <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
+          <span className="flex items-center gap-1">
+            <Info className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+            <span><strong>Source:</strong> {category.sourceAttribution} ({category.measurementPeriod})</span>
+          </span>
+          <span className="text-slate-500"><strong>Scope:</strong> {category.geography}</span>
+        </div>
       </section>
+
+      {/* Special Green Tech 3-Way Pathways Section if Green Tech */}
+      {category.slug === 'green-tech-sustainability' && (
+        <section className="glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/30 mb-12 space-y-4 bg-gradient-to-br from-teal-950/30 via-slate-900/80 to-slate-950">
+          <div className="flex items-center gap-2 text-teal-300">
+            <Zap className="w-5 h-5 text-teal-400" />
+            <h2 className="text-lg sm:text-xl font-black text-white">Three Distinct Green Tech Career Pathways</h2>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Green technology encompasses three distinct entry and qualification profiles. Choose the track aligned with your educational background and career goals:
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 pt-2">
+            <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                <Wrench className="w-4 h-4" />
+                <span>1. Field Technician Pathway</span>
+              </div>
+              <p className="text-xs text-slate-300">Rooftop Solar PV Installation, Inverter DC wiring, and EV Two-Wheeler / Three-Wheeler battery & motor diagnostics.</p>
+              <span className="inline-block text-[11px] text-emerald-300 font-semibold">Entry: ITI / Diploma / 12th Pass Friendly</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+              <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+                <Layers className="w-4 h-4" />
+                <span>2. Design & Simulation Engineering</span>
+              </div>
+              <p className="text-xs text-slate-300">Utility solar farm PVsyst 3D shading simulations, AutoCAD SLDs, EV battery pack thermal modeling, and MATLAB BMS algorithms.</p>
+              <span className="inline-block text-[11px] text-cyan-300 font-semibold">Entry: B.E. / B.Tech (Electrical, Mechanical, Electronics)</span>
+            </div>
+            <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+              <div className="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+                <FileCheck className="w-4 h-4" />
+                <span>3. ESG & Sustainability Reporting</span>
+              </div>
+              <p className="text-xs text-slate-300">SEBI BRSR Core corporate sustainability audits, GHG Protocol Scope 1, 2, and 3 carbon accounting, and supply chain decarbonization.</p>
+              <span className="inline-block text-[11px] text-purple-300 font-semibold">Entry: Commerce, Management, Environmental Science & Tech</span>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Grid of Topic Blueprint Cards */}
       <section className="space-y-6 mb-16">
@@ -159,7 +212,7 @@ export default async function CategoryDetailPage({ params }: Props) {
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
               <Layers className="w-6 h-6 text-purple-400" />
-              <span>Verified Career Blueprints in {category.title}</span>
+              <span>Curated Career Blueprints in {category.title}</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 mt-1">
               Select a specialized track to view detailed syllabi, concept architecture diagrams, salary benchmarks, and interview preparation.

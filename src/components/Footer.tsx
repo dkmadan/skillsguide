@@ -79,10 +79,13 @@ export default function Footer() {
 
           {/* Col 5: Career Tools & Legal */}
           <div>
-            <h5 className="font-extrabold text-white text-xs uppercase tracking-wider mb-3 text-indigo-300">Tools &amp; Legal</h5>
+            <h5 className="font-extrabold text-white text-xs uppercase tracking-wider mb-3 text-indigo-300">Tools &amp; Journeys</h5>
             <ul className="space-y-2 text-slate-400">
+              <li><Link href="/journeys" className="hover:text-indigo-400 font-semibold text-purple-300 transition-colors">Learner Journeys (9 Tracks)</Link></li>
+              <li><Link href="/tools/application-tracker" className="hover:text-indigo-400 transition-colors">Application Tracker</Link></li>
+              <li><Link href="/tools/roi-calculator" className="hover:text-indigo-400 transition-colors">Career ROI Calculator</Link></li>
               <li><Link href="/tools/salary-calculator" className="hover:text-indigo-400 transition-colors">Salary &amp; Tax Calculator</Link></li>
-              <li><Link href="/tools/career-compass" className="hover:text-indigo-400 transition-colors">Career Compass</Link></li>
+              <li><Link href="/tools/career-compass" className="hover:text-indigo-400 transition-colors">Career Compass (20+ Signals)</Link></li>
               <li><Link href="/tools/ats-resume" className="hover:text-indigo-400 transition-colors">ATS Resume Checklist</Link></li>
               <li><Link href="/glossary" className="hover:text-indigo-400 transition-colors">Interactive Glossary</Link></li>
               <li>

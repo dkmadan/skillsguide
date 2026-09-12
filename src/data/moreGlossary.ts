@@ -88,13 +88,13 @@ jobs:
     term: 'Cold DM Outbound Strategy',
     slug: 'cold-dm-strategy',
     category: 'Business',
-    shortDefinition: 'A direct messaging framework on LinkedIn to initiate conversations with hiring managers and prospective B2B clients.',
-    fullExplanation: 'High-converting cold DMs focus on the recipient’s immediate goals rather than sending generic sales pitches. By opening with a genuine observation or a 30-second audit, response rates increase from 2% to over 25%.',
-    exampleOrSnippet: `4-Line Cold DM Template:
-1. Context: "Noticed your team is scaling Next.js engineering..."
-2. Proof: "Recently optimized checkout latency by 40% for [Brand]..."
-3. Offer: "Happy to send a 2-minute video breakdown if helpful."
-4. Low-friction CTA: "No pitch, just thought it might be relevant!"`,
+    shortDefinition: 'A targeted direct messaging approach on professional networks to initiate value-first conversations with hiring leads or clients.',
+    fullExplanation: 'Effective professional cold messaging centers on genuine relevance rather than mass spam. By referencing a specific company challenge, sharing a relevant project artifact or concise Loom breakdown, and lowering the reply barrier, outreach generates productive professional dialogues.',
+    exampleOrSnippet: `4-Line Professional Outreach Template:
+1. Relevant Context: "Noticed your engineering team is migrating dashboard infrastructure..."
+2. Tangible Proof: "Recently engineered an open-source Star Schema pipeline with documented query benchmarks: [Link]"
+3. Concrete Offer: "Happy to share a 2-minute architectural walk-through if useful to your team."
+4. Low-Friction Close: "No pressure at all, wishing you great momentum on the launch!"`,
     relatedSkillSlug: 'resume-linkedin',
     relatedSkillName: 'ATS Resume & LinkedIn Mastery'
   },
@@ -102,11 +102,13 @@ jobs:
     term: 'Presumptive Taxation (Section 44ADA)',
     slug: 'section-44ada',
     category: 'Finance & Tax',
-    shortDefinition: 'A special tax scheme for Indian freelance professionals declaring 50% of gross revenue as taxable profit without maintaining detailed books.',
-    fullExplanation: 'Under Section 44ADA of the Indian Income Tax Act, technical, design, marketing, and legal professionals with gross receipts up to ₹75 Lakhs can declare 50% as taxable income, drastically reducing administrative overhead and tax liability.',
-    exampleOrSnippet: `Gross Foreign Freelance Income: ₹30,00,000
-Taxable Profit under 44ADA (50%): ₹15,00,000
-Net Tax Payable after standard deductions: ~₹1,40,000 (effective tax rate under 5%)`,
+    shortDefinition: 'A simplified Indian income tax scheme allowing eligible freelance professionals to declare a minimum 50% of gross receipts as taxable profits.',
+    fullExplanation: 'Under Section 44ADA of the Indian Income Tax Act (1961), specified resident professionals (technical consultants, software developers, designers, accountants) with annual gross receipts up to ₹75 Lakhs (provided cash receipts do not exceed 5%) can offer 50% of gross receipts as deemed profit without maintaining detailed double-entry books or undergoing tax audits. Standard income tax slab rates (under the Old or New Tax Regime) apply to this deemed profit. Note: Section 44ADA governs Income Tax, while service exports require separate GST LUT compliance for zero-rated export supplies.',
+    exampleOrSnippet: `Illustrative 44ADA Computation:
+Gross Foreign Receipts: ₹24,00,000
+Deemed Taxable Profit (50%): ₹12,00,000
+Applicable Tax: Calculated per individual income tax slab rates after allowable deductions.
+(Always consult a Chartered Accountant for state-specific thresholds and advance tax obligations)`,
     relatedSkillSlug: 'freelancing-usd',
     relatedSkillName: 'Global Freelancing & USD'
   },

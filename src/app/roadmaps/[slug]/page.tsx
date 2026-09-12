@@ -6,6 +6,7 @@ import { allRoadmapsList, getRoadmapBySlug } from '@/data/roadmapsData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import BookmarkButton from '@/components/BookmarkButton';
+import RoadmapChecklistTracker from '@/components/RoadmapChecklistTracker';
 import { 
   MapPin, 
   Clock, 
@@ -78,12 +79,12 @@ export default async function RoadmapDetailPage({ params }: Props) {
   ];
 
   return (
-    <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto">
+    <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto space-y-10">
       <JsonLd data={jsonLdData} />
       <Breadcrumbs items={breadcrumbs} />
 
       {/* Hero */}
-      <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden mb-10">
+      <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden">
         <div className="max-w-4xl space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
@@ -115,7 +116,7 @@ export default async function RoadmapDetailPage({ params }: Props) {
               <strong className="text-emerald-400 font-bold block">{roadmap.weeklyCommitment}</strong>
             </div>
             <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800">
-              <span className="text-[10px] text-slate-400 block">Target CTC</span>
+              <span className="text-[10px] text-slate-400 block">Target CTC Band</span>
               <strong className="text-amber-300 font-bold block">{roadmap.salaryExpectation}</strong>
             </div>
           </div>
@@ -181,6 +182,9 @@ export default async function RoadmapDetailPage({ params }: Props) {
         {/* Right Sidebar */}
         <div className="lg:col-span-4 space-y-6">
           
+          {/* Interactive Checklist Tracker Component */}
+          <RoadmapChecklistTracker roadmapSlug={roadmap.slug} checklist={roadmap.checklist} />
+
           {/* Career Transitions */}
           <div className="glass-card p-6 rounded-3xl border border-white/10 space-y-4">
             <h3 className="text-sm font-black uppercase text-white flex items-center gap-2">
@@ -200,15 +204,15 @@ export default async function RoadmapDetailPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Quick Quiz Box */}
+          {/* Compass Assessment Box */}
           <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-900/40 via-indigo-900/30 to-slate-950 border border-purple-500/30 text-center space-y-3">
-            <h4 className="text-sm font-bold text-white">Discover more tailored roadmaps</h4>
-            <p className="text-xs text-slate-300">Our 30-sec career compass calculates your highest return on investment.</p>
+            <h4 className="text-sm font-bold text-white">Discover More Tailored Roadmaps</h4>
+            <p className="text-xs text-slate-300">Take the 20+ Signal Career Compass to assess aptitude and discover suitable roadmaps.</p>
             <Link 
               href="/tools/career-compass"
               className="inline-block w-full py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn transition-all"
             >
-              Take Free Career Quiz
+              Start Career Compass
             </Link>
           </div>
 
