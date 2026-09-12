@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { trackCount } from '@/data/siteStats';
 import { usePathname } from 'next/navigation';
 import { 
   GraduationCap, 
@@ -106,8 +107,8 @@ export default function Navbar({
             <div className="flex items-center gap-2.5 min-w-0 overflow-hidden text-left">
               <Search className="w-4 h-4 text-purple-400 shrink-0 group-hover:text-purple-300 group-hover:scale-110 transition-transform" />
               <span className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-200 truncate">
-                <span className="hidden lg:inline">Search 45+ high-income skills, roadmaps, tools, salary guides...</span>
-                <span className="lg:hidden">Search 45+ skills, roadmaps...</span>
+                <span className="hidden lg:inline">Search {trackCount} high-income skills, roadmaps, tools, salary guides...</span>
+                <span className="lg:hidden">Search {trackCount} skills, roadmaps...</span>
               </span>
             </div>
             
@@ -844,7 +845,7 @@ export default function Navbar({
           >
             <div className="flex items-center gap-2 text-slate-400">
               <Search className="w-4 h-4 text-purple-400" />
-              <span>Search 45+ skills, roadmaps, tools...</span>
+              <span>Search {trackCount} skills, roadmaps, tools...</span>
             </div>
             <kbd className="px-2 py-0.5 text-[9px] bg-slate-800 rounded font-mono text-purple-300">⌘K</kbd>
           </button>

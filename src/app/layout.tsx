@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'SkillsGuide.in | Empower Your Career Journey With Modern In-Demand Skills',
     template: '%s | SkillsGuide.in'
   },
-  description: 'India\'s leading career skilling and roadmap platform. Master High-Demand Tech (AI, Data, Cloud), Non-IT, Tally GST, and Business skills with verified Indian salary benchmarks.',
+  description: 'India\'s leading career skilling and roadmap platform. Master High-Demand Tech (AI, Data, Cloud), Non-IT, Tally GST, and Business skills with source-linked salary references.',
   keywords: [
     'skillsguide', 'skillsguide.in', 'career roadmaps india', 'data analyst salary india',
     'full stack developer roadmap', 'tally prime gst course', 'prompt engineering jobs india',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     locale: 'en_IN',
     url: 'https://skillsguide.in',
     title: 'SkillsGuide.in | Empower Your Career Journey With Modern In-Demand Skills',
-    description: 'Master High-Demand Tech, Non-IT, and Business Skills with verified Indian salary benchmarks and step-by-step career roadmaps.',
+    description: 'Master High-Demand Tech, Non-IT, and Business Skills with source-linked salary references and step-by-step career roadmaps.',
     siteName: 'SkillsGuide.in',
     images: [
       {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'SkillsGuide.in | In-Demand Skills & Indian Salary Benchmarks',
-    description: 'Expert-verified career roadmaps, salary benchmarks, and interactive tools for Indian aspirants.',
+    description: 'Practical career roadmaps, salary benchmarks, and interactive tools for Indian aspirants.',
     images: ['https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&h=630&q=80']
   },
   robots: {

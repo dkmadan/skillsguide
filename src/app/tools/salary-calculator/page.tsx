@@ -1,176 +1,41 @@
-'use client';
+﻿'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { Calculator, IndianRupee, HelpCircle, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Calculator, ArrowUpRight } from 'lucide-react';
+import { estimateTakeHome, PayrollInputs, taxSources } from '@/lib/takeHome';
 
+const initial: PayrollInputs = { annualCtc: 800000, employerCosts: 21600, annualBonus: 0, monthlyEmployeePf: 1800, annualProfessionalTax: 0, additional80C: 0, hraExemption: 0, regime: 'new' };
+const inr = (n: number) => `${n < 0 ? "-" : ""}\u20b9${Math.round(Math.abs(n)).toLocaleString("en-IN")}`;
 export default function SalaryCalculatorPage() {
-  const [annualCTC, setAnnualCTC] = useState<number>(800000);
-  const [cityTier, setCityTier] = useState<'tier1' | 'tier2'>('tier1');
-  const [taxRegime, setTaxRegime] = useState<'new' | 'old'>('new');
-
-  // Basic in-hand tax estimation under Indian Finance Act
-  const standardDeduction = 75000;
-  const basicSalary = annualCTC * 0.40;
-  const employeePF = Math.min(basicSalary * 0.12, 21600); // 12% basic or standard
-  const professionalTax = 2400; // Annual PT in most states
-
-  const taxableIncome = Math.max(0, annualCTC - standardDeduction - (taxRegime === 'old' ? employeePF + 150000 : 0));
-
-  // Income tax computation (New Regime Simplified Slabs 2024-2026)
-  let calculatedTax = 0;
-  if (taxRegime === 'new') {
-    if (taxableIncome <= 700000) {
-      calculatedTax = 0; // Section 87A rebate
-    } else {
-      if (taxableIncome > 300000) calculatedTax += Math.min(taxableIncome - 300000, 400000) * 0.05;
-      if (taxableIncome > 700000) calculatedTax += Math.min(taxableIncome - 700000, 300000) * 0.10;
-      if (taxableIncome > 1000000) calculatedTax += Math.min(taxableIncome - 1000000, 200000) * 0.15;
-      if (taxableIncome > 1200000) calculatedTax += Math.min(taxableIncome - 1200000, 300000) * 0.20;
-      if (taxableIncome > 1500000) calculatedTax += (taxableIncome - 1500000) * 0.30;
-      // 4% Health and Education Cess
-      calculatedTax = calculatedTax * 1.04;
-    }
-  } else {
-    // Old Regime
-    if (taxableIncome > 250000) calculatedTax += Math.min(taxableIncome - 250000, 250000) * 0.05;
-    if (taxableIncome > 500000) calculatedTax += Math.min(taxableIncome - 500000, 500000) * 0.20;
-    if (taxableIncome > 1000000) calculatedTax += (taxableIncome - 1000000) * 0.30;
-    calculatedTax = calculatedTax * 1.04;
-  }
-
-  const annualInHand = Math.max(0, annualCTC - employeePF - professionalTax - calculatedTax);
-  const monthlyInHand = Math.round(annualInHand / 12);
-  const monthlyPF = Math.round(employeePF / 12);
-  const monthlyTax = Math.round(calculatedTax / 12);
-
-  const breadcrumbs = [
-    { name: 'Career Tools', url: '/#salary-explorer' },
-    { name: 'Indian In-Hand Salary Calculator' }
+  const [input, setInput] = useState(initial);
+  const [year, setYear] = useState('FY 2026–27');
+  const fields: { key: Exclude<keyof PayrollInputs, 'regime'>; label: string; hint: string; max: number }[] = [
+    { key: 'annualCtc', label: 'Annual CTC (₹)', hint: 'Total employer cost, up to ₹50 lakh.', max: 5000000 },
+    { key: 'employerCosts', label: 'Annual non-cash employer costs (₹)', hint: 'Employer PF, gratuity, insurance and other non-cash benefits included in CTC. Default ₹21,600 is an assumption; edit from your offer.', max: 5000000 },
+    { key: 'annualBonus', label: 'Annual variable pay / bonus (₹)', hint: 'Assumed paid in full for annual tax; excluded from recurring monthly cash.', max: 5000000 },
+    { key: 'monthlyEmployeePf', label: 'Monthly employee PF (₹)', hint: 'Use your payslip. ₹1,800 assumes 12% of ₹15,000 pensionable pay; your contribution can differ.', max: 100000 },
+    { key: 'annualProfessionalTax', label: 'Annual professional tax (₹)', hint: 'Enter the amount applicable to your state. Default zero; not every state levies this tax.', max: 2500 },
+    ...(input.regime === 'old' ? [
+      { key: 'additional80C' as const, label: 'Other eligible 80C investments (₹ / year)', hint: 'Excludes employee PF entered above. Combined deduction is capped at ₹1.5 lakh.', max: 150000 },
+      { key: 'hraExemption' as const, label: 'Eligible annual HRA exemption (₹)', hint: 'Enter the exemption supported by your rent and salary details, not your full HRA allowance.', max: 5000000 },
+    ] : []),
   ];
-
-  return (
-    <div className="py-8 px-4 sm:px-6 lg:px-10 max-w-5xl mx-auto space-y-8">
-      <Breadcrumbs items={breadcrumbs} />
-
-      <div className="text-center max-w-3xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold">
-          <Calculator className="w-3.5 h-3.5" />
-          <span>Real Take-Home Salary Estimator</span>
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-          Indian CTC to Monthly In-Hand Calculator
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-300">
-          Calculate your exact post-tax take-home pay under New vs Old tax regimes with PF deductions.
-        </p>
+  let result: ReturnType<typeof estimateTakeHome> | null = null;
+  let error = '';
+  try { result = estimateTakeHome(input); } catch (e) { error = e instanceof Error ? e.message : 'Check the payroll amounts.'; }
+  return <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 sm:px-6">
+    <Breadcrumbs items={[{ name: 'Salary Explorer', url: '/#salary-explorer' }, { name: 'Estimated take-home calculator' }]} />
+    <div className="max-w-3xl space-y-3"><p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-purple-300"><Calculator className="h-4 w-4" />Estimated take-home</p><h1 className="text-3xl font-black text-white sm:text-4xl">Understand what reaches your bank.</h1><p className="text-sm leading-6 text-slate-400">Estimate post-tax pay from your actual CTC components. Employer costs, bonus timing, PF, and state taxes all affect take-home.</p></div>
+    <div className="grid gap-8 rounded-3xl border border-purple-400/20 bg-[#111320] p-5 sm:p-8 lg:grid-cols-2">
+      <div className="space-y-5"><div className="grid gap-4 sm:grid-cols-2"><div><label htmlFor="tax-year" className="mb-2 block text-sm font-semibold text-slate-200">Tax year</label><select id="tax-year" value={year} onChange={e => setYear(e.target.value)} className="w-full rounded-xl border border-slate-600 bg-slate-800 p-3 text-sm text-white"><option>FY 2026–27</option><option>FY 2025–26 (AY 2026–27)</option></select></div><div><label htmlFor="tax-regime" className="mb-2 block text-sm font-semibold text-slate-200">Tax regime</label><select id="tax-regime" value={input.regime} onChange={e => setInput({ ...input, regime: e.target.value as 'new' | 'old' })} className="w-full rounded-xl border border-slate-600 bg-slate-800 p-3 text-sm text-white"><option value="new">New regime</option><option value="old">Old regime</option></select></div></div>
+        {fields.map(f => <div key={f.key}><label htmlFor={`pay-${f.key}`} className="mb-2 block text-sm font-semibold text-slate-200">{f.label}</label><input id={`pay-${f.key}`} type="number" min={0} max={f.max} step={1} value={Number.isNaN(input[f.key]) ? '' : input[f.key]} onChange={e => setInput({ ...input, [f.key]: e.target.value === '' ? NaN : Number(e.target.value) })} aria-describedby={`hint-${f.key}`} className="w-full rounded-xl border border-slate-600 bg-slate-800 p-3 text-sm text-white outline-none focus:ring-2 focus:ring-purple-400" /><p id={`hint-${f.key}`} className="mt-2 text-xs leading-5 text-slate-400">{f.hint}</p></div>)}
       </div>
-
-      <div className="glass-card p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl grid lg:grid-cols-12 gap-8">
-        
-        {/* Controls */}
-        <div className="lg:col-span-6 space-y-6">
-          
-          <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-              Annual CTC (Cost to Company): ₹{(annualCTC / 100000).toFixed(1)} LPA
-            </label>
-            <input 
-              type="range"
-              min="250000"
-              max="5000000"
-              step="50000"
-              value={annualCTC}
-              onChange={(e) => setAnnualCTC(parseInt(e.target.value))}
-              className="w-full h-2 bg-slate-700 rounded-lg cursor-pointer accent-purple-500"
-            />
-            <div className="flex justify-between text-[10px] text-slate-400 font-bold mt-1">
-              <span>₹2.5 LPA</span>
-              <span>₹15 LPA</span>
-              <span>₹30 LPA</span>
-              <span>₹50 LPA</span>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
-              Select Income Tax Regime:
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={() => setTaxRegime('new')}
-                className={`p-3 rounded-2xl border text-xs font-bold transition-all ${
-                  taxRegime === 'new'
-                    ? 'bg-purple-600 text-white border-purple-500 shadow-glow-btn'
-                    : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800'
-                }`}
-              >
-                New Tax Regime (Default)
-              </button>
-              <button
-                onClick={() => setTaxRegime('old')}
-                className={`p-3 rounded-2xl border text-xs font-bold transition-all ${
-                  taxRegime === 'old'
-                    ? 'bg-purple-600 text-white border-purple-500 shadow-glow-btn'
-                    : 'bg-slate-900 text-slate-300 border-slate-700 hover:bg-slate-800'
-                }`}
-              >
-                Old Tax Regime (80C/HRA)
-              </button>
-            </div>
-          </div>
-
-          <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-xs text-purple-200 space-y-1">
-            <span className="font-bold block">💡 Standard Deductions Applied:</span>
-            <p className="text-slate-300">
-              Includes ₹75,000 standard salaried deduction, employee Provident Fund (EPF), and Professional Tax (PT).
-            </p>
-          </div>
-
-        </div>
-
-        {/* Results */}
-        <div className="lg:col-span-6 rounded-2xl p-6 bg-slate-950/80 border border-slate-800 space-y-6 flex flex-col justify-between">
-          
-          <div>
-            <span className="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider block">
-              Estimated Monthly In-Hand Cash Flow
-            </span>
-            <p className="text-3xl sm:text-4xl font-black text-emerald-400 mt-1">
-              ₹{monthlyInHand.toLocaleString('en-IN')} <span className="text-xs font-medium text-slate-400">/ month</span>
-            </p>
-            <span className="text-xs text-slate-400 mt-1 block">
-              Annual In-Hand: ₹{annualInHand.toLocaleString('en-IN')}
-            </span>
-          </div>
-
-          {/* Breakdown Table */}
-          <div className="space-y-2 border-t border-slate-800 pt-4 text-xs">
-            <div className="flex justify-between text-slate-300">
-              <span>Gross Monthly Salary:</span>
-              <strong className="text-white">₹{Math.round(annualCTC / 12).toLocaleString('en-IN')}</strong>
-            </div>
-            <div className="flex justify-between text-slate-400">
-              <span>Monthly EPF Deduction (12%):</span>
-              <span className="text-rose-400">- ₹{monthlyPF.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="flex justify-between text-slate-400">
-              <span>Monthly Income Tax (TDS):</span>
-              <span className="text-rose-400">- ₹{monthlyTax.toLocaleString('en-IN')}</span>
-            </div>
-            <div className="flex justify-between text-slate-400">
-              <span>Monthly Professional Tax:</span>
-              <span className="text-rose-400">- ₹200</span>
-            </div>
-          </div>
-
-          <div className="pt-2 text-[11px] text-slate-500 text-center">
-            Exact take-home may vary slightly depending on employer medical insurance and gratuity structure.
-          </div>
-
-        </div>
-
+      <div className="space-y-6"><div className="rounded-2xl border border-emerald-400/20 bg-emerald-400/5 p-6" aria-live="polite"><p className="text-xs font-bold uppercase tracking-wider text-emerald-200">Estimated monthly take-home</p><p className="mt-3 text-4xl font-black text-white">{result ? inr(result.monthlyRecurring) : '—'}</p><p className="mt-2 text-xs leading-5 text-slate-400">Recurring cash, excluding bonus payout. Tax assumes the full entered annual bonus is paid.</p>{error && <p role="alert" className="mt-3 text-sm text-rose-300">{error}</p>}</div>
+        {result && <><div className="rounded-2xl border border-white/10 p-5"><h2 className="mb-4 font-bold text-white">Annual breakdown</h2><dl className="space-y-3 text-sm">{[['CTC', input.annualCtc], ['Non-cash employer costs', -input.employerCosts], ['Gross cash salary (including bonus)', result.gross], ['Employee PF', -result.employeePf], ['Professional tax', -input.annualProfessionalTax], ['Income tax including cess', -result.annualTax], ['Estimated annual net (including bonus)', result.annualNet]].map(([label, value]) => <div key={label} className="flex justify-between gap-4 border-b border-white/5 pb-2"><dt className="text-slate-400">{label}</dt><dd className="shrink-0 font-semibold text-slate-200">{inr(value as number)}</dd></div>)}</dl></div><div className="rounded-2xl border border-white/10 p-5"><h2 className="mb-3 font-bold text-white">Tax calculation · {year}</h2><dl className="space-y-2 text-xs">{[['Standard deduction', result.standardDeduction], ['80C deduction (PF included once)', result.deduction80C], ['Taxable income', result.taxableIncome], ['Slab tax before rebate', result.beforeRebate], ['Rebate / marginal relief', result.rebateAndRelief], ['Health & education cess', result.cess]].map(([label, value]) => <div key={label} className="flex justify-between gap-3"><dt className="text-slate-400">{label}</dt><dd className="text-slate-200">{inr(value as number)}</dd></div>)}</dl></div></>}
+        <p className="text-xs leading-6 text-slate-400">For resident salaried individuals under 60, ordinary salary income only, and CTC up to ₹50 lakh. Excludes capital gains, other income, surcharge, employer NPS, ESI and deductions not entered here. Estimates can differ materially from payroll.</p>
       </div>
     </div>
-  );
+    <details className="rounded-2xl border border-white/10 bg-[#111320] p-6" open><summary className="cursor-pointer font-bold text-white">How we calculate this</summary><div className="mt-4 space-y-3 text-sm leading-6 text-slate-400"><p>Gross cash = CTC − non-cash employer costs. Taxable income = gross cash − standard deduction − eligible deductions for the chosen regime. Recurring monthly take-home = (gross cash − bonus − employee PF − professional tax − annual income tax including cess) ÷ 12.</p><p>New regime: ₹0–4L at 0%, ₹4–8L at 5%, ₹8–12L at 10%, ₹12–16L at 15%, ₹16–20L at 20%, ₹20–24L at 25%, above ₹24L at 30%. Standard deduction ₹75,000; rebate up to taxable income ₹12L, with marginal relief immediately above it. Old regime: 0% to ₹2.5L, then 5% to ₹5L, 20% to ₹10L, 30% above; ₹50,000 standard deduction and rebate up to taxable income ₹5L. Cess is 4% after relief.</p><p>Both listed years use these rates. The ₹1.5L old-regime 80C limit includes employee PF once. HRA and professional tax are deducted only under the old regime. Employer benefits and PF inputs are payroll assumptions, not fixed percentages of your CTC.</p><p className="text-xs">Sources checked 12 September 2026. Read the <a className="text-purple-300 underline" href={taxSources.slabs} target="_blank" rel="noreferrer">Income Tax Department rates</a>, <a className="text-purple-300 underline" href={taxSources.budget2026} target="_blank" rel="noreferrer">2026 tax memorandum</a>, <a className="text-purple-300 underline" href={taxSources.deductions} target="_blank" rel="noreferrer">salary deductions</a>, and <a className="inline-flex items-center gap-1 text-purple-300 underline" href={taxSources.epf} target="_blank" rel="noreferrer">EPFO employer booklet<ArrowUpRight className="h-3 w-3" /></a>.</p></div></details>
+  </div>;
 }

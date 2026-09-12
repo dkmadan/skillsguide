@@ -58,6 +58,7 @@ export default async function SalaryGuideDetailPage({ params }: Props) {
       <JsonLd data={jsonLdData} />
       <Breadcrumbs items={breadcrumbs} />
 
+      <div className="my-5 rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4 text-sm leading-6 text-slate-300">These guide figures are editorial planning examples, not verified market observations. For published benchmarks and their coverage, use the <Link href="/#salary-explorer" className="text-purple-300 underline">source-linked salary explorer</Link>. For tax assumptions, use the estimated take-home calculator.</div>
       {/* Header */}
       <div className="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl relative overflow-hidden mb-10">
         <div className="max-w-3xl space-y-4">
@@ -93,7 +94,7 @@ export default async function SalaryGuideDetailPage({ params }: Props) {
                 <thead>
                   <tr className="border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
                     <th className="pb-3">Experience Level</th>
-                    <th className="pb-3">Average Annual CTC</th>
+                    <th className="pb-3">Illustrative Annual CTC</th>
                     <th className="pb-3">Est. Monthly In-Hand</th>
                     <th className="pb-3">Variable Bonus</th>
                   </tr>
@@ -131,7 +132,7 @@ export default async function SalaryGuideDetailPage({ params }: Props) {
 
                   <div className="text-xs space-y-1 text-slate-300">
                     <div className="flex justify-between">
-                      <span>Average CTC:</span>
+                      <span>Illustrative CTC:</span>
                       <strong className="text-emerald-400">₹{city.avgSalaryLPA} LPA</strong>
                     </div>
                     <div className="flex justify-between">
@@ -150,7 +151,7 @@ export default async function SalaryGuideDetailPage({ params }: Props) {
 
           {/* Key Drivers for 30%+ Hikes */}
           <div className="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 space-y-4">
-            <h2 className="text-xl font-black text-white">Factors Driving 30%+ Salary Hikes</h2>
+            <h2 className="text-xl font-black text-white">Factors That Can Influence Compensation</h2>
             <div className="space-y-2.5">
               {guide.factorsDrivingHikes.map((factor, i) => (
                 <div key={i} className="flex items-start gap-2.5 text-xs text-slate-300">
@@ -178,7 +179,7 @@ export default async function SalaryGuideDetailPage({ params }: Props) {
           </div>
 
           <div className="p-6 rounded-3xl bg-gradient-to-br from-purple-900/40 via-indigo-900/30 to-slate-950 border border-purple-500/30 text-center space-y-3">
-            <h4 className="text-sm font-bold text-white">Calculate your exact in-hand salary</h4>
+            <h4 className="text-sm font-bold text-white">Estimate your take-home salary</h4>
             <p className="text-xs text-slate-300">Compare New vs Old tax regimes with our free interactive calculator.</p>
             <Link 
               href="/tools/salary-calculator"

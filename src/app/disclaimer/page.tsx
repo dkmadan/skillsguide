@@ -52,13 +52,10 @@ export default function DisclaimerPage() {
             <span>2. Indian Salary Benchmarks & Methodology</span>
           </h2>
           <p>
-            Salary benchmarks, Cost to Company (CTC) figures, and monthly in-hand approximations published on this platform are aggregated from publicly available industry sources, including:
+            The salary explorer links each published benchmark to its source, report period, and experience band. Other guide and Compass salary figures are illustrative planning examples. We do not claim a verified placement rate or an audited learner count.
           </p>
-          <ul className="space-y-1.5 list-disc list-inside text-slate-400 pl-2">
-            <li>Verified Indian tech job disclosures (AmbitionBox, Glassdoor, Instahyre, Naukri)</li>
-            <li>Compensation reports from leading Indian recruitment consultancies and Tier-1 staffing agencies</li>
-            <li>Direct recruiter salary bracket disclosures across Bengaluru, Hyderabad, NCR, Pune, and Mumbai</li>
-          </ul>
+          <p>Published averages cannot establish medians, percentiles, or cohort sample sizes. The explorer leaves unsupported statistics unavailable and identifies any broader comparison. It does not apply invented city, industry, or company premiums.</p>
+          <p>Estimated take-home uses the tax-year rules and editable payroll assumptions shown in the calculator. It is not a payslip or tax filing calculation.</p>
           <p>
             Actual compensation offered by employers is subject to multiple individualized variables, including candidate interview performance, prior work experience, academic pedigree, specific company revenue stage, location allowances, and variable incentive clauses. SkillsGuide.in does not guarantee any specific salary or job offer.
           </p>

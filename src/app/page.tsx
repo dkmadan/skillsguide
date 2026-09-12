@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackCount } from '@/data/siteStats';
 import Link from 'next/link';
 import Image from 'next/image';
 import { allSkillsList } from '@/data/skillsData';
@@ -33,7 +34,7 @@ export default function HomePage() {
     '@type': 'WebSite',
     name: 'SkillsGuide.in',
     url: 'https://skillsguide.in',
-    description: 'India\'s leading career skilling and roadmap platform with verified salary benchmarks.',
+    description: 'India\'s leading career skilling and roadmap platform with source-linked salary references.',
     potentialAction: {
       '@type': 'SearchAction',
       target: 'https://skillsguide.in/glossary?q={search_term_string}',
@@ -75,7 +76,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed font-normal">
-              Upgrade your career with expert-verified roadmaps, interactive Indian salary benchmarks, and actionable blueprints—spanning <strong>Generative AI &amp; Agents, Cloud Platform IaC, EV &amp; Battery Systems, Modern No-Code, and UI/UX Design Systems</strong>.
+              Upgrade your career with practical roadmaps, interactive Indian salary benchmarks, and actionable blueprints—spanning <strong>Generative AI &amp; Agents, Cloud Platform IaC, EV &amp; Battery Systems, Modern No-Code, and UI/UX Design Systems</strong>.
             </p>
 
             {/* Action Buttons */}
@@ -103,23 +104,23 @@ export default function HomePage() {
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <Bookmark className="w-3.5 h-3.5 text-purple-400" />
-                  <span>45+ Tracks</span>
+                  <span>{trackCount} Tracks</span>
                 </div>
                 <p className="text-xs text-slate-300 font-medium">Free Career Guides</p>
               </div>
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <Users className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>140k+</span>
+                  <span>Open access</span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium">Indian Learners</p>
+                <p className="text-xs text-slate-300 font-medium">For Indian Learners</p>
               </div>
               <div>
                 <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
                   <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>₹6L - ₹35L</span>
+                  <span>Source-linked</span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium">Verified CTC Range</p>
+                <p className="text-xs text-slate-300 font-medium">Salary Explorer</p>
               </div>
             </div>
 
@@ -179,12 +180,6 @@ export default function HomePage() {
                     alt="Female Tech Student Avatar" 
                     className="w-full h-80 object-cover object-top rounded-b-2xl filter contrast-105"
                   />
-                </div>
-
-                {/* Placement Rate Badge */}
-                <div className="glass-card px-3 py-2 rounded-xl flex items-center justify-between text-[11px] border border-white/10 bg-[#161926]/90 backdrop-blur-md">
-                  <span className="text-slate-300 font-medium">Placement Rate</span>
-                  <span className="text-emerald-400 font-extrabold">91.4% Proven</span>
                 </div>
               </div>
 

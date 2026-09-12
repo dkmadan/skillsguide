@@ -21,7 +21,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-slate-400 text-xs leading-relaxed">
-              India&apos;s leading career skilling and upward mobility platform. Providing verified Indian salary benchmarks, structured execution roadmaps, practical cheatsheets, and high-demand subject domain blueprints.
+              India&apos;s leading career skilling and upward mobility platform. Providing source-linked salary references, structured execution roadmaps, practical cheatsheets, and high-demand subject domain blueprints.
             </p>
             <div className="pt-2 flex items-center gap-4 text-slate-500">
               <span className="flex items-center gap-1 text-[11px]">

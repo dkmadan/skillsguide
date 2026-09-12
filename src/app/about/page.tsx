@@ -1,4 +1,5 @@
 import React from 'react';
+import { trackCount } from '@/data/siteStats';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -27,7 +28,7 @@ export default function AboutPage() {
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-white">About SkillsGuide.in</h1>
           <p className="text-sm text-slate-300 leading-relaxed">
-            SkillsGuide.in was created to democratize career intelligence for Indian learners, freshers, and working professionals. In an era of rapid technological change and tuition inflation, we believe career roadmaps, real salary benchmarks, and project-based execution should be 100% accessible to everyone.
+            SkillsGuide.in was created to democratize career intelligence for Indian learners, freshers, and working professionals. In an era of rapid technological change and tuition inflation, we believe career roadmaps, source-linked salary references, and project-based execution should be 100% accessible to everyone.
           </p>
         </div>
 
@@ -38,14 +39,14 @@ export default function AboutPage() {
             <p className="text-[11px] text-slate-400">Zero paywalls on blueprints</p>
           </div>
           <div className="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-1 text-center">
-            <span className="text-2xl font-black text-emerald-400">₹6L - ₹28L</span>
-            <h4 className="text-xs font-bold text-white">Verified Salary Data</h4>
-            <p className="text-[11px] text-slate-400">Transparent compensation</p>
+            <span className="text-2xl font-black text-emerald-400">Sources</span>
+            <h4 className="text-xs font-bold text-white">Salary Methodology</h4>
+            <p className="text-[11px] text-slate-400">References and coverage disclosed</p>
           </div>
           <div className="p-4 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-1 text-center">
-            <span className="text-2xl font-black text-indigo-400">120k+</span>
-            <h4 className="text-xs font-bold text-white">Learners Helped</h4>
-            <p className="text-[11px] text-slate-400">Across 28 Indian states</p>
+            <span className="text-2xl font-black text-indigo-400">{trackCount}</span>
+            <h4 className="text-xs font-bold text-white">Career Tracks</h4>
+            <p className="text-[11px] text-slate-400">Counted from our live catalogue</p>
           </div>
         </div>
 
@@ -64,7 +65,7 @@ export default function AboutPage() {
             href="/#skills-catalog"
             className="px-6 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center gap-2"
           >
-            <span>Explore All 30+ Tracks</span>
+            <span>Explore All {trackCount} Tracks</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
