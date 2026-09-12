@@ -444,7 +444,7 @@ export default async function SkillComparisonDetailPage({ params }: Props) {
               href="/tools/career-compass"
               className="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs font-bold shadow-glow-btn flex items-center gap-2 hover:brightness-110 transition-all"
             >
-              <span>Take 30-Sec Career Match Quiz</span>
+              <span>Take Career Match Quiz</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <Link 

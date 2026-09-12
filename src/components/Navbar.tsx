@@ -153,7 +153,7 @@ export default function Navbar({
           <button 
             onClick={onOpenQuiz}
             className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl glass-card hover:border-amber-500/50 text-xs font-bold text-slate-200 hover:text-amber-300 transition-all group cursor-pointer"
-            title="Take 30-Second Career Compass Quiz"
+            title="Take Career Compass Quiz"
           >
             <Compass className="w-3.5 h-3.5 text-amber-400 group-hover:rotate-45 transition-transform" />
             <span>Career Quiz</span>
@@ -794,7 +794,7 @@ export default function Navbar({
                     <Link href="/tools/career-compass" className="block p-2.5 rounded-xl hover:bg-white/10 transition-colors group">
                       <div className="text-xs font-bold text-white group-hover:text-amber-300 flex items-center gap-2">
                         <Compass className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>30-Sec Career Compass Quiz</span>
+                        <span>Career Compass Quiz</span>
                       </div>
                       <div className="text-[10px] text-slate-400 ml-5.5">Algorithmic role &amp; track recommendation</div>
                     </Link>
@@ -943,7 +943,7 @@ export default function Navbar({
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold flex items-center justify-center gap-2 shadow-glow-btn mt-3 cursor-pointer"
           >
             <Compass className="w-4 h-4 text-amber-300" />
-            <span>Take 30-Sec Career Compass</span>
+            <span>Take Career Compass</span>
           </button>
         </div>
       )}

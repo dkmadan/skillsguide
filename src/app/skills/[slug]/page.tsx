@@ -241,7 +241,7 @@ export default async function SkillDetailPage({ params }: Props) {
               href="/tools/career-compass"
               className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center justify-center gap-2 transition-all mt-2"
             >
-              <span>Take 30-Sec Career Match</span>
+              <span>Take Career Match</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

@@ -82,7 +82,7 @@ export default function Footer() {
             <h5 className="font-extrabold text-white text-xs uppercase tracking-wider mb-3 text-indigo-300">Tools &amp; Legal</h5>
             <ul className="space-y-2 text-slate-400">
               <li><Link href="/tools/salary-calculator" className="hover:text-indigo-400 transition-colors">Salary &amp; Tax Calculator</Link></li>
-              <li><Link href="/tools/career-compass" className="hover:text-indigo-400 transition-colors">30-Sec Career Compass</Link></li>
+              <li><Link href="/tools/career-compass" className="hover:text-indigo-400 transition-colors">Career Compass</Link></li>
               <li><Link href="/tools/ats-resume" className="hover:text-indigo-400 transition-colors">ATS Resume Checklist</Link></li>
               <li><Link href="/glossary" className="hover:text-indigo-400 transition-colors">Interactive Glossary</Link></li>
               <li>
