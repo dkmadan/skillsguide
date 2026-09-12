@@ -1,69 +1,979 @@
 export type Answers = Record<string, string>;
-export type Question = { id: string; label: string; options?: string[]; optional?: boolean; type?: 'text' | 'number'; hint?: string };
-const comfort = ['None yet', 'Beginner', 'Comfortable', 'Strong', 'Advanced'];
 
-export const compassSteps: { title: string; description: string; questions: Question[] }[] = [
-  { title: 'Your starting point', description: 'Every background has a path forward. Let’s start with yours.', questions: [
-    { id: 'education', label: 'Highest education', options: ['12th or below', 'Diploma / ITI', 'B.Com / BBA', 'B.Tech / BCA / MCA', 'BA / Humanities', 'B.Sc / Other degree', 'B.Pharm / Life Sciences', 'LL.B / Law', 'B.Ed / Teaching'] },
-    { id: 'experience', label: 'Total work experience', options: ['Fresher', 'Under 2 years', '2–5 years', '5+ years'] },
-    { id: 'domain', label: 'Current or most familiar field', options: ['Still exploring', 'Technology', 'Finance / Accounts', 'Marketing / Sales', 'Design / Media', 'Customer operations', 'Education / Teaching', 'Pharmacy / Healthcare', 'Law / Legal', 'Core Engineering'] },
-    { id: 'status', label: 'Where are you today?', options: ['Student', 'Looking for my first job', 'Employed', 'Returning after a break', 'Self-employed'] },
-    { id: 'salary', label: 'Current annual salary (₹ lakh)', type: 'number', optional: true, hint: 'Optional. Used only to compare with your planning range.' },
-    { id: 'location', label: 'City / state', type: 'text', hint: 'Used in your local job-search plan, not to infer your abilities.' },
-  ] },
-  { title: 'Your strengths', description: 'Answer for today, not where you think you should be.', questions: [
-    { id: 'coding', label: 'Coding comfort', options: comfort },
-    { id: 'maths', label: 'Maths & statistics', options: comfort },
-    { id: 'communication', label: 'Explaining ideas to others', options: comfort },
-    { id: 'creative', label: 'Creative thinking & visual work', options: comfort },
-    { id: 'analysis', label: 'Solving problems with evidence', options: comfort },
-    { id: 'detail', label: 'Working carefully with details', options: comfort },
-  ] },
-  { title: 'What draws you in', description: 'Find work that fits your interests as well as your skills.', questions: [
-    { id: 'interest', label: 'Which work sounds most interesting?', options: ['Finding insights in data', 'Building software', 'Growing a business', 'Creating visual stories', 'Managing money', 'Helping customers', 'Keeping systems reliable', 'Teaching and mentoring', 'Healthcare and pharmacy', 'Legal and compliance', 'Industrial tech and engineering'] },
-    { id: 'style', label: 'Preferred way of working', options: ['Deep independent focus', 'A mix of solo and teamwork', 'Frequent people interaction'] },
-    { id: 'structure', label: 'How much structure do you like?', options: ['Clear processes', 'A balance', 'Open-ended problems'] },
-    { id: 'english', label: 'Professional English comfort', options: comfort },
-    { id: 'tools', label: 'Your strongest existing tool', options: ['None yet', 'Excel / Sheets', 'SQL / Power BI', 'Python / JavaScript', 'Figma / Adobe / Video tools', 'Tally / Accounting tools', 'CRM / Marketing tools', 'LMS / Classroom tools', 'MedDRA / Pharmacy ERP', 'Legal databases (SCC/Manupatra)', 'CAD / PLC tools'] },
-    { id: 'portfolio', label: 'Evidence of your skills', options: ['Starting from scratch', 'Course exercises', 'One personal project', 'Multiple projects / professional work'] },
-  ] },
-  { title: 'Your destination', description: 'Tell us what a worthwhile career move looks like.', questions: [
-    { id: 'target', label: 'Target annual salary', options: ['₹4 lakh', '₹8 lakh', '₹15 lakh', '₹25 lakh+'] },
-    { id: 'goal', label: 'Your biggest priority', options: ['Get a job sooner', 'Long-term earning growth', 'A sustainable career switch', 'Freelance flexibility'] },
-    { id: 'work', label: 'Preferred workplace', options: ['Office', 'Hybrid', 'Remote', 'Flexible'] },
-    { id: 'relocate', label: 'Open to relocating?', options: ['Yes', 'Within my state', 'No'] },
-    { id: 'employment', label: 'Preferred employment', options: ['Full-time role', 'Freelance / Contract', 'Either'] },
-    { id: 'risk', label: 'Comfort with uncertain income', options: ['Need predictability', 'Some flexibility', 'Comfortable experimenting'] },
-  ] },
-  { title: 'Make it achievable', description: 'A useful plan respects your time, resources, and responsibilities.', questions: [
-    { id: 'hours', label: 'Learning time each week', options: ['5 hours', '10 hours', '20 hours', '30 hours'] },
-    { id: 'deadline', label: 'When would you like to switch?', options: ['3 months', '6 months', '12 months'] },
-    { id: 'budget', label: 'Learning budget', options: ['Free resources only', 'Under ₹10,000', 'Can invest in certification'] },
-    { id: 'device', label: 'Computer access', options: ['Own laptop / desktop', 'Shared computer', 'Phone only'] },
-    { id: 'learning', label: 'How do you learn best?', options: ['Building projects', 'Structured courses', 'With a mentor / community'] },
-    { id: 'shifts', label: 'Schedule flexibility', options: ['Daytime only', 'Flexible hours', 'Open to shifts / on-call'] },
-  ] },
+export type Question = {
+  id: string;
+  label: string;
+  options?: string[];
+  optional?: boolean;
+  type?: 'text' | 'number';
+  hint?: string;
+  category?: string;
+};
+
+export const comfort = ['None yet', 'Beginner', 'Comfortable', 'Strong', 'Advanced'];
+
+export type UserDomainType = 
+  | 'law_legal' 
+  | 'finance_ca' 
+  | 'pharma_health' 
+  | 'education' 
+  | 'core_engineering' 
+  | 'technology' 
+  | 'design_media' 
+  | 'general_business';
+
+export function resolveUserDomain(answers: Answers): UserDomainType {
+  const edu = answers.education || '';
+  const domain = answers.domain || '';
+
+  if (edu.includes('CA / CS / CMA') || domain.includes('Chartered Accountancy') || domain.includes('Finance / Accounts') || edu.includes('Commerce')) {
+    if (edu.includes('CA / CS / CMA') || domain.includes('Chartered Accountancy')) return 'finance_ca';
+  }
+  if (edu.includes('LL.B') || domain.includes('Law / Legal')) return 'law_legal';
+  if (edu.includes('B.Pharm') || edu.includes('MBBS') || domain.includes('Pharmacy / Healthcare')) return 'pharma_health';
+  if (edu.includes('B.Ed') || domain.includes('Education / Teaching')) return 'education';
+  if (edu.includes('Core Eng') || edu.includes('Diploma / ITI') || domain.includes('Core Engineering')) return 'core_engineering';
+  if (edu.includes('Computer Science') || domain.includes('Technology')) return 'technology';
+  if (edu.includes('Design / Fine Arts') || domain.includes('Design / Media')) return 'design_media';
+  if (edu.includes('Commerce') || domain.includes('Business Operations')) return 'finance_ca';
+  
+  return 'general_business';
+}
+
+// ---------------------------------------------------------------------------
+// Step 1: Base Starting Point
+// ---------------------------------------------------------------------------
+export const baseStartingQuestions: Question[] = [
+  {
+    id: 'education',
+    label: 'Highest educational qualification',
+    options: [
+      'CA / CS / CMA (Chartered Accountant / Finance Pro)',
+      'LL.B / LL.M (Law Graduate / Advocate)',
+      'B.Pharm / M.Pharm / Pharma.D / Life Sciences',
+      'MBBS / BDS / Nursing / Allied Health',
+      'B.Ed / M.Ed / Teaching Credential',
+      'B.Com / BBA / M.Com (Commerce & Finance)',
+      'B.Tech / B.E / BCA / MCA (Computer Science & IT)',
+      'B.Tech / Diploma (Mechanical / Electrical / Core Eng)',
+      'MBA / Post-Graduate Management',
+      'BA / MA / Humanities & Social Sciences',
+      'B.Sc / M.Sc (Pure Sciences / Statistics / Math)',
+      'B.Arch / Design / Fine Arts',
+      'Diploma / ITI (Technical Trades)',
+      '12th Standard / Non-Graduate'
+    ],
+    hint: 'Your background unlocks specific accelerated career pathways without starting from scratch.'
+  },
+  {
+    id: 'experience',
+    label: 'Total work experience',
+    options: [
+      'Fresher / College Student',
+      'Under 2 years',
+      '2–5 years',
+      '5–10 years',
+      '10+ years'
+    ]
+  },
+  {
+    id: 'domain',
+    label: 'Current or most familiar industry field',
+    options: [
+      'Chartered Accountancy / Taxation / Finance',
+      'Law / Legal & Compliance',
+      'Pharmacy / Healthcare / Clinical',
+      'Education / Teaching / EdTech',
+      'Technology / Software / Data',
+      'Core Engineering / Manufacturing / Automation',
+      'Business Operations / Sales / Product',
+      'Design / Creative Media / Content',
+      'Still exploring / Career Switcher'
+    ]
+  },
+  {
+    id: 'status',
+    label: 'Current professional situation',
+    options: [
+      'Student / In final year of college',
+      'Looking for my first job',
+      'Employed & looking for high-growth upskilling',
+      'Returning after a career break',
+      'Self-employed / Independent Practitioner'
+    ]
+  },
+  {
+    id: 'salary',
+    label: 'Current annual salary (₹ lakh)',
+    type: 'number',
+    optional: true,
+    hint: 'Optional. Used to prevent suggesting career pathways with a negative pay delta.'
+  },
+  {
+    id: 'location',
+    label: 'Current city & state',
+    type: 'text',
+    hint: 'Used to benchmark local hiring clusters in your regional market.'
+  }
 ];
 
-type Strength = 'coding' | 'maths' | 'communication' | 'creative' | 'analysis' | 'detail' | 'english';
-type Track = { title: string; slug: string; domain: string; interest: string; tools: string; education: string; strengths: Record<Strength, number>; hours: number; salary: [number, number]; skills: string[]; projects: string[]; remote: boolean; freelance: boolean; people: boolean; structured: boolean; stretch: string; stretchSlug: string };
+// ---------------------------------------------------------------------------
+// Step 2: Intelligent Strengths (Adaptive per Domain)
+// ---------------------------------------------------------------------------
+export function getStrengthQuestions(userDomain: UserDomainType): Question[] {
+  switch (userDomain) {
+    case 'law_legal':
+      return [
+        { id: 'legal_drafting', label: 'Contract Drafting & Agreement Structuring', options: comfort, hint: 'Reviewing indemnity, limitation of liability, MSAs, and NDAs' },
+        { id: 'statutory_research', label: 'Statutory Research & Case Law (SCC / Manupatra)', options: comfort, hint: 'Finding judicial precedents, Bare Acts, and regulatory notifications' },
+        { id: 'litigation_advocacy', label: 'Litigation, Courtroom Arguments & Dispute Strategy', options: comfort, hint: 'Drafting petitions, pleading before High Courts/NCLT, arbitration' },
+        { id: 'corporate_compliance', label: 'Corporate Law, M&A & DPDP Act Compliance', options: comfort, hint: 'Due diligence, SEBI regulations, and data privacy frameworks' },
+        { id: 'client_advisory', label: 'Commercial Advisory & Client Negotiation', options: comfort, hint: 'Translating legal risks into commercial business decisions' },
+        { id: 'detail', label: 'Meticulous Attention to Detail & Clause Cross-Referencing', options: comfort, hint: 'Catching subtle ambiguities in contracts and statutory definitions' }
+      ];
+
+    case 'finance_ca':
+      return [
+        { id: 'statutory_audit', label: 'Statutory Auditing, Internal Controls & Ind AS / IFRS', options: comfort, hint: 'Audit sampling, vouching, CARO 2020, and financial statement review' },
+        { id: 'taxation_gst', label: 'Direct & Indirect Taxation (GST Filings & Corporate Tax)', options: comfort, hint: 'GSTR-1/3B reconciliation, ITC audits, ITR-6, TDS/TCS' },
+        { id: 'financial_modeling', label: 'Financial Modeling & Valuation (DCF / 3-Statement Excel)', options: comfort, hint: 'Forecasting cash flows, WACC, sensitivity analysis, and M&A valuation' },
+        { id: 'erp_accounting', label: 'Accounting Software & ERPs (TallyPrime, SAP FICO, Zoho)', options: comfort, hint: 'Ledger management, balance sheets, e-invoicing, and sub-ledgers' },
+        { id: 'cost_analysis', label: 'Working Capital & Cost MIS Reporting', options: comfort, hint: 'Variance analysis, budget allocation, and liquidity management' },
+        { id: 'detail', label: 'Numerical Accuracy & Precision Reconciliation', options: comfort, hint: 'Reconciling 2B vs purchase registers and complex ledger entries' }
+      ];
+
+    case 'pharma_health':
+      return [
+        { id: 'pharmacology', label: 'Pharmacology, Drug Interactions & Patient Counseling', options: comfort, hint: 'Mechanism of action, contraindicated drug pairings, dosage regimens' },
+        { id: 'pharmacovigilance', label: 'Pharmacovigilance & Drug Safety (ICSR, MedDRA, Argus)', options: comfort, hint: 'Adverse event triage, narrative writing, causality assessment' },
+        { id: 'clinical_trials', label: 'Clinical Research & Data Management (GCP, CDM, eCRF)', options: comfort, hint: 'Protocol adherence, discrepancy management, audit trails' },
+        { id: 'regulatory_submissions', label: 'Regulatory Affairs Dossiers (US FDA, CDSCO, eCTD Module 1-5)', options: comfort, hint: 'ANDAs, CTD dossiers, query responses, pharmacopoeia specs' },
+        { id: 'gmp_quality', label: 'cGMP Manufacturing, Sterile QA & QC Lab Protocols', options: comfort, hint: 'SOP compliance, OOS/OOT investigations, HPLC testing' },
+        { id: 'detail', label: 'Data Integrity & Regulatory Protocol Compliance', options: comfort, hint: 'Strict 21 CFR Part 11 adherence and error-free clinical records' }
+      ];
+
+    case 'education':
+      return [
+        { id: 'pedagogical_design', label: 'Pedagogical Frameworks & Lesson Planning (NEP 2020 / Bloom’s)', options: comfort, hint: 'Outcome-based learning objectives, rubrics, and differentiated instruction' },
+        { id: 'classroom_management', label: 'Classroom Engagement & Active Inquiry Methods', options: comfort, hint: 'Fostering student participation, conflict resolution, group dynamics' },
+        { id: 'edtech_lms', label: 'EdTech Tools & LMS Platforms (Canvas, Moodle, Google Classroom)', options: comfort, hint: 'Interactive quizzes, digital assessments, e-learning authoring' },
+        { id: 'student_evaluation', label: 'Competency-Based Student Assessment & Rubrics', options: comfort, hint: 'Formative assessments, diagnostic feedback, analytics' },
+        { id: 'communication', label: 'Empathetic Student Mentoring & Parent Communication', options: comfort, hint: 'Parent-teacher conferences, student counseling, career guidance' },
+        { id: 'creative', label: 'Creative Learning Material Design & Visual Storytelling', options: comfort, hint: 'Worksheets, infographics, gamified modules, and audio-visual aids' }
+      ];
+
+    case 'core_engineering':
+      return [
+        { id: 'plc_scada', label: 'PLC Programming & SCADA Telemetry (Siemens / Rockwell)', options: comfort, hint: 'Ladder logic, functional block diagrams, HMI screens, VFD drives' },
+        { id: 'schematics_circuits', label: 'Electrical / Mechanical Schematics & Wiring Diagrams', options: comfort, hint: 'Single-line diagrams, sensor loop checks, instrumentation' },
+        { id: 'industrial_robotics', label: 'Industrial Robotics & Automation Kinematics (ROS2 / ABB / KUKA)', options: comfort, hint: 'Robotic arm programming, pick-and-place, servo motors' },
+        { id: 'preventive_maintenance', label: 'Root Cause Analysis & Preventive Maintenance (TPM / Six Sigma)', options: comfort, hint: 'Troubleshooting downtime, vibration analysis, 5S standards' },
+        { id: 'cad_design', label: 'CAD 3D Modeling & Mechanical Drafting (SolidWorks / AutoCAD)', options: comfort, hint: 'Part modeling, tolerances (GD&T), manufacturing drawings' },
+        { id: 'detail', label: 'Industrial Safety Standards & Precision Compliance', options: comfort, hint: 'OSHA protocols, Lockout-Tagout (LOTO), ISO 9001/14001' }
+      ];
+
+    case 'design_media':
+      return [
+        { id: 'ui_ux_design', label: 'UI/UX & Product Design Systems (Figma)', options: comfort, hint: 'Auto-layout, design tokens, responsive components, usability testing' },
+        { id: 'video_motion', label: 'Video Editing & Motion Graphics (Premiere / DaVinci / After Effects)', options: comfort, hint: 'Pacing, sound design, color grading, social media reels' },
+        { id: 'visual_storytelling', label: 'Visual Hierarchy, Typography & Layout Composition', options: comfort, hint: 'Brand identity, marketing collateral, grid systems' },
+        { id: '3d_spatial', label: '3D Spatial Modeling & Real-Time Rendering (Blender / UE5)', options: comfort, hint: 'Mesh topology, texturing, lighting, asset optimization' },
+        { id: 'creative', label: 'Creative Conceptualization & Visual Problem Solving', options: comfort, hint: 'Moodboards, wireframing, creative briefs, brand guidelines' },
+        { id: 'communication', label: 'Design Rationale Presentation & Stakeholder Buy-In', options: comfort, hint: 'Pitching creative concepts and collaborating with engineers/marketers' }
+      ];
+
+    case 'technology':
+      return [
+        { id: 'coding', label: 'Application Programming & Data Structures (JS / Python / Java)', options: comfort, hint: 'Building scalable logic, handling async tasks, writing clean modular code' },
+        { id: 'ai_engineering', label: 'AI Agents, LLMs & Prompt Architecture (LangGraph / RAG)', options: comfort, hint: 'Vector embeddings, model evaluation, MCP tools, fine-tuning' },
+        { id: 'database_sql', label: 'Database Architecture & Querying (SQL / PostgreSQL / NoSQL)', options: comfort, hint: 'Complex joins, indexing, data modeling, ETL queries' },
+        { id: 'cloud_devops', label: 'Cloud Infrastructure & DevOps (AWS / Docker / Kubernetes)', options: comfort, hint: 'Container orchestration, CI/CD pipelines, IaC Terraform' },
+        { id: 'system_design', label: 'API Architecture & Distributed System Design', options: comfort, hint: 'REST/GraphQL, caching, message queues, microservices' },
+        { id: 'detail', label: 'Code Quality, Testing & Automated Debugging', options: comfort, hint: 'Unit tests, telemetry logs, edge case handling, code reviews' }
+      ];
+
+    case 'general_business':
+    default:
+      return [
+        { id: 'analysis', label: 'Structured Business Problem Solving & Analytical Thinking', options: comfort, hint: 'Breaking down complex challenges using data and logic' },
+        { id: 'communication', label: 'Professional Stakeholder Communication & Persuasion', options: comfort, hint: 'Client pitches, executive summaries, cross-functional collaboration' },
+        { id: 'excel_tools', label: 'Business Analytics & Spreadsheet Modeling (Excel / Sheets)', options: comfort, hint: 'Pivot tables, VLOOKUP/XLOOKUP, summary dashboards' },
+        { id: 'digital_tools', label: 'Software Aptitude & Modern Digital Tool Adoption', options: comfort, hint: 'Quickly picking up new SaaS tools, CRMs, and productivity suites' },
+        { id: 'detail', label: 'Process Execution & Operational Accuracy', options: comfort, hint: 'Ensuring deliverables meet deadlines without sloppy errors' },
+        { id: 'creative', label: 'Creative Strategy & Commercial Growth Ideas', options: comfort, hint: 'Finding novel ways to attract customers, improve workflows, or grow' }
+      ];
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Step 3: Interests, Tools & Work Style (Adaptive per Domain)
+// ---------------------------------------------------------------------------
+export function getInterestQuestions(userDomain: UserDomainType): Question[] {
+  const toolOptionsMap: Record<UserDomainType, string[]> = {
+    law_legal: [
+      'None yet / Starting fresh',
+      'Legal Databases (SCC Online / Manupatra / Westlaw)',
+      'MS Word / Contract Automation & Redlining Tools',
+      'MCA21 / Trademark & Patent Registry Portals',
+      'Data Privacy & Compliance Checklists',
+      'Case Management / E-Filing Portals'
+    ],
+    finance_ca: [
+      'None yet / Starting fresh',
+      'TallyPrime / Busy Accounting',
+      'Advanced Excel (XLOOKUP, Power Query, Financial Models)',
+      'SAP S/4HANA FICO / Oracle ERP',
+      'Income Tax & GST Government Filing Portals',
+      'Power BI / Tableau Financial Dashboards'
+    ],
+    pharma_health: [
+      'None yet / Starting fresh',
+      'Argus Safety / ArisGlobal Safety Database',
+      'Medidata Rave / Oracle Clinical / Electronic Data Capture (eCRF)',
+      'eCTD Dossier Publishing Tools',
+      'Hospital HIS / Pharmacy Dispensing Software',
+      'Laboratory Analytical Tools (HPLC, UV Spectrophotometry)'
+    ],
+    education: [
+      'None yet / Starting fresh',
+      'Google Classroom / Canvas / Moodle LMS',
+      'Interactive Whiteboards & Presentation Suites (Canva / PPT)',
+      'Articulate Storyline 360 / Instructional Authoring',
+      'Student Analytics & Automated Gradebooks',
+      'Kahoot / Mentimeter / Live Poll Systems'
+    ],
+    core_engineering: [
+      'None yet / Starting fresh',
+      'Siemens TIA Portal / Rockwell RSLogix (PLC)',
+      'SCADA Systems (Wonderware / Ignition)',
+      'AutoCAD / SolidWorks / CATIA (CAD/CAM)',
+      'Industrial Robotics Simulators (ROS2 / RoboDK)',
+      'Multimeters, Oscilloscopes & Calibration Kits'
+    ],
+    design_media: [
+      'None yet / Starting fresh',
+      'Figma / FigJam / Adobe XD',
+      'Adobe Premiere Pro / DaVinci Resolve',
+      'Blender / Unreal Engine 5',
+      'Adobe After Effects / Motion Graphics',
+      'Canva / Illustrator / Photoshop'
+    ],
+    technology: [
+      'None yet / Starting fresh',
+      'VS Code / Git / GitHub',
+      'SQL / PostgreSQL / MongoDB',
+      'Python / JavaScript / TypeScript Frameworks',
+      'Docker / Kubernetes / Cloud Terminals (AWS/GCP)',
+      'LangChain / LangGraph / AI Prompt Testing Workbenches'
+    ],
+    general_business: [
+      'None yet / Starting fresh',
+      'Excel / Google Sheets',
+      'CRM Systems (Salesforce / HubSpot / Zoho)',
+      'Project Management Tools (Jira / Notion / Asana)',
+      'No-Code Tools (Airtable / Make / Webflow)',
+      'Data Dashboards (Power BI / Looker Studio)'
+    ]
+  };
+
+  return [
+    {
+      id: 'interest',
+      label: 'Which domain or work challenge excites you most?',
+      options: [
+        'Corporate Law, Contracts & Regulatory Compliance',
+        'Financial Auditing, Taxation, FP&A & Valuation',
+        'Clinical Research, Pharmacovigilance & Hospital Pharmacy',
+        'Teaching, Pedagogy, EdTech & Educational Leadership',
+        'Industrial Automation, Robotics & Smart Manufacturing',
+        'AI Engineering, Autonomous Agents & Machine Learning',
+        'Full-Stack Software, Web Apps & Cloud Infrastructure',
+        'Data Analytics, BI Dashboards & Business Insights',
+        'Product Management, RevOps & Business Growth',
+        'UI/UX Product Design, 3D Spatial & Motion Media'
+      ]
+    },
+    {
+      id: 'style',
+      label: 'Preferred daily work style',
+      options: [
+        'Deep independent analytical focus (Solo deep work)',
+        'Balanced mix of solo work and collaborative team brainstorms',
+        'High-touch client, student, patient or stakeholder advisory'
+      ]
+    },
+    {
+      id: 'structure',
+      label: 'How much procedural structure do you prefer?',
+      options: [
+        'Highly structured workflows with clear compliance/standard operating procedures (SOPs)',
+        'Balanced framework with guidelines and room for personal problem-solving',
+        'Fast-paced, creative, or open-ended challenges with high autonomy'
+      ]
+    },
+    {
+      id: 'tools',
+      label: 'Your strongest existing tool stack',
+      options: toolOptionsMap[userDomain] || toolOptionsMap.general_business
+    },
+    {
+      id: 'english',
+      label: 'Professional English & formal communication comfort',
+      options: comfort,
+      hint: 'Crucial for client-facing legal memos, international regulatory dossiers, or enterprise meetings.'
+    },
+    {
+      id: 'portfolio',
+      label: 'Current evidence of your practical skills',
+      options: [
+        'Starting completely from scratch',
+        'Academic coursework & theoretical concepts only',
+        'One structured case study / personal project completed',
+        'Multiple real-world projects / professional work experience'
+      ]
+    }
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// Step 4: Destination & Work Preferences
+// ---------------------------------------------------------------------------
+export const baseDestinationQuestions: Question[] = [
+  {
+    id: 'target',
+    label: 'Target annual compensation goal (CTC)',
+    options: [
+      '₹4.0L – ₹6.0L / year (Solid Entry / Step-Up)',
+      '₹6.0L – ₹12.0L / year (Mid-Level High Growth)',
+      '₹12.0L – ₹20.0L / year (Senior / GCC Advisory)',
+      '₹20.0L+ / year (Executive / Frontier Specialist)'
+    ]
+  },
+  {
+    id: 'goal',
+    label: 'Your #1 career priority right now',
+    options: [
+      'Fastest transition into a stable, accredited role',
+      'Maximum long-term earning ceiling & compounding',
+      'High-prestige corporate, hospital, or law advisory path',
+      'Independent practice, consulting, or global freelance flexibility',
+      'Work-life balance and structured predictable hours'
+    ]
+  },
+  {
+    id: 'work',
+    label: 'Preferred workplace environment',
+    options: [
+      'In-Person / Office / Hospital / Factory Floor / School Campus',
+      'Hybrid (2–3 days in office / campus)',
+      '100% Remote / Work from Anywhere',
+      'Flexible / Open to any viable format'
+    ]
+  },
+  {
+    id: 'relocate',
+    label: 'Willingness to relocate to major Indian career hubs?',
+    options: [
+      'Yes, open to major hubs (Bengaluru, Mumbai, NCR, Hyderabad, Pune, Ahmedabad)',
+      'Within my current state / region only',
+      'No, strictly local / home city only'
+    ]
+  },
+  {
+    id: 'employment',
+    label: 'Preferred employment model',
+    options: [
+      'Full-time salaried corporate / institutional employment',
+      'Independent practice / Consulting / Contract / Freelance',
+      'Either model is fine'
+    ]
+  },
+  {
+    id: 'risk',
+    label: 'Comfort with income variability',
+    options: [
+      'Need complete salary predictability (Fixed monthly pay)',
+      'Moderate flexibility (Base salary + performance bonus / retainers)',
+      'Comfortable with performance-driven upside (Consulting / Incentives)'
+    ]
+  }
+];
+
+// ---------------------------------------------------------------------------
+// Step 5: Pragmatic Learning Plan & Constraints
+// ---------------------------------------------------------------------------
+export const baseLearningQuestions: Question[] = [
+  {
+    id: 'hours',
+    label: 'Realistic study time you can commit each week',
+    options: [
+      '5 hours / week (Light weekend pace)',
+      '10 hours / week (Consistent 1.5 hrs/day)',
+      '20 hours / week (Dedicated upskilling)',
+      '30+ hours / week (Full-time intensive study)'
+    ]
+  },
+  {
+    id: 'deadline',
+    label: 'When do you aim to complete this transition?',
+    options: [
+      '3 months (Fast-track transition)',
+      '6 months (Balanced, deep preparation)',
+      '12 months (Comprehensive career transformation)'
+    ]
+  },
+  {
+    id: 'budget',
+    label: 'Upskilling & certification investment budget',
+    options: [
+      'Free open-source & self-study documentation only',
+      'Under ₹15,000 (Targeted courses & exam fees)',
+      'Can invest in accredited professional certifications / bootcamps'
+    ]
+  },
+  {
+    id: 'device',
+    label: 'Primary computer & hardware access',
+    options: [
+      'Own personal laptop / desktop workstation',
+      'Shared family computer / office PC',
+      'Smartphone / Tablet only'
+    ]
+  },
+  {
+    id: 'learning',
+    label: 'How do you absorb complex skills best?',
+    options: [
+      'Hands-on case studies & building real portfolio projects',
+      'Structured sequential courses with step-by-step milestones',
+      'Community cohort learning with 1-on-1 mentorship'
+    ]
+  },
+  {
+    id: 'shifts',
+    label: 'Daily work schedule flexibility',
+    options: [
+      'Standard daytime hours only (9 AM – 6 PM)',
+      'Flexible hours (Outcome-based deliverables)',
+      'Open to hospital shifts, on-call rotations, or global timezones'
+    ]
+  }
+];
+
+// ---------------------------------------------------------------------------
+// Dynamic Step Builder
+// ---------------------------------------------------------------------------
+export function getCompassSteps(answers: Answers) {
+  const userDomain = resolveUserDomain(answers);
+  const domainTitleMap: Record<UserDomainType, string> = {
+    law_legal: 'Legal & Regulatory Strengths',
+    finance_ca: 'Accounting, Tax & Financial Strengths',
+    pharma_health: 'Clinical & Healthcare Competencies',
+    education: 'Pedagogical & Instructional Strengths',
+    core_engineering: 'Automation & Core Engineering Strengths',
+    technology: 'Software & Technology Strengths',
+    design_media: 'Creative & Product Design Strengths',
+    general_business: 'Core Professional & Analytical Strengths'
+  };
+
+  return [
+    {
+      title: 'Your Starting Point',
+      description: 'Every educational background has specific high-leverage advantages. Let’s map yours.',
+      questions: baseStartingQuestions
+    },
+    {
+      title: domainTitleMap[userDomain] || 'Your Domain Strengths',
+      description: `Targeted evaluation tailored specifically for your ${userDomain.replace('_', ' ')} background. Answer honestly for where you are today.`,
+      questions: getStrengthQuestions(userDomain)
+    },
+    {
+      title: 'What Draws You In',
+      description: 'Discover specialized career tracks that match your intellectual curiosities and preferred tools.',
+      questions: getInterestQuestions(userDomain)
+    },
+    {
+      title: 'Your Career Destination',
+      description: 'Define what a rewarding, sustainable career leap looks like in terms of compensation and lifestyle.',
+      questions: baseDestinationQuestions
+    },
+    {
+      title: 'Make It Achievable',
+      description: 'A realistic transition roadmap that respects your available hours, timeline, and hardware.',
+      questions: baseLearningQuestions
+    }
+  ];
+}
+
+// Fallback static steps for initialization
+export const compassSteps = getCompassSteps({});
+
+// ---------------------------------------------------------------------------
+// Comprehensive Track Registry (All 10 Domains Supported)
+// ---------------------------------------------------------------------------
+export type Strength = 
+  | 'coding' 
+  | 'maths' 
+  | 'communication' 
+  | 'creative' 
+  | 'analysis' 
+  | 'detail' 
+  | 'english'
+  | 'legal_drafting'
+  | 'statutory_research'
+  | 'litigation_advocacy'
+  | 'corporate_compliance'
+  | 'client_advisory'
+  | 'statutory_audit'
+  | 'taxation_gst'
+  | 'financial_modeling'
+  | 'erp_accounting'
+  | 'cost_analysis'
+  | 'pharmacology'
+  | 'pharmacovigilance'
+  | 'clinical_trials'
+  | 'regulatory_submissions'
+  | 'gmp_quality'
+  | 'pedagogical_design'
+  | 'classroom_management'
+  | 'edtech_lms'
+  | 'student_evaluation'
+  | 'plc_scada'
+  | 'schematics_circuits'
+  | 'industrial_robotics'
+  | 'preventive_maintenance'
+  | 'cad_design'
+  | 'ui_ux_design'
+  | 'video_motion'
+  | 'visual_storytelling'
+  | '3d_spatial'
+  | 'ai_engineering'
+  | 'database_sql'
+  | 'cloud_devops'
+  | 'system_design'
+  | 'excel_tools'
+  | 'digital_tools';
+
+export type Track = {
+  title: string;
+  slug: string;
+  domain: string;
+  domainType: UserDomainType;
+  interest: string;
+  tools: string;
+  educationMatch: string[];
+  strengths: Partial<Record<Strength, number>>;
+  hours: number;
+  salary: [number, number];
+  skills: string[];
+  projects: string[];
+  remote: boolean;
+  freelance: boolean;
+  people: boolean;
+  structured: boolean;
+  stretch: string;
+  stretchSlug: string;
+};
 
 export const compassTracks: Track[] = [
-  { title: 'Data Analytics', slug: 'data-analytics', domain: 'Technology', interest: 'Finding insights in data', tools: 'SQL / Power BI', education: 'B.Sc / Other degree', strengths: { coding: 2, maths: 3, communication: 2, creative: 1, analysis: 4, detail: 3, english: 2 }, hours: 220, salary: [3.5, 6.5], skills: ['SQL', 'Excel', 'Power BI', 'Statistics', 'Data storytelling'], projects: ['Clean a public sales dataset and document quality checks', 'Build a sales dashboard with five business KPIs', 'Analyse customer retention and present three recommendations'], remote: true, freelance: true, people: false, structured: true, stretch: 'Product Analytics', stretchSlug: 'product-management' },
-  { title: 'Full-Stack Development', slug: 'full-stack-web', domain: 'Technology', interest: 'Building software', tools: 'Python / JavaScript', education: 'B.Tech / BCA / MCA', strengths: { coding: 4, maths: 2, communication: 2, creative: 2, analysis: 4, detail: 3, english: 2 }, hours: 420, salary: [4, 8], skills: ['JavaScript', 'React', 'Databases', 'API design', 'Testing'], projects: ['Build an accessible personal portfolio', 'Create a task app with authentication and a database', 'Deploy a booking app with tests and error handling'], remote: true, freelance: true, people: false, structured: false, stretch: 'Cloud Engineering', stretchSlug: 'cloud-computing' },
-  { title: 'AI Agents & LLM Apps', slug: 'ai-agents-llm-apps', domain: 'Technology', interest: 'Building software', tools: 'Python / JavaScript', education: 'B.Tech / BCA / MCA', strengths: { coding: 4, maths: 3, communication: 3, creative: 2, analysis: 4, detail: 4, english: 3 }, hours: 380, salary: [8, 18], skills: ['Python', 'LangGraph', 'MCP Tools', 'Vector Databases', 'Prompt Architecture'], projects: ['Build an autonomous SQL query agent with self-correction', 'Deploy an enterprise document Q&A pipeline with guardrails'], remote: true, freelance: true, people: false, structured: false, stretch: 'AI Evaluation Architect', stretchSlug: 'ai-agent-evaluation-observability' },
-  { title: 'Teaching & Pedagogy', slug: 'teaching-pedagogy', domain: 'Education / Teaching', interest: 'Teaching and mentoring', tools: 'LMS / Classroom tools', education: 'B.Ed / Teaching', strengths: { coding: 0, maths: 1, communication: 4, creative: 3, analysis: 3, detail: 3, english: 3 }, hours: 160, salary: [3.5, 7], skills: ['Classroom Management', 'Lesson Planning', 'Bloom\'s Taxonomy', 'EdTech Tools', 'Student Evaluation'], projects: ['Design a 4-week experiential unit plan aligned with NEP 2020', 'Record an interactive masterclass with live engagement triggers'], remote: false, freelance: true, people: true, structured: true, stretch: 'Educational Leadership', stretchSlug: 'educational-leadership' },
-  { title: 'Pharmacy Practice & Dispensing', slug: 'pharmacy-practice', domain: 'Pharmacy / Healthcare', interest: 'Healthcare and pharmacy', tools: 'MedDRA / Pharmacy ERP', education: 'B.Pharm / Life Sciences', strengths: { coding: 0, maths: 2, communication: 3, creative: 0, analysis: 4, detail: 4, english: 2 }, hours: 180, salary: [3, 6], skills: ['Prescription Verification', 'Drug Interactions', 'Patient Counseling', 'Schedule H1 Compliance', 'Retail POS ERP'], projects: ['Audit 50 chronic illness prescriptions for contraindications', 'Develop a cold-chain storage and Schedule H1 compliance protocol'], remote: false, freelance: false, people: true, structured: true, stretch: 'Clinical Pharmacy', stretchSlug: 'clinical-pharmacy' },
-  { title: 'Corporate Law & Contract Drafting', slug: 'corporate-law', domain: 'Law / Legal', interest: 'Legal and compliance', tools: 'Legal databases (SCC/Manupatra)', education: 'LL.B / Law', strengths: { coding: 0, maths: 1, communication: 4, creative: 1, analysis: 4, detail: 4, english: 4 }, hours: 260, salary: [5.5, 12], skills: ['Contract Drafting', 'Companies Act 2013', 'Legal Research', 'Due Diligence', 'M&A Deal Structures'], projects: ['Draft a Master Services Agreement with limitation of liability caps', 'Conduct a full legal due diligence audit on a target company'], remote: true, freelance: true, people: true, structured: true, stretch: 'Arbitration & Dispute Resolution', stretchSlug: 'arbitration-mediation' },
-  { title: 'Accounting & GST Filing', slug: 'tally-gst', domain: 'Finance / Accounts', interest: 'Managing money', tools: 'Tally / Accounting tools', education: 'B.Com / BBA', strengths: { coding: 0, maths: 3, communication: 2, creative: 0, analysis: 3, detail: 4, english: 1 }, hours: 150, salary: [2.5, 4.5], skills: ['Bookkeeping', 'TallyPrime', 'GST Return Filing (GSTR-1/3B)', 'TDS Compliance', 'Bank Reconciliation'], projects: ['Create a company ledger with 50 transactions and prepare trial balance', 'Reconcile a purchase register with GSTR-2B and file mock GSTR-3B'], remote: false, freelance: true, people: false, structured: true, stretch: 'FP&A & Financial Modeling', stretchSlug: 'financial-analysis' },
-  { title: 'Salesforce Administration', slug: 'salesforce-administration', domain: 'Technology', interest: 'Building software', tools: 'CRM / Marketing tools', education: 'B.Com / BBA', strengths: { coding: 1, maths: 2, communication: 3, creative: 1, analysis: 3, detail: 4, english: 3 }, hours: 220, salary: [4.5, 9], skills: ['Lightning App Builder', 'Flow Automation', 'Security & Roles', 'Data Loader', 'Reports & Dashboards'], projects: ['Build an automated customer onboarding workflow in Flow Builder', 'Configure security profiles and permission sets for a 50-user org'], remote: true, freelance: true, people: false, structured: true, stretch: 'ServiceNow Architecture', stretchSlug: 'servicenow-development' },
-  { title: 'Industrial Automation & PLC', slug: 'industrial-automation-plc-scada', domain: 'Core Engineering', interest: 'Industrial tech and engineering', tools: 'CAD / PLC tools', education: 'Diploma / ITI', strengths: { coding: 2, maths: 3, communication: 1, creative: 1, analysis: 4, detail: 4, english: 1 }, hours: 250, salary: [3.8, 7.5], skills: ['Ladder Logic', 'Siemens TIA Portal', 'SCADA Mimics', 'VFD Motor Controls', 'Modbus Industrial Protocols'], projects: ['Program an automated sorting conveyor logic in Siemens TIA Portal', 'Configure a live SCADA telemetry monitoring dashboard with alarms'], remote: false, freelance: false, people: false, structured: true, stretch: 'Automotive AUTOSAR Embedded', stretchSlug: 'automotive-embedded-software-autosar' },
-  { title: 'Digital Marketing & Growth', slug: 'digital-marketing', domain: 'Marketing / Sales', interest: 'Growing a business', tools: 'CRM / Marketing tools', education: 'B.Com / BBA', strengths: { coding: 0, maths: 2, communication: 4, creative: 3, analysis: 3, detail: 2, english: 3 }, hours: 180, salary: [2.8, 5.5], skills: ['SEO', 'Copywriting', 'Campaign analytics', 'Audience research', 'Experiment design'], projects: ['Audit a local business website and create an SEO plan', 'Build a four-week content calendar with sample posts', 'Design a campaign and measurement dashboard using sample data'], remote: true, freelance: true, people: true, structured: false, stretch: 'Revenue Operations (RevOps)', stretchSlug: 'revops-sales-operations' },
-  { title: 'Visual & UI Design', slug: 'graphic-figma', domain: 'Design / Media', interest: 'Creating visual stories', tools: 'Figma / Adobe / Video tools', education: 'BA / Humanities', strengths: { coding: 0, maths: 1, communication: 3, creative: 4, analysis: 2, detail: 4, english: 2 }, hours: 240, salary: [3, 6], skills: ['Figma', 'Typography', 'Accessibility', 'User research', 'Prototyping'], projects: ['Redesign a local service landing page', 'Create a reusable accessible UI component kit', 'Prototype a booking flow and test it with five people'], remote: true, freelance: true, people: false, structured: false, stretch: 'Design Systems Engineering', stretchSlug: 'ux-research-design-systems' },
-  { title: 'Customer Support', slug: 'bpo-support', domain: 'Customer operations', interest: 'Helping customers', tools: 'CRM / Marketing tools', education: '12th or below', strengths: { coding: 0, maths: 1, communication: 4, creative: 1, analysis: 2, detail: 2, english: 3 }, hours: 90, salary: [2.4, 4.2], skills: ['Customer communication', 'CRM', 'Ticket triage', 'Conflict resolution', 'Knowledge-base writing'], projects: ['Write responses to ten sample support tickets', 'Create a help centre for a fictional app', 'Record three mock customer calls and review your responses'], remote: false, freelance: false, people: true, structured: true, stretch: 'Customer Operations Analytics', stretchSlug: 'data-analytics' },
-  { title: 'Video Editing & Motion Media', slug: 'video-editing', domain: 'Design / Media', interest: 'Creating visual stories', tools: 'Figma / Adobe / Video tools', education: 'BA / Humanities', strengths: { coding: 0, maths: 0, communication: 2, creative: 4, analysis: 1, detail: 4, english: 1 }, hours: 160, salary: [2.5, 5], skills: ['Editing workflow', 'Pacing', 'Sound', 'Colour correction', 'Client briefs'], projects: ['Edit a 60-second story from freely licensed footage', 'Turn a practice interview into three captioned clips', 'Produce a mock brand video with a revision log'], remote: true, freelance: true, people: false, structured: false, stretch: 'Real-Time 3D & Unreal Engine', stretchSlug: 'unreal-engine-game-development' },
+  // 1. Finance, CA & Accounts
+  {
+    title: 'Chartered Accountancy & Statutory Audit',
+    slug: 'corporate-tax-planning',
+    domain: 'Chartered Accountancy / Taxation / Finance',
+    domainType: 'finance_ca',
+    interest: 'Financial Auditing, Taxation, FP&A & Valuation',
+    tools: 'TallyPrime / Busy Accounting',
+    educationMatch: ['CA / CS / CMA (Chartered Accountant / Finance Pro)', 'B.Com / BBA / M.Com (Commerce & Finance)', 'MBA / Post-Graduate Management'],
+    strengths: { statutory_audit: 4, taxation_gst: 4, erp_accounting: 3, detail: 4, analysis: 4, english: 3 },
+    hours: 220,
+    salary: [7.5, 16.0],
+    skills: ['Ind AS / IFRS Standards', 'Statutory Auditing & CARO 2020', 'Tax Audit u/s 44AB', 'Internal Financial Controls', 'TallyPrime & SAP FICO'],
+    projects: ['Perform a mock statutory audit on a manufacturing firm’s balance sheet', 'Draft an Internal Audit report identifying 5 operational control deficiencies'],
+    remote: false,
+    freelance: true,
+    people: true,
+    structured: true,
+    stretch: 'M&A Due Diligence & Deal Structuring',
+    stretchSlug: 'corporate-law'
+  },
+  {
+    title: 'Financial Modeling & Valuation (FP&A)',
+    slug: 'financial-modeling-valuation',
+    domain: 'Chartered Accountancy / Taxation / Finance',
+    domainType: 'finance_ca',
+    interest: 'Financial Auditing, Taxation, FP&A & Valuation',
+    tools: 'Advanced Excel (XLOOKUP, Power Query, Financial Models)',
+    educationMatch: ['CA / CS / CMA (Chartered Accountant / Finance Pro)', 'B.Com / BBA / M.Com (Commerce & Finance)', 'MBA / Post-Graduate Management'],
+    strengths: { financial_modeling: 4, cost_analysis: 4, analysis: 4, detail: 4, english: 3 },
+    hours: 240,
+    salary: [6.5, 14.0],
+    skills: ['3-Statement Financial Modeling', 'Discounted Cash Flow (DCF)', 'Comparable Company Analysis (CCA)', 'WACC Calculation', 'Scenario & Sensitivity Analysis'],
+    projects: ['Build a dynamic 5-year forecast model for a listed SaaS company', 'Perform a DCF valuation and sensitivity matrix for an FMCG acquisition'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Investment Banking & Equity Research',
+    stretchSlug: 'financial-modeling-valuation'
+  },
+  {
+    title: 'GST Practitioner & TallyPrime Accounting',
+    slug: 'gst-accounting-tally-prime',
+    domain: 'Chartered Accountancy / Taxation / Finance',
+    domainType: 'finance_ca',
+    interest: 'Financial Auditing, Taxation, FP&A & Valuation',
+    tools: 'TallyPrime / Busy Accounting',
+    educationMatch: ['B.Com / BBA / M.Com (Commerce & Finance)', '12th Standard / Non-Graduate', 'CA / CS / CMA (Chartered Accountant / Finance Pro)'],
+    strengths: { taxation_gst: 3, erp_accounting: 4, detail: 4, analysis: 3, english: 2 },
+    hours: 140,
+    salary: [3.0, 5.5],
+    skills: ['GSTR-1 & GSTR-3B Filings', 'ITC Reconciliation (2B vs Books)', 'E-Way Bills & E-Invoicing', 'TallyPrime Voucher Accounting', 'TDS & TCS Deductions'],
+    projects: ['Reconcile 200 purchase invoices against GSTR-2B and identify ineligible ITC', 'Set up multi-state GST inventory ledgers in TallyPrime with automated tax splitting'],
+    remote: false,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Corporate Tax Planning & Litigations',
+    stretchSlug: 'corporate-tax-planning'
+  },
+
+  // 2. Law & Corporate Governance
+  {
+    title: 'Corporate Law, M&A & Due Diligence',
+    slug: 'corporate-law',
+    domain: 'Law / Legal & Compliance',
+    domainType: 'law_legal',
+    interest: 'Corporate Law, Contracts & Regulatory Compliance',
+    tools: 'Legal Databases (SCC Online / Manupatra / Westlaw)',
+    educationMatch: ['LL.B / LL.M (Law Graduate / Advocate)', 'CA / CS / CMA (Chartered Accountant / Finance Pro)'],
+    strengths: { legal_drafting: 4, statutory_research: 4, corporate_compliance: 4, client_advisory: 4, detail: 5, english: 4 },
+    hours: 260,
+    salary: [6.5, 15.0],
+    skills: ['Companies Act 2013 Compliance', 'Shareholders & Share Purchase Agreements (SHA/SPA)', 'Legal Due Diligence Audit', 'SEBI LODR Guidelines', 'Secretarial Standards'],
+    projects: ['Draft an acquisition term sheet with anti-dilution and indemnity caps', 'Prepare a comprehensive 50-page legal due diligence checklist for an unlisted target'],
+    remote: true,
+    freelance: true,
+    people: true,
+    structured: true,
+    stretch: 'International Arbitration & Cross-Border Deals',
+    stretchSlug: 'corporate-law'
+  },
+  {
+    title: 'Intellectual Property & Patent Law',
+    slug: 'intellectual-property-law',
+    domain: 'Law / Legal & Compliance',
+    domainType: 'law_legal',
+    interest: 'Corporate Law, Contracts & Regulatory Compliance',
+    tools: 'MCA21 / Trademark & Patent Registry Portals',
+    educationMatch: ['LL.B / LL.M (Law Graduate / Advocate)', 'B.Tech / B.E / BCA / MCA (Computer Science & IT)', 'B.Pharm / M.Pharm / Pharma.D / Life Sciences'],
+    strengths: { statutory_research: 4, legal_drafting: 4, detail: 5, analysis: 4, english: 4 },
+    hours: 240,
+    salary: [6.0, 14.0],
+    skills: ['Patent Claim Drafting (Form 1/2)', 'Freedom-to-Operate (FTO) Searches', 'Trademark Prosecution (TM-A)', 'Section 3 Patentability Exceptions', 'IP Licensing Agreements'],
+    projects: ['Conduct a prior art novelty search on Google Patents and draft 10 independent claims', 'Draft a trademark infringement cease-and-desist notice and opposition response'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Patent Agent Certification (Indian Patent Office)',
+    stretchSlug: 'intellectual-property-law'
+  },
+  {
+    title: 'Contract Drafting & Commercial Advisory',
+    slug: 'contract-drafting',
+    domain: 'Law / Legal & Compliance',
+    domainType: 'law_legal',
+    interest: 'Corporate Law, Contracts & Regulatory Compliance',
+    tools: 'MS Word / Contract Automation & Redlining Tools',
+    educationMatch: ['LL.B / LL.M (Law Graduate / Advocate)', 'BA / MA / Humanities & Social Sciences', 'B.Com / BBA / M.Com (Commerce & Finance)'],
+    strengths: { legal_drafting: 5, detail: 5, client_advisory: 3, statutory_research: 3, english: 4 },
+    hours: 180,
+    salary: [5.0, 11.0],
+    skills: ['Master Services Agreements (MSAs)', 'Statements of Work (SOWs)', 'Indemnification & Limitation of Liability', 'IP Assignment Clauses', 'Dispute Resolution Clauses'],
+    projects: ['Draft an end-to-end B2B SaaS Master Services Agreement with SLA breach remedies', 'Review and redline a vendor contract to negotiate favorable payment and termination terms'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Global Legal Operations (CLMOps)',
+    stretchSlug: 'contract-drafting'
+  },
+
+  // 3. Pharmacy, Healthcare & Life Sciences
+  {
+    title: 'Clinical Pharmacy & Hospital Practice',
+    slug: 'clinical-pharmacy',
+    domain: 'Pharmacy / Healthcare / Clinical',
+    domainType: 'pharma_health',
+    interest: 'Clinical Research, Pharmacovigilance & Hospital Pharmacy',
+    tools: 'Hospital HIS / Pharmacy Dispensing Software',
+    educationMatch: ['B.Pharm / M.Pharm / Pharma.D / Life Sciences', 'MBBS / BDS / Nursing / Allied Health'],
+    strengths: { pharmacology: 5, client_advisory: 4, detail: 4, analysis: 4, english: 3 },
+    hours: 220,
+    salary: [4.2, 9.0],
+    skills: ['Therapeutic Drug Monitoring (TDM)', 'ICU Ward Rounds', 'Adverse Drug Reaction (ADR) Reporting', 'Antibiotic Stewardship', 'Patient Discharge Counseling'],
+    projects: ['Audit 50 patient charts in an ICU ward for drug-drug interactions and dosage adjustments', 'Create an evidence-based institutional antibiotic stewardship guidelines protocol'],
+    remote: false,
+    freelance: false,
+    people: true,
+    structured: true,
+    stretch: 'Clinical Research Director (CRO)',
+    stretchSlug: 'clinical-research'
+  },
+  {
+    title: 'Pharmacovigilance & Drug Safety',
+    slug: 'pharmacovigilance',
+    domain: 'Pharmacy / Healthcare / Clinical',
+    domainType: 'pharma_health',
+    interest: 'Clinical Research, Pharmacovigilance & Hospital Pharmacy',
+    tools: 'Argus Safety / ArisGlobal Safety Database',
+    educationMatch: ['B.Pharm / M.Pharm / Pharma.D / Life Sciences', 'MBBS / BDS / Nursing / Allied Health', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)'],
+    strengths: { pharmacovigilance: 5, pharmacology: 4, detail: 5, analysis: 4, english: 4 },
+    hours: 200,
+    salary: [4.5, 10.0],
+    skills: ['Individual Case Safety Reports (ICSR)', 'MedDRA Coding (PT/LLT/SOC)', 'Argus Safety Workflows', 'Narrative Writing & Causality Assessment', 'Periodic Safety Update Reports (PSUR/PBRER)'],
+    projects: ['Process and narrative-draft 10 complex clinical trial adverse event safety cases in MedDRA', 'Perform a signal detection causality assessment on a post-marketing drug event dataset'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Regulatory Affairs & Pharmacovigilance Lead',
+    stretchSlug: 'regulatory-affairs'
+  },
+  {
+    title: 'Clinical Research & Data Management (CDM)',
+    slug: 'clinical-research',
+    domain: 'Pharmacy / Healthcare / Clinical',
+    domainType: 'pharma_health',
+    interest: 'Clinical Research, Pharmacovigilance & Hospital Pharmacy',
+    tools: 'Medidata Rave / Oracle Clinical / Electronic Data Capture (eCRF)',
+    educationMatch: ['B.Pharm / M.Pharm / Pharma.D / Life Sciences', 'MBBS / BDS / Nursing / Allied Health', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)'],
+    strengths: { clinical_trials: 5, detail: 5, analysis: 4, english: 3 },
+    hours: 210,
+    salary: [4.5, 9.5],
+    skills: ['ICH-GCP Guidelines', 'Electronic Data Capture (EDC / Medidata Rave)', 'Data Management Plan (DMP)', 'Discrepancy / Query Management', 'Database Lock & CDISC SDTM Standards'],
+    projects: ['Design an annotated Case Report Form (eCRF) for a Phase III oncology trial', 'Execute a data validation query check specification for 100 patient subject records'],
+    remote: true,
+    freelance: false,
+    people: false,
+    structured: true,
+    stretch: 'Biostatistics & CDISC SAS Programmer',
+    stretchSlug: 'clinical-research'
+  },
+
+  // 4. Education & Pedagogy
+  {
+    title: 'Teaching & Experiential Pedagogy (NEP 2020)',
+    slug: 'teaching-pedagogy',
+    domain: 'Education / Teaching / EdTech',
+    domainType: 'education',
+    interest: 'Teaching, Pedagogy, EdTech & Educational Leadership',
+    tools: 'Google Classroom / Canvas / Moodle LMS',
+    educationMatch: ['B.Ed / M.Ed / Teaching Credential', 'BA / MA / Humanities & Social Sciences', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)'],
+    strengths: { pedagogical_design: 4, classroom_management: 5, communication: 5, student_evaluation: 4, creative: 3, english: 3 },
+    hours: 160,
+    salary: [3.8, 8.0],
+    skills: ['Inquiry-Based Learning Architecture', 'Bloom’s Taxonomy Cognitive Mapping', 'NEP 2020 Experiential Unit Design', 'Differentiated Classroom Instruction', 'Formative Assessment Rubrics'],
+    projects: ['Design a 4-week experiential science unit plan with active inquiry lab triggers', 'Develop a comprehensive student portfolio evaluation rubric with self-reflection prompts'],
+    remote: false,
+    freelance: true,
+    people: true,
+    structured: true,
+    stretch: 'Educational Leadership & School Principalship',
+    stretchSlug: 'educational-leadership'
+  },
+  {
+    title: 'Instructional Design & E-Learning (ADDIE)',
+    slug: 'instructional-design',
+    domain: 'Education / Teaching / EdTech',
+    domainType: 'education',
+    interest: 'Teaching, Pedagogy, EdTech & Educational Leadership',
+    tools: 'Articulate Storyline 360 / Instructional Authoring',
+    educationMatch: ['B.Ed / M.Ed / Teaching Credential', 'BA / MA / Humanities & Social Sciences', 'B.Tech / B.E / BCA / MCA (Computer Science & IT)'],
+    strengths: { pedagogical_design: 5, edtech_lms: 4, creative: 4, communication: 4, english: 4 },
+    hours: 200,
+    salary: [5.0, 12.0],
+    skills: ['ADDIE & SAM Instructional Models', 'Storyline 360 & Rise Interactive Modules', 'Storyboard Writing for E-Learning', 'SCORM / xAPI Integration', 'Microlearning & Gamification'],
+    projects: ['Write a 15-screen interactive branching scenario storyboard for corporate compliance', 'Develop and publish an accessible Storyline 360 e-learning module with quiz knowledge checks'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: false,
+    stretch: 'Learning Experience Platform (LXP) Architect',
+    stretchSlug: 'instructional-design'
+  },
+
+  // 5. Industrial Automation & Core Engineering
+  {
+    title: 'PLC, SCADA & Industrial Automation',
+    slug: 'industrial-automation-plc-scada',
+    domain: 'Core Engineering / Manufacturing / Automation',
+    domainType: 'core_engineering',
+    interest: 'Industrial Automation, Robotics & Smart Manufacturing',
+    tools: 'Siemens TIA Portal / Rockwell RSLogix (PLC)',
+    educationMatch: ['B.Tech / Diploma (Mechanical / Electrical / Core Eng)', 'Diploma / ITI (Technical Trades)'],
+    strengths: { plc_scada: 5, schematics_circuits: 4, preventive_maintenance: 4, detail: 4 },
+    hours: 250,
+    salary: [4.0, 8.5],
+    skills: ['Ladder Logic & Function Block (FBD)', 'Siemens TIA Portal & S7-1200/1500', 'SCADA & HMI Screen Development', 'VFD Variable Frequency Drives', 'Industrial Modbus & Profinet Protocols'],
+    projects: ['Program an automated sorting conveyor system logic in Siemens TIA Portal', 'Build an interactive SCADA mimic screen with real-time temperature telemetry & alarms'],
+    remote: false,
+    freelance: false,
+    people: false,
+    structured: true,
+    stretch: 'Industrial IoT & Smart Factory Architect',
+    stretchSlug: 'industrial-automation-plc-scada'
+  },
+  {
+    title: 'EV Battery Powertrain & BMS Engineering',
+    slug: 'ev-battery-tech',
+    domain: 'Core Engineering / Manufacturing / Automation',
+    domainType: 'core_engineering',
+    interest: 'Industrial Automation, Robotics & Smart Manufacturing',
+    tools: 'AutoCAD / SolidWorks / CATIA (CAD/CAM)',
+    educationMatch: ['B.Tech / Diploma (Mechanical / Electrical / Core Eng)', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)'],
+    strengths: { schematics_circuits: 4, preventive_maintenance: 4, analysis: 4, detail: 4 },
+    hours: 260,
+    salary: [5.5, 12.0],
+    skills: ['Lithium-ion Cell Chemistry (NMC/LFP)', 'Battery Management System (BMS) Architecture', 'Cell Balancing & Thermal Runaway Protection', 'CAN Bus Telemetry Diagnostics', 'CCS2 & Bharat EV DC Fast Charging Protocols'],
+    projects: ['Model a 48V 100Ah battery pack with passive cell balancing circuits in MATLAB/Simulink', 'Simulate thermal dissipation and cooling airflow across a 200-cell EV battery enclosure'],
+    remote: false,
+    freelance: false,
+    people: false,
+    structured: true,
+    stretch: 'Autonomous Vehicle AUTOSAR Embedded Systems',
+    stretchSlug: 'ev-battery-tech'
+  },
+
+  // 6. Technology, AI & Data Frontier
+  {
+    title: 'AI Agents & LLM Application Engineering',
+    slug: 'ai-agents-llm-apps',
+    domain: 'Technology / Software / Data',
+    domainType: 'technology',
+    interest: 'AI Engineering, Autonomous Agents & Machine Learning',
+    tools: 'LangChain / LangGraph / AI Prompt Testing Workbenches',
+    educationMatch: ['B.Tech / B.E / BCA / MCA (Computer Science & IT)', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)', 'MBA / Post-Graduate Management'],
+    strengths: { coding: 4, ai_engineering: 5, database_sql: 3, system_design: 4, analysis: 4, english: 3 },
+    hours: 320,
+    salary: [8.0, 20.0],
+    skills: ['LangGraph Multi-Agent Orchestration', 'Anthropic Model Context Protocol (MCP)', 'RAG Pipelines with Hybrid Search', 'Vector Databases (Pinecone/Qdrant)', 'LLM Evaluation & Guardrails'],
+    projects: ['Build an autonomous SQL agent with schema reflection and error self-correction', 'Deploy an enterprise document intelligence pipeline with structured RAG and citation verification'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: false,
+    stretch: 'AI Platform Architect & Agent Ops',
+    stretchSlug: 'ai-agents-llm-apps'
+  },
+  {
+    title: 'Data Analytics & Power BI Insights',
+    slug: 'data-analytics',
+    domain: 'Technology / Software / Data',
+    domainType: 'technology',
+    interest: 'Data Analytics, BI Dashboards & Business Insights',
+    tools: 'SQL / PostgreSQL / MongoDB',
+    educationMatch: ['B.Com / BBA / M.Com (Commerce & Finance)', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)', 'B.Tech / B.E / BCA / MCA (Computer Science & IT)', 'BA / MA / Humanities & Social Sciences'],
+    strengths: { database_sql: 4, analysis: 4, excel_tools: 4, communication: 3, detail: 3 },
+    hours: 200,
+    salary: [4.0, 8.5],
+    skills: ['Advanced SQL (Window Functions, CTEs)', 'Power BI & DAX Calculations', 'Data Cleaning & Transformation', 'Business Metrics & KPI Tree Mapping', 'Executive Data Storytelling'],
+    projects: ['Clean a messy retail sales dataset and calculate customer lifetime value in SQL', 'Build an interactive 3-page Power BI executive dashboard tracking monthly MRR and churn'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Data Engineering & Modern Lakehouse (dbt / Snowflake)',
+    stretchSlug: 'data-analytics'
+  },
+  {
+    title: 'Full-Stack Web Development',
+    slug: 'full-stack-web',
+    domain: 'Technology / Software / Data',
+    domainType: 'technology',
+    interest: 'Full-Stack Software, Web Apps & Cloud Infrastructure',
+    tools: 'Python / JavaScript / TypeScript Frameworks',
+    educationMatch: ['B.Tech / B.E / BCA / MCA (Computer Science & IT)', 'B.Sc / M.Sc (Pure Sciences / Statistics / Math)', 'Diploma / ITI (Technical Trades)'],
+    strengths: { coding: 4, system_design: 3, database_sql: 3, detail: 3, analysis: 3 },
+    hours: 360,
+    salary: [4.5, 10.0],
+    skills: ['TypeScript & Next.js React', 'Node.js Backend & REST/GraphQL APIs', 'PostgreSQL Database & Prisma ORM', 'JWT / OAuth Authentication', 'Vercel / AWS Cloud Deployment'],
+    projects: ['Build an e-commerce platform with stripe checkout, auth, and database persistence', 'Create a real-time collaborative task manager with WebSocket live synchronization'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: false,
+    stretch: 'Cloud Platform Engineering & Kubernetes',
+    stretchSlug: 'full-stack-web'
+  },
+  {
+    title: 'Salesforce Administration & Automation',
+    slug: 'salesforce-administration',
+    domain: 'Technology / Software / Data',
+    domainType: 'technology',
+    interest: 'Product Management, RevOps & Business Growth',
+    tools: 'CRM Systems (Salesforce / HubSpot / Zoho)',
+    educationMatch: ['B.Com / BBA / M.Com (Commerce & Finance)', 'BA / MA / Humanities & Social Sciences', 'B.Tech / B.E / BCA / MCA (Computer Science & IT)'],
+    strengths: { digital_tools: 4, detail: 4, analysis: 3, communication: 3, english: 3 },
+    hours: 200,
+    salary: [4.5, 9.5],
+    skills: ['Lightning App Builder', 'Salesforce Flow Automation (Record/Schedule)', 'Security Architecture & Permission Sets', 'Data Loader Import/Export', 'Custom Reports & Dashboards'],
+    projects: ['Build an automated lead qualification and SLA escalation flow in Salesforce Flow Builder', 'Configure object relationships, validation rules, and role hierarchies for a 50-user sales org'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: true,
+    stretch: 'Salesforce Developer (Apex / LWC) & CPQ',
+    stretchSlug: 'salesforce-administration'
+  },
+
+  // 7. Design, Creative & Media
+  {
+    title: 'UI/UX & Product Design Systems',
+    slug: 'ui-ux-product-design',
+    domain: 'Design / Creative Media / Content',
+    domainType: 'design_media',
+    interest: 'UI/UX Product Design, 3D Spatial & Motion Media',
+    tools: 'Figma / FigJam / Adobe XD',
+    educationMatch: ['B.Arch / Design / Fine Arts', 'BA / MA / Humanities & Social Sciences', 'B.Tech / B.E / BCA / MCA (Computer Science & IT)'],
+    strengths: { ui_ux_design: 5, visual_storytelling: 4, creative: 4, communication: 3, detail: 4 },
+    hours: 240,
+    salary: [4.5, 11.0],
+    skills: ['Figma Auto-Layout & Design Tokens', 'User Journey Mapping & Wireframing', 'Interactive Micro-Prototypes', 'Usability Testing & Feedback Synthesis', 'Mobile & Web Accessibility (WCAG)'],
+    projects: ['Redesign a complex fintech loan application flow with a 30% reduction in cognitive load', 'Create a complete multi-theme design system component library with auto-layout in Figma'],
+    remote: true,
+    freelance: true,
+    people: false,
+    structured: false,
+    stretch: 'UX Research & Design Strategy Lead',
+    stretchSlug: 'ui-ux-product-design'
+  },
+  {
+    title: 'YouTube Operations & Media Strategy',
+    slug: 'youtube-ops',
+    domain: 'Design / Creative Media / Content',
+    domainType: 'design_media',
+    interest: 'UI/UX Product Design, 3D Spatial & Motion Media',
+    tools: 'Adobe Premiere Pro / DaVinci Resolve',
+    educationMatch: ['BA / MA / Humanities & Social Sciences', 'B.Com / BBA / M.Com (Commerce & Finance)', '12th Standard / Non-Graduate'],
+    strengths: { video_motion: 4, visual_storytelling: 4, creative: 4, communication: 4, analysis: 3 },
+    hours: 160,
+    salary: [3.5, 8.0],
+    skills: ['CTR Packaging & Title/Thumbnail Psychology', 'Retention Curve Scripting & Story Beats', 'Video Editing Pacing & Sound Effects', 'YouTube Analytics & Audience Demographics', 'Sponsorship Pitch Decks & Media Kits'],
+    projects: ['Audit a 50k subscriber channel and present 5 actionable changes to boost average view duration', 'Script, edit, and package a 5-minute high-retention educational video with custom thumbnails'],
+    remote: true,
+    freelance: true,
+    people: true,
+    structured: false,
+    stretch: 'Media Brand Director & Creator Agency Lead',
+    stretchSlug: 'youtube-ops'
+  }
 ];
 
+// ---------------------------------------------------------------------------
+// Validation Helper
+// ---------------------------------------------------------------------------
 export const isAnswered = (q: Question, answers: Answers) => {
   const value = answers[q.id]?.trim();
   if (!value) return !!q.optional;
@@ -72,38 +982,163 @@ export const isAnswered = (q: Question, answers: Answers) => {
   return value.length >= 2 && value.length <= 100;
 };
 
+// ---------------------------------------------------------------------------
+// Intelligent Adaptive Career Ranking Algorithm
+// ---------------------------------------------------------------------------
 export function rankCareers(a: Answers) {
-  const missing = compassSteps.flatMap(s => s.questions).filter(q => !isAnswered(q, a));
-  if (missing.length) throw new Error('Complete all required signals with valid answers.');
-  const level = (id: string) => Math.max(0, comfort.indexOf(a[id]));
+  const dynamicSteps = getCompassSteps(a);
+  const allActiveQuestions = dynamicSteps.flatMap(s => s.questions);
+  const missing = allActiveQuestions.filter(q => !isAnswered(q, a));
+  if (missing.length) {
+    throw new Error(`Complete all required signals with valid answers. Missing: ${missing[0].label}`);
+  }
+
+  const userDomain = resolveUserDomain(a);
+  const level = (id: string) => Math.max(0, comfort.indexOf(a[id] || ''));
+
   return compassTracks.map(track => {
-    const gaps = (Object.entries(track.strengths) as [Strength, number][]).map(([key, need]) => ({ key, gap: Math.max(0, need - level(key)) })).filter(x => x.gap > 0);
-    const ability = 1 - gaps.reduce((sum, x) => sum + x.gap, 0) / Object.values(track.strengths).reduce((s, n) => s + n, 0);
-    const toolMatch = a.tools === track.tools || (a.tools === 'Excel / Sheets' && ['data-analytics', 'tally-gst'].includes(track.slug));
-    const relevant = a.domain === track.domain;
-    const portfolio = ['Starting from scratch', 'Course exercises', 'One personal project', 'Multiple projects / professional work'].indexOf(a.portfolio);
-    const experience = ['Fresher', 'Under 2 years', '2–5 years', '5+ years'].indexOf(a.experience);
-    const learningHours = Math.round(track.hours * (1.2 - ability * .25 - (toolMatch ? .12 : 0) - portfolio * .035 - (relevant ? experience * .025 : 0)));
-    const weekly = parseInt(a.hours) || 10;
-    const access = a.device === 'Shared computer' ? .75 : a.device === 'Phone only' ? .45 : 1;
-    const weeks = Math.ceil(learningHours / (weekly * access));
-    const deadlineWeeks = (parseInt(a.deadline) || 6) * 4.33;
-    const readiness = Math.min(1, deadlineWeeks / weeks);
-    const interest = a.interest === track.interest ? 1 : .25;
-    const workFit = a.work === 'Remote' && !track.remote ? .2 : 1;
-    const employmentFit = a.employment === 'Freelance / Contract' && !track.freelance ? .2 : 1;
-    const styleFit = a.style === 'A mix of solo and teamwork' || (a.style === 'Frequent people interaction') === track.people ? 1 : .4;
-    const structureFit = a.structure === 'A balance' || (a.structure === 'Clear processes') === track.structured ? 1 : .4;
-    const targetSalaryNum = Number((a.target || '4').replace(/[^0-9]/g, '')) || 4;
-    const salaryFit = Math.min(1, track.salary[1] / targetSalaryNum);
-    const goalFit = a.goal === 'Get a job sooner' ? readiness : a.goal === 'Long-term earning growth' ? salaryFit : a.goal === 'Freelance flexibility' ? Number(track.freelance) : (ability + Number(relevant)) / 2;
-    const constraints = [workFit, employmentFit, a.relocate === 'No' && !track.remote ? .5 : 1, a.risk === 'Need predictability' && a.employment === 'Freelance / Contract' ? .3 : 1, a.budget === 'Free resources only' && track.slug === 'devops-sre' ? .6 : 1, access, a.shifts === 'Daytime only' && ['bpo-support', 'industrial-automation-plc-scada'].includes(track.slug) ? .5 : 1];
-    const dimensions = { 'Strengths': Math.round(ability * 100), 'Interests': Math.round(interest * 100), 'Background': Math.round((Number(relevant) * .4 + Number(toolMatch) * .4 + (a.education === track.education ? .2 : .1)) * 100), 'Work preferences': Math.round((styleFit + structureFit + constraints.reduce((s, n) => s + n, 0) / constraints.length) / 3 * 100), 'Timeline': Math.round(readiness * 100), 'Goals': Math.round((goalFit + salaryFit) / 2 * 100) };
-    const score = Math.round(dimensions.Strengths * .3 + dimensions.Interests * .2 + dimensions.Background * .1 + dimensions['Work preferences'] * .15 + dimensions.Timeline * .15 + dimensions.Goals * .1);
-    const reasons = [a.interest === track.interest ? `Matches your interest in ${a.interest.toLowerCase()}.` : 'An adjacent path to explore alongside your main interest.', ability >= .7 ? 'Your current strengths cover most of the foundation.' : 'A foundation-first plan can address the gaps below.', relevant ? `Builds on your ${a.domain.toLowerCase()} background.` : 'Projects will help demonstrate your move into a new field.', toolMatch ? `Your ${a.tools} experience gives you a head start.` : `Start with ${track.skills[0]} before adding specialist tools.`];
-    const cautions = [weeks > deadlineWeeks ? `Your ${a.deadline} goal is tighter than this ${weeks}-week learning plan. Increase study time or extend the deadline.` : '', a.device === 'Phone only' ? 'Arrange regular computer access before starting portfolio projects; a phone alone is insufficient.' : '', a.work === 'Remote' && !track.remote ? 'Remote-only openings may limit this path; include local employers if possible.' : '', salaryFit < 1 ? 'Your salary target is above this entry-level planning range; treat it as a longer-term milestone.' : '', a.shifts === 'Daytime only' && ['bpo-support', 'industrial-automation-plc-scada'].includes(track.slug) ? 'Filter out shift-based or on-call roles.' : '', a.salary && Number(a.salary) > track.salary[1] ? 'This switch may initially pay less than your current salary.' : ''].filter(Boolean);
-    const learningPlan = a.learning === 'Building projects' ? 'Learn one concept, then immediately apply it to the projects below.' : a.learning === 'Structured courses' ? 'Follow one structured course and complete a portfolio milestone after each module.' : 'Join a study community and arrange a weekly project review.';
-    return { ...track, score, dimensions, weeks, learningHours, gaps, reasons, cautions, learningPlan, searchPlan: `${a.work} ${a.employment?.toLowerCase() || 'full-time'} opportunities in ${(a.location || 'your area').trim()}${a.relocate !== 'No' ? ' and locations you can relocate to' : ''}. ${a.status === 'Student' || a.status === 'Looking for my first job' ? 'Include internships and trainee roles.' : a.status === 'Returning after a break' ? 'Include returnships and explain your recent portfolio work.' : 'Use transferable experience in your applications.'}`, budgetPlan: a.budget === 'Free resources only' ? 'Use free documentation, community learning, and local or free-tier tools. Avoid paid cloud resources.' : a.budget === 'Under ₹10,000' ? 'Prioritise one practical course; reserve the rest for project needs.' : 'Build projects first; choose a certification only when target roles request it.' };
+    // 1. Strengths Fit & Competency Gap
+    const trackStrengths = Object.entries(track.strengths) as [Strength, number][];
+    const gaps: { key: string; gap: number }[] = [];
+    let requiredPoints = 0;
+    let satisfiedPoints = 0;
+
+    trackStrengths.forEach(([key, need]) => {
+      requiredPoints += need;
+      const userLevel = level(key);
+      if (userLevel < need) {
+        gaps.push({ key, gap: need - userLevel });
+        satisfiedPoints += userLevel;
+      } else {
+        satisfiedPoints += need;
+      }
+    });
+
+    const ability = requiredPoints > 0 ? satisfiedPoints / requiredPoints : 0.7;
+
+    // 2. Educational & Domain Synergy
+    const eduMatch = track.educationMatch.some(e => e.toLowerCase() === (a.education || '').toLowerCase() || (a.education || '').toLowerCase().includes(e.toLowerCase().slice(0, 5)));
+    const domainMatch = track.domainType === userDomain || track.domain === a.domain;
+    const backgroundBonus = (eduMatch ? 0.4 : 0.1) + (domainMatch ? 0.5 : 0.1);
+
+    // 3. Tool Stack Affinity
+    const toolMatch = a.tools === track.tools || (a.tools && a.tools !== 'None yet / Starting fresh' && track.tools.includes(a.tools.split(' ')[0]));
+
+    // 4. Learning Timeline Feasibility
+    const portfolioIdx = ['Starting completely from scratch', 'Academic coursework & theoretical concepts only', 'One structured case study / personal project completed', 'Multiple real-world projects / professional work'].indexOf(a.portfolio || '') || 0;
+    const experienceIdx = ['Fresher / College Student', 'Under 2 years', '2–5 years', '5–10 years', '10+ years'].indexOf(a.experience || '') || 0;
+    
+    const learningHours = Math.round(
+      track.hours * (1.25 - ability * 0.3 - (toolMatch ? 0.12 : 0) - portfolioIdx * 0.04 - (domainMatch ? experienceIdx * 0.03 : 0))
+    );
+
+    const weekly = parseInt((a.hours || '10').replace(/[^0-9]/g, '')) || 10;
+    const access = a.device?.includes('Shared') ? 0.8 : a.device?.includes('Smartphone') ? 0.5 : 1.0;
+    const weeks = Math.max(4, Math.ceil(learningHours / (weekly * access)));
+    const deadlineMonths = parseInt((a.deadline || '6').replace(/[^0-9]/g, '')) || 6;
+    const deadlineWeeks = deadlineMonths * 4.33;
+    const readiness = Math.min(1.0, deadlineWeeks / weeks);
+
+    // 5. Interest & Work Style Alignment
+    const interestFit = a.interest === track.interest ? 1.0 : (domainMatch ? 0.6 : 0.25);
+    const workFit = a.work?.includes('100% Remote') && !track.remote ? 0.3 : 1.0;
+    const employmentFit = a.employment?.includes('Independent practice') && !track.freelance ? 0.3 : 1.0;
+    const styleFit = a.style?.includes('mix of solo') || (a.style?.includes('High-touch') === track.people) ? 1.0 : 0.6;
+    const structureFit = a.structure?.includes('Balanced') || (a.structure?.includes('Highly structured') === track.structured) ? 1.0 : 0.6;
+
+    // 6. Target Salary Feasibility
+    const targetSalaryNum = Number((a.target || '6').match(/\d+(\.\d+)?/)?.[0] || '6');
+    const salaryFit = Math.min(1.0, (track.salary[1] * 1.1) / targetSalaryNum);
+
+    // 7. Multi-Dimensional Score Composition
+    const dimensions = {
+      'Domain & Background Fit': Math.min(100, Math.round(backgroundBonus * 100)),
+      'Core Competencies': Math.min(100, Math.round(ability * 100)),
+      'Interest Alignment': Math.min(100, Math.round(interestFit * 100)),
+      'Work Style & Lifestyle': Math.min(100, Math.round(((styleFit + structureFit + workFit + employmentFit) / 4) * 100)),
+      'Timeline Feasibility': Math.min(100, Math.round(readiness * 100)),
+      'Compensation Ceiling': Math.min(100, Math.round(salaryFit * 100))
+    };
+
+    const score = Math.min(
+      99,
+      Math.max(
+        35,
+        Math.round(
+          dimensions['Domain & Background Fit'] * 0.25 +
+          dimensions['Core Competencies'] * 0.25 +
+          dimensions['Interest Alignment'] * 0.20 +
+          dimensions['Work Style & Lifestyle'] * 0.15 +
+          dimensions['Timeline Feasibility'] * 0.15
+        )
+      )
+    );
+
+    // Tailored Personalized Rationale
+    const reasons: string[] = [];
+    if (eduMatch || domainMatch) {
+      reasons.push(`Directly leverages your ${a.education || a.domain} foundation, accelerating your learning curve.`);
+    }
+    if (a.interest === track.interest) {
+      reasons.push(`Perfect match for your focus on ${track.interest.toLowerCase()}.`);
+    } else if (interestFit >= 0.5) {
+      reasons.push(`High synergy with your career interests and functional domain.`);
+    }
+    if (ability >= 0.75) {
+      reasons.push(`Your current competency ratings cover the core prerequisites for this path.`);
+    } else {
+      reasons.push(`A structured project portfolio will systematically bridge the identified skill gaps.`);
+    }
+    if (toolMatch) {
+      reasons.push(`Your familiarity with ${a.tools} gives you a distinct practical head start.`);
+    }
+
+    // Honest Contextual Cautions
+    const cautions: string[] = [];
+    if (weeks > deadlineWeeks) {
+      cautions.push(`Your target deadline of ${deadlineMonths} months is faster than the estimated ${weeks}-week preparation plan. Increase weekly hours to ${Math.ceil(learningHours / deadlineWeeks)} hrs/week.`);
+    }
+    if (a.device?.includes('Smartphone')) {
+      cautions.push('A smartphone alone is insufficient for professional case studies and software tools. Secure regular access to a laptop or workstation.');
+    }
+    if (a.work?.includes('100% Remote') && !track.remote) {
+      cautions.push('This profession primarily operates in-person or on-site (hospital, manufacturing plant, school, or court). Expect physical presence.');
+    }
+    if (targetSalaryNum > track.salary[1] * 1.2) {
+      cautions.push(`Your target compensation (₹${targetSalaryNum}L) is above the typical starting band (₹${track.salary[0]}L–₹${track.salary[1]}L). Treat this as a 2–3 year growth milestone.`);
+    }
+    if (a.salary && Number(a.salary) > track.salary[1]) {
+      cautions.push(`Your current compensation (₹${a.salary}L) is higher than the entry band. Highlight your transferable domain seniority to negotiate lateral pay.`);
+    }
+
+    const learningPlan = a.learning?.includes('case studies')
+      ? 'Build real case study deliverables week-by-week and publish them to a public portfolio.'
+      : a.learning?.includes('sequential courses')
+      ? 'Complete a recognized curriculum track and validate each module with practical capstone submissions.'
+      : 'Pair up with industry practitioners and arrange monthly project feedback reviews.';
+
+    const budgetPlan = a.budget?.includes('Free')
+      ? 'Rely on official documentation, open-source repositories, and trial tool tiers. Avoid unneeded paid bootcamps.'
+      : a.budget?.includes('Under ₹15,000')
+      ? 'Invest selectively in accredited certification exams or professional tool licenses.'
+      : 'Prioritize accredited specialized credentials and mentorship cohorts.';
+
+    const searchPlan = `${a.work || 'Hybrid'} ${a.employment?.includes('Independent') ? 'consulting & freelance' : 'full-time'} opportunities in ${a.location || 'your preferred city'}${a.relocate?.includes('Yes') ? ' and major national employment hubs' : ''}.`;
+
+    return {
+      ...track,
+      score,
+      dimensions,
+      weeks,
+      learningHours,
+      gaps,
+      reasons,
+      cautions,
+      learningPlan,
+      budgetPlan,
+      searchPlan
+    };
   }).sort((a, b) => b.score - a.score || a.weeks - b.weeks);
 }
+
 export type CareerResult = ReturnType<typeof rankCareers>[number];
