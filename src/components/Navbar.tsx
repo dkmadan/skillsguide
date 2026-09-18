@@ -26,7 +26,8 @@ import {
   Calculator,
   Scale,
   Briefcase,
-  Layers
+  Layers,
+  FlaskConical
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -828,6 +829,122 @@ export default function Navbar({
               Journeys
             </Link>
 
+            {/* 5B. Skill Labs Mega Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setActiveDropdown('labs')}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button 
+                className={`px-3 py-1.5 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer ${
+                  pathname.startsWith('/labs') || activeDropdown === 'labs'
+                    ? 'text-purple-300 bg-purple-500/10 font-bold' 
+                    : 'text-slate-300 hover:text-white hover:bg-white/5'
+                }`}
+                onClick={() => toggleDropdown('labs')}
+              >
+                <FlaskConical className="w-3.5 h-3.5 text-purple-400" />
+                <span>Skill Labs</span>
+                <span className="text-[9px] px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 font-extrabold uppercase tracking-tight">30 Labs</span>
+                <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${activeDropdown === 'labs' ? 'rotate-180 text-purple-300' : ''}`} />
+              </button>
+
+              {activeDropdown === 'labs' && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="w-[660px] rounded-2xl nav-dropdown-menu p-5 shadow-2xl border border-white/15 space-y-3">
+                    
+                    <div className="flex items-center justify-between pb-2.5 border-b border-white/10">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400">
+                          30 Virtual and Interactive Practice Labs
+                        </span>
+                      </div>
+                      <Link 
+                        href="/labs" 
+                        className="text-[11px] font-bold text-purple-300 hover:text-white flex items-center gap-1 group/hub"
+                      >
+                        <span>All 30 Labs Catalog</span>
+                        <ArrowRight className="w-3 h-3 group-hover/hub:translate-x-0.5 transition-transform" />
+                      </Link>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 text-xs">
+                      <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-300 mb-2 block flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-emerald-400" />
+                          <span>Phase 1 Pilot Simulations (Live)</span>
+                        </span>
+                        <div className="space-y-1">
+                          <Link href="/labs/marketing-budget-simulator" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>Marketing Budget Simulator</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-bold">Lab 19</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">CPM, CTR, Conv funnels &amp; 100k budget allocation</div>
+                          </Link>
+
+                          <Link href="/labs/seo-snapshot-audit-lab" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>SEO Snapshot Audit Lab</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-bold">Lab 20</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">20-page crawl, duplicate titles, orphan pages, broken links</div>
+                          </Link>
+
+                          <Link href="/labs/executive-office-prioritization-lab" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>Executive Office Prioritization</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-bold">Lab 29</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Inbox triage, meeting conflict resolution &amp; handover</div>
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-2 block">
+                          Core Practice Sandboxes
+                        </span>
+                        <div className="space-y-1">
+                          <Link href="/labs/business-analyst-desk" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>Business Analyst Desk</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-white/10 text-slate-300 rounded">Lab 01</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Falling regional revenue, 300 orders &amp; data cleaning</div>
+                          </Link>
+
+                          <Link href="/labs/sql-query-logic-lab" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>SQL Query Logic Lab</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-white/10 text-slate-300 rounded">Lab 03</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">SELECT, JOIN, WHERE, GROUP BY query block builder</div>
+                          </Link>
+
+                          <Link href="/labs/agent-workflow-logic-lab" className="block p-2 rounded-xl hover:bg-white/10 transition-colors group">
+                            <div className="text-xs font-bold text-white group-hover:text-purple-300 flex items-center justify-between">
+                              <span>Agent Workflow Logic Lab</span>
+                              <span className="text-[8px] font-mono px-1 py-0.2 bg-white/10 text-slate-300 rounded">Lab 07</span>
+                            </div>
+                            <div className="text-[10px] text-slate-400">Finite-state agent routing, approval blocks &amp; traces</div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-slate-400">
+                      <span>✓ Deterministic browser simulations</span>
+                      <span>✓ 60/25/15 objective server scoring</span>
+                      <span>✓ Print-to-PDF reports</span>
+                    </div>
+
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* 6. Roadmap Dropdown */}
             <div 
               className="relative"
@@ -1061,8 +1178,37 @@ export default function Navbar({
               🏠 Home
             </Link>
             <Link href="/journeys" className="p-2 rounded-xl text-purple-300 hover:bg-purple-600/20 font-bold">
-              🚀 Learner Journeys
+              🚀 Journeys
             </Link>
+            <Link href="/labs" className="p-2 rounded-xl text-cyan-300 hover:bg-cyan-600/20 font-bold flex items-center gap-1">
+              <FlaskConical className="w-3.5 h-3.5 text-purple-400" />
+              <span>30 Labs</span>
+            </Link>
+          </div>
+          
+          {/* Virtual Labs Suite Section */}
+          <div className="pt-2 border-t border-purple-500/20 bg-purple-950/25 rounded-2xl p-3 border border-purple-500/20">
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center gap-1.5">
+                <FlaskConical className="w-3.5 h-3.5 text-purple-400" />
+                <span className="text-[11px] uppercase font-extrabold text-purple-300">Virtual Practice Labs</span>
+              </div>
+              <Link href="/labs" className="text-[10px] text-purple-300 underline font-bold">All 30 Labs →</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-1.5 text-[11px]">
+              <Link href="/labs/marketing-budget-simulator" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200">
+                Marketing Budget Sim
+              </Link>
+              <Link href="/labs/seo-snapshot-audit-lab" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200">
+                SEO Snapshot Audit
+              </Link>
+              <Link href="/labs/executive-office-prioritization-lab" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200">
+                Executive Office Triage
+              </Link>
+              <Link href="/labs/sql-query-logic-lab" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-200">
+                SQL Query Logic
+              </Link>
+            </div>
           </div>
           
           {/* Domain 1: Pharmacy, Healthcare & Life Sciences */}

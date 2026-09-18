@@ -7,7 +7,7 @@ import { categoryDomains } from '@/data/categoryData';
 import { skillComparisons } from '@/data/skillComparisonsData';
 import { careerRoleComparisons } from '@/data/careerRoleComparisonsData';
 import { toolAlternativesData } from '@/data/toolAlternativesData';
-
+import { allLabsCatalog } from '@/data/labsCatalog';
 import { learnerJourneys } from '@/data/journeysData';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static Pages
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
+    { url: `${baseUrl}/labs`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.95 },
     { url: `${baseUrl}/journeys`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/career/compare`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
@@ -105,10 +106,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9
   }));
 
+  // Dynamic Virtual Practice Labs Pages (30 Labs)
+  const labRoutes: MetadataRoute.Sitemap = allLabsCatalog.map((lab) => ({
+    url: `${baseUrl}/labs/${lab.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.9
+  }));
+
   return [
     ...staticRoutes,
     ...categoryRoutes,
     ...journeyRoutes,
+    ...labRoutes,
     ...skillRoutes,
     ...roadmapRoutes,
     ...salaryRoutes,

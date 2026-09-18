@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getSkillBySlug, allSkillsList } from '@/data/skillsData';
 import { getFlagshipTrackDetails } from '@/data/flagshipTracksData';
+import { getLabForSkill } from '@/data/labsCatalog';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
 import BookmarkButton from '@/components/BookmarkButton';
@@ -81,6 +82,7 @@ export default async function SkillDetailPage({ params }: Props) {
   }
 
   const flagship = getFlagshipTrackDetails(slug);
+  const matchedLab = getLabForSkill(slug);
 
   const courseJsonLd = {
     '@context': 'https://schema.org',
@@ -251,6 +253,37 @@ export default async function SkillDetailPage({ params }: Props) {
 
         </div>
       </div>
+
+      {/* Contextual Hands-on Virtual Practice Lab CTA */}
+      {matchedLab && (
+        <div className="p-6 rounded-3xl bg-gradient-to-r from-purple-950/40 via-[#13172b] to-indigo-950/40 border border-purple-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+          <div className="space-y-1.5 max-w-2xl">
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase border border-purple-500/30">
+                Virtual Practice Lab {String(matchedLab.labNumber).padStart(2, '0')}
+              </span>
+              <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Zero-Setup Interactive Simulation</span>
+              </span>
+            </div>
+            <h3 className="text-lg font-black text-white">
+              {matchedLab.title}
+            </h3>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              {matchedLab.summary}
+            </p>
+          </div>
+
+          <Link
+            href={`/labs/${matchedLab.slug}`}
+            className="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold shadow-glow-btn flex items-center gap-2 shrink-0 transition-all cursor-pointer"
+          >
+            <span>Launch Virtual Lab</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      )}
 
       {/* Flagship Upgraded Track Sections (If Present) */}
       {flagship && (

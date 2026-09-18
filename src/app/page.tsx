@@ -25,7 +25,9 @@ import {
   Cpu,
   Palette,
   Leaf,
-  Layers
+  Layers,
+  FlaskConical,
+  Play
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -183,6 +185,154 @@ export default function HomePage() {
                 </div>
               </div>
 
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* VIRTUAL & INTERACTIVE LABS SHOWCASE                                       */}
+      {/* ========================================================================= */}
+      <section className="py-14 px-4 sm:px-6 lg:px-10 border-t border-purple-500/20 bg-gradient-to-b from-purple-950/20 via-[#0d101e] to-slate-950/30 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
+
+        <div className="max-w-7xl mx-auto space-y-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-bold mb-2">
+                <FlaskConical className="w-3.5 h-3.5 text-purple-400" />
+                <span>Zero-Setup Interactive Workspaces</span>
+                <span className="w-1 h-1 rounded-full bg-purple-400" />
+                <span className="text-[10px] font-mono uppercase text-emerald-400 font-extrabold">30 Labs</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+                Virtual &amp; Interactive Practice Labs
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                Test concepts through deterministic browser simulations. Instant objective evaluation against standard 60/25/15 rubrics, authored hints, and exportable portfolio reports.
+              </p>
+            </div>
+
+            <Link
+              href="/labs"
+              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold shadow-glow-btn flex items-center gap-2 shrink-0 transition-all self-start md:self-auto"
+            >
+              <span>Explore All 30 Labs</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            
+            {/* Showcase 1: Marketing Budget Simulator */}
+            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                    Lab 19 • Digital Marketing
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    Live Pilot
+                  </span>
+                </div>
+                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                  Marketing Budget Simulator
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Allocate 100k credits across Meta, Google Search, and LinkedIn. Test creative variants, advance simulated days, and hit 150 qualified leads below 700 CPL.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Budget Sliders</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Funnel CPM/CTR</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">30-Day Clock</span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+                <Link
+                  href="/labs/marketing-budget-simulator"
+                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                >
+                  <span>Launch Simulator</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Showcase 2: SEO Snapshot Audit Lab */}
+            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                    Lab 20 • SEO &amp; Growth
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    Live Pilot
+                  </span>
+                </div>
+                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                  SEO Snapshot Audit Lab
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Audit a 20-page fictional site snapshot. Eliminate duplicate title tags, author missing descriptions, re-link orphan pages, and repair dead 404 links.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">20-Page Tree</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">SERP Preview</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Orphan Linker</span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+                <Link
+                  href="/labs/seo-snapshot-audit-lab"
+                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                >
+                  <span>Launch Audit</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Showcase 3: Executive Office Prioritization Lab */}
+            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                    Lab 29 • Executive Office
+                  </span>
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    Live Pilot
+                  </span>
+                </div>
+                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                  Executive Office Prioritization
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Triage incoming executive mail via Eisenhower Matrix, resolve overlapping Wednesday board &amp; client meeting conflicts, and enforce travel policies.
+                </p>
+                <div className="flex flex-wrap gap-1.5 pt-1">
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Inbox Triage</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Calendar Conflicts</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Handover Memo</span>
+                </div>
+              </div>
+
+              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
+                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+                <Link
+                  href="/labs/executive-office-prioritization-lab"
+                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                >
+                  <span>Launch Triage</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
 
           </div>

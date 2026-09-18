@@ -9,7 +9,8 @@ import { glossaryTerms } from '@/data/glossaryData';
 import { skillComparisons } from '@/data/skillComparisonsData';
 import { careerRoleComparisons } from '@/data/careerRoleComparisonsData';
 import { toolAlternativesData } from '@/data/toolAlternativesData';
-import { Search, X, ArrowRight, Code, Briefcase, MapPin, BookOpen, Scale, Layers } from 'lucide-react';
+import { allLabsCatalog } from '@/data/labsCatalog';
+import { Search, X, ArrowRight, Code, Briefcase, MapPin, BookOpen, Scale, Layers, FlaskConical } from 'lucide-react';
 import BookmarkButton from './BookmarkButton';
 
 interface GlobalSearchModalProps {
@@ -98,8 +99,18 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
     g.shortDefinition.toLowerCase().includes(q)
   ).slice(0, 2);
 
+  // Search in Virtual Practice Labs
+  const matchedLabs = allLabsCatalog.filter(lab => 
+    !q || 
+    lab.title.toLowerCase().includes(q) || 
+    lab.summary.toLowerCase().includes(q) || 
+    lab.skills.some(s => s.toLowerCase().includes(q)) ||
+    lab.toolsSimulated.some(t => t.toLowerCase().includes(q))
+  ).slice(0, 3);
+
   const totalMatches = 
     matchedSkills.length + 
+    matchedLabs.length +
     matchedSkillComparisons.length + 
     matchedRoleComparisons.length + 
     matchedToolAlternatives.length + 
@@ -140,6 +151,42 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
             </div>
           ) : (
             <>
+              {/* Virtual Practice Labs Matches */}
+              {matchedLabs.length > 0 && (
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-purple-400 block mb-2 flex items-center gap-1.5">
+                    <FlaskConical className="w-3.5 h-3.5" />
+                    <span>Virtual Practice Labs ({matchedLabs.length})</span>
+                  </span>
+                  <div className="space-y-1.5">
+                    {matchedLabs.map((lab) => (
+                      <Link 
+                        key={lab.slug}
+                        href={`/labs/${lab.slug}`}
+                        onClick={onClose}
+                        className="p-3 rounded-2xl border border-purple-500/20 hover:border-purple-500/60 bg-[#141829] hover:bg-purple-900/20 transition-all flex items-center justify-between group gap-2"
+                      >
+                        <div className="overflow-hidden flex-1 pr-1">
+                          <div className="font-bold text-white text-xs group-hover:text-purple-300 flex items-center gap-2">
+                            <span>{lab.title}</span>
+                            <span className="px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300 text-[9px] font-mono">
+                              Lab {String(lab.labNumber).padStart(2, '0')}
+                            </span>
+                            {lab.isPilot && (
+                              <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[8px] font-bold">
+                                Live Pilot
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-slate-400 truncate mt-0.5">{lab.summary}</p>
+                        </div>
+                        <ArrowRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Skills Matches */}
               {matchedSkills.length > 0 && (
                 <div>
