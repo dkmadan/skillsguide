@@ -26,7 +26,23 @@ export function downloadJson(filename: string, data: unknown) {
   URL.revokeObjectURL(url);
 }
 
-export function downloadCsv(filename: string, headers: string[], rows: (string | number | boolean)[][]) {
+export function downloadCsv(
+  filename: string,
+  headersOrRecords: string[] | Record<string, unknown>[],
+  optionalRows?: (string | number | boolean)[][]
+) {
+  let headers: string[] = [];
+  let rows: (string | number | boolean)[][] = [];
+
+  if (Array.isArray(headersOrRecords) && headersOrRecords.length > 0 && typeof headersOrRecords[0] === 'object' && !Array.isArray(headersOrRecords[0])) {
+    const records = headersOrRecords as Record<string, unknown>[];
+    headers = Object.keys(records[0]);
+    rows = records.map(rec => headers.map(k => (rec[k] !== undefined && rec[k] !== null ? String(rec[k]) : '')));
+  } else if (Array.isArray(headersOrRecords)) {
+    headers = headersOrRecords as string[];
+    rows = optionalRows || [];
+  }
+
   const headerLine = headers.map(escapeCsvCell).join(',');
   const rowLines = rows.map(r => r.map(escapeCsvCell).join(',')).join('\n');
   const csvContent = `${headerLine}\n${rowLines}`;
