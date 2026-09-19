@@ -153,7 +153,7 @@ function initialState(fixture: Fixture): StudioState {
   return {
     segments: fixture.segments,
     curriculumOrder: fixture.curriculumOrder,
-    misconceptionRemedy: fixture.misconceptionOptions[0].id,
+    misconceptionRemedy: '',
     rubricChecks: Object.fromEntries(RUBRIC_ITEMS.map((r) => [r.id, false])),
   };
 }
@@ -170,9 +170,7 @@ function checkPrerequisites(order: string[], units: CurriculumUnit[]): { unit: C
 export default function TeachingCurriculumStudioLab({ variant, onDirty, onSubmit }: Props) {
   const fixture = FIXTURES[variant];
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex, history } = useUndoableState<StudioState>(initialState(fixture));
-  const [pedagogicalNotes, setPedagogicalNotes] = useState(
-    'Students confuse INNER JOIN with a Cartesian product when duplicate keys exist. We address this by tracing a concrete 2-row example live before scaling up, so learners can see exactly which rows pair with which.'
-  );
+  const [pedagogicalNotes, setPedagogicalNotes] = useState('');
 
   const update = (patch: Partial<StudioState>) => {
     set((prev) => ({ ...prev, ...patch }));
@@ -388,7 +386,8 @@ export default function TeachingCurriculumStudioLab({ variant, onDirty, onSubmit
             <div className="pt-2 border-t border-slate-800 space-y-2">
               <label className="text-slate-400 block">Curriculum Design Rationale &amp; Reflection</label>
               <textarea rows={3} value={pedagogicalNotes} onChange={(e) => { setPedagogicalNotes(e.target.value); onDirty(); }}
-                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none" />
+                placeholder="Explain how your lesson sequence and remediation address the identified learner misconception, time constraints, and prerequisite progression..."
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 placeholder:text-slate-600 focus:outline-none" />
               <div className="space-y-1.5">
                 <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Self-Review Rubric</span>
                 {RUBRIC_ITEMS.map((item) => (

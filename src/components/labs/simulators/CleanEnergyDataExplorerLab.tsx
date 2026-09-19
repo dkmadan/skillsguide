@@ -194,9 +194,7 @@ export default function CleanEnergyDataExplorerLab({ variant, onDirty, onSubmit 
   };
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<EnergyConfig>(initial);
   const [step, setStep] = useState(fixture.points.length - 1);
-  const [assumptionsNotes, setAssumptionsNotes] = useState(
-    `${fixture.narrative} Self-use is calculated as min(load, generation) at each interval; energy is summed as kW x that interval's own duration in hours, not a fixed step.`
-  );
+  const [assumptionsNotes, setAssumptionsNotes] = useState('');
 
   const update = (patch: Partial<EnergyConfig>) => { set((prev) => ({ ...prev, ...patch })); onDirty(); };
   const setBatteryAnswer = (id: string, ans: 'charging' | 'discharging' | 'idle') => {
@@ -406,8 +404,9 @@ export default function CleanEnergyDataExplorerLab({ variant, onDirty, onSubmit 
           <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
             <label htmlFor="assumptions-notes" className="text-xs font-extrabold text-white">3. Assumptions Summary</label>
             <textarea id="assumptions-notes" rows={4} value={assumptionsNotes}
+              placeholder="Explain how self-consumption is calculated from kW generation vs load, how variable time intervals affect kWh integration, and your battery state-of-charge conclusions..."
               onChange={(e) => { setAssumptionsNotes(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-purple-500/50" />
           </div>
 
           <div className="flex gap-2">

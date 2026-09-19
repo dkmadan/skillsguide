@@ -101,9 +101,7 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
   const [termsAccepted, setTermsAccepted] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [callLog, setCallLog] = useState<CallLogEntry[]>([]);
-  const [notes, setNotes] = useState(
-    'Anonymous requests are rejected with 401 before any validation runs. A missing courseId fails schema validation with 400. Re-submitting the same courseId + learnerEmail pair against the record store returns 409 Conflict instead of creating a second row.'
-  );
+  const [notes, setNotes] = useState('');
   const [flowStep, setFlowStep] = useState(0);
   const maxFlowStepRef = useRef(0);
 
@@ -111,6 +109,9 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
     set((prev) => ({ ...prev, ...patch }));
     onDirty();
   };
+
+  const [idempotencyKeyInput, setIdempotencyKeyInput] = useState<string>('');
+  const [idempotencyStore, setIdempotencyStore] = useState<Record<string, { status: number; body: Record<string, unknown> }>>({});
 
   const dispatch = () => {
     const role = selectedRole;
@@ -123,8 +124,14 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
 
     let status: number;
     let body: Record<string, unknown>;
+    const idemKey = idempotencyKeyInput.trim();
 
-    if (!state.rolePermissions[role]) {
+    // IDEMPOTENCY CHECK: If key exists, replay previous response safely without 409 conflict
+    if (idemKey && idempotencyStore[idemKey]) {
+      const cached = idempotencyStore[idemKey];
+      status = 200;
+      body = { ...cached.body, idempotencyReplay: true, message: 'Replayed cached response from Idempotency-Key' };
+    } else if (!state.rolePermissions[role]) {
       status = 401;
       body = { error: 'Unauthorized', message: 'Authentication token required or role not permitted to enroll' };
     } else {
@@ -138,12 +145,16 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
         );
         if (dup) {
           status = 409;
-          body = { error: 'Conflict', message: 'Learner is already enrolled in this course' };
+          body = { error: 'Conflict', message: 'Duplicate: Learner is already enrolled in this course' };
         } else {
           const enrollmentId = `enr_${Date.now().toString(36)}`;
           status = 201;
           body = { enrollmentId, status: 'active', courseId: payload.courseId, email: payload.learnerEmail, enrolledAt: new Date().toISOString() };
           update({ enrollmentRecords: [...state.enrollmentRecords, { courseId: payload.courseId, learnerEmail: payload.learnerEmail, enrollmentId }] });
+
+          if (idemKey) {
+            setIdempotencyStore(prev => ({ ...prev, [idemKey]: { status, body } }));
+          }
         }
       }
     }
@@ -293,6 +304,10 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
                 <label className="text-slate-400 block">Payload: learnerEmail</label>
                 <input type="email" value={learnerEmailInput} onChange={(e) => setLearnerEmailInput(e.target.value)} className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 font-mono text-slate-200 focus:outline-none" />
               </div>
+              <div className="space-y-2">
+                <label className="text-slate-400 block">Header: Idempotency-Key (Optional)</label>
+                <input type="text" value={idempotencyKeyInput} onChange={(e) => setIdempotencyKeyInput(e.target.value)} placeholder="e.g. req-abc-123 (replays cached response)" className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 font-mono text-slate-200 focus:outline-none" />
+              </div>
               <div className="flex items-center gap-4 pt-1">
                 <label className="flex items-center gap-2 text-slate-300"><input type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} className="accent-indigo-500 rounded" />termsAccepted</label>
                 <input type="text" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} placeholder="paymentMethod" className="flex-1 bg-slate-950 border border-slate-700 rounded-lg p-1.5 font-mono text-slate-200 focus:outline-none" />
@@ -377,7 +392,8 @@ export default function ApiFlowDesignerLab({ variant, onDirty, onSubmit }: Props
           <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
             <label htmlFor="api-notes" className="text-xs font-extrabold text-white">API Contract Notes</label>
             <textarea id="api-notes" rows={4} value={notes} onChange={(e) => { setNotes(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-200 focus:outline-none focus:border-indigo-500" />
+              placeholder="Document your API design rationale: authentication checks, schema requirements, duplicate handling (409) vs idempotency replay (200), and status code mappings..."
+              className="w-full text-xs p-3 rounded-xl bg-slate-950 border border-slate-700 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-indigo-500" />
           </div>
 
           <div className="grid grid-cols-3 gap-2">

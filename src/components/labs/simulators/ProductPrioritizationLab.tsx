@@ -209,9 +209,7 @@ function riceOf(f: { reach: number; impact: number; confidence: number; effort: 
 export default function ProductPrioritizationLab({ variant, onDirty, onSubmit }: SimulatorProps) {
   const fixture = useMemo(() => FIXTURES[variant], [variant]);
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<PpState>(initialState());
-  const [prdProblem, setPrdProblem] = useState(
-    'Learners drop off before activation because enterprise buyers cannot get a GST invoice quickly and individual learners lose momentum without visible progress milestones.'
-  );
+  const [prdProblem, setPrdProblem] = useState('');
 
   const update = (patch: Partial<PpState>) => { set((prev) => ({ ...prev, ...patch })); onDirty(); };
 
@@ -405,7 +403,8 @@ export default function ProductPrioritizationLab({ variant, onDirty, onSubmit }:
             <div>
               <label className="text-slate-400 block mb-1">Problem Statement &amp; User Need (self-reviewed)</label>
               <textarea rows={3} value={prdProblem} onChange={(e) => { setPrdProblem(e.target.value); onDirty(); }}
-                className="w-full bg-black/40 border border-white/15 rounded-lg p-2 text-slate-200 focus:outline-none" />
+                placeholder="Synthesize the user feedback and business goal into a clear problem statement..."
+                className="w-full bg-black/40 border border-white/15 rounded-lg p-2 text-slate-200 placeholder:text-slate-600 focus:outline-none" />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>

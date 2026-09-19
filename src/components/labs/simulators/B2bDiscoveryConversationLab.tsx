@@ -110,12 +110,8 @@ export default function B2bDiscoveryConversationLab({ variant, onDirty, onSubmit
   const leads = useMemo(() => FIXTURES[variant], [variant]);
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<B2bState>(initialState(leads));
   const [selectedLeadId, setSelectedLeadId] = useState(leads[0].id);
-  const [discoveryNotes, setDiscoveryNotes] = useState(
-    'Nexus FinTech is budget-approved and urgent — prioritize this week. Solo freelancer lacks enterprise budget and should be disqualified respectfully. Global Logistics needs SCORM integration but has no approved budget yet — nurture into next fiscal year.'
-  );
-  const [followupDraft, setFollowupDraft] = useState(
-    'Hi Priya, thank you for sharing Nexus FinTech\'s onboarding goals for the 40 new engineers. Attached is our tailored syllabus and SOC2 compliance package. This draft is saved locally only.'
-  );
+  const [discoveryNotes, setDiscoveryNotes] = useState('');
+  const [followupDraft, setFollowupDraft] = useState('');
 
   const activeLead = leads.find((l) => l.id === selectedLeadId) || leads[0];
   const activeState = state.leads[activeLead.id];
@@ -272,13 +268,15 @@ export default function B2bDiscoveryConversationLab({ variant, onDirty, onSubmit
           <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
             <label className="text-xs font-extrabold text-white">Discovery Notes (self-reviewed)</label>
             <textarea rows={3} value={discoveryNotes} onChange={(e) => { setDiscoveryNotes(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-blue-500/50" />
+              placeholder="Synthesize your discovery findings across leads: budget availability, timeline urgency, compliance requirements, and disqualifications..."
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50" />
           </div>
 
           <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
             <label className="text-xs font-extrabold text-white">Follow-Up Draft — Saved Locally, Never Sent</label>
             <textarea rows={3} value={followupDraft} onChange={(e) => { setFollowupDraft(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-blue-500/50" />
+              placeholder="Draft a professional follow-up addressing uncovered requirements (e.g. SOC2 compliance, team syllabus, pilot terms)..."
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50" />
             <p className="text-[10px] text-slate-500">This composer only saves a local draft. SkillsGuide never sends email or contacts anyone on your behalf.</p>
             <button type="button" onClick={handleExportJson} className="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-[11px] font-bold"><FileJson className="w-3.5 h-3.5" /><span>Save Draft as JSON</span></button>
           </div>

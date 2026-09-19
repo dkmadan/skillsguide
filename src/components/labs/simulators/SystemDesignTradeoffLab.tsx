@@ -219,9 +219,7 @@ export default function SystemDesignTradeoffLab({ variant, onDirty, onSubmit }: 
   const { state: topology, set: setTopology, undo, redo, reset, canUndo, canRedo, stepIndex, history } = useUndoableState<Topology>(fixture.initialTopology);
   const [step, setStep] = useState(0);
   const [savedScenario, setSavedScenario] = useState<ScenarioSnapshot | null>(null);
-  const [tradeoffRecord, setTradeoffRecord] = useState(
-    `Under ${fixture.narrative.toLowerCase()} the binding constraint shifts between the app tier and the database tier as load rises — compare utilization bars at each step before adding nodes you don't need.`
-  );
+  const [tradeoffRecord, setTradeoffRecord] = useState<string>('');
 
   const update = (patch: Partial<Topology>) => {
     setTopology((prev) => ({ ...prev, ...patch }));

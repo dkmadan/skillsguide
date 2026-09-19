@@ -27,6 +27,14 @@ export interface LabDefinition {
   isPilot?: boolean;
 }
 
+export type WorkspaceMode = 'guided' | 'challenge' | 'explore';
+
+export interface ScenarioHint {
+  level: number;
+  clue: string;
+  explanation?: string;
+}
+
 export interface LabScenarioVariant {
   id: string;
   labSlug: string;
@@ -38,8 +46,42 @@ export interface LabScenarioVariant {
   expectedOutput: string[];
   publicFixture: Record<string, unknown>;
   allowedActions: string[];
+  // Enhanced sandbox attributes
+  objective?: string;
+  editableInputs?: string[];
+  constraints?: string[];
+  startingMaterials?: Record<string, unknown>;
+  supportedOperations?: string[];
+  evaluationMethod?: string;
+  assumptions?: string[];
+  hints?: ScenarioHint[];
   // Private answer key used ONLY on server for deterministic scoring
   privateAnswerKey?: Record<string, unknown>;
+}
+
+export interface ExperimentSnapshot {
+  id: string;
+  name: string;
+  timestamp: string;
+  inputs: Record<string, unknown>;
+  metrics: Record<string, number | string>;
+  notes?: string;
+}
+
+export interface ValidationFeedback {
+  validity: { passed: boolean; errors: string[] };
+  correctness: { passed: boolean; score: number; details: string[]; counterexamples?: string[] };
+  constraints: { passed: boolean; violated: string[] };
+  tradeOffs: string[];
+  reflectionRubric?: { prompt: string; criteria: string[] };
+}
+
+export interface DataDataset {
+  id: string;
+  name: string;
+  schema: { name: string; type: 'string' | 'number' | 'boolean' | 'date' }[];
+  records: Record<string, unknown>[];
+  rowCount: number;
 }
 
 export interface LabAttempt {

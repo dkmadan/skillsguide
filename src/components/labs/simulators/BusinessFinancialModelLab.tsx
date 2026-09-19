@@ -142,9 +142,7 @@ export default function BusinessFinancialModelLab({ variant, onDirty, onSubmit }
   );
 
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<WorkspaceState>(initialState);
-  const [memo, setMemo] = useState(
-    'Delayed collections create a temporary cash gap in the first simulated month; once receivables catch up, cash stabilizes provided the contribution margin stays positive.'
-  );
+  const [memo, setMemo] = useState('');
 
   const updateAssumption = (patch: Partial<Assumptions>) => {
     set((prev) => ({ ...prev, assumptions: { ...prev.assumptions, ...patch } }));
@@ -366,8 +364,9 @@ export default function BusinessFinancialModelLab({ variant, onDirty, onSubmit }
               <span>Assumptions Memo</span>
             </label>
             <textarea id="fin-memo" rows={4} value={memo}
+              placeholder="Explain your assumptions: contribution margin per unit, break-even volume, collection lag effect on cash solvency, and baseline variance..."
               onChange={(e) => { setMemo(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-emerald-500/50" />
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50" />
           </div>
 
           <div className="flex gap-2">

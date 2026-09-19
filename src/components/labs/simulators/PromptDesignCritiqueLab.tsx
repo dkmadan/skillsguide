@@ -183,15 +183,13 @@ interface ComposerState {
   bestResponseId: string;
 }
 
-const ALL_ON: Record<BlockKey, boolean> = { task: true, context: true, examples: true, schema: true, privacy: true };
+const DEFAULT_BLOCKS: Record<BlockKey, boolean> = { task: true, context: false, examples: false, schema: false, privacy: false };
 
 export default function PromptDesignCritiqueLab({ variant, onDirty, onSubmit }: SimulatorProps) {
   const fixture = useMemo(() => buildFixture(variant), [variant]);
-  const initial: ComposerState = { blocks: { ...ALL_ON }, flaggedResponseIds: [], bestResponseId: '' };
+  const initial: ComposerState = { blocks: { ...DEFAULT_BLOCKS }, flaggedResponseIds: [], bestResponseId: '' };
   const { state, set, undo, redo, reset, canUndo, canRedo } = useUndoableState<ComposerState>(initial);
-  const [critiqueMemo, setCritiqueMemo] = useState(
-    'Response A stays grounded in the ticket text and separates confirmed facts from unverified claims. The other two responses either hallucinate specifics or overclaim an action, and neither should reach a customer unreviewed.'
-  );
+  const [critiqueMemo, setCritiqueMemo] = useState('');
 
   const toggleBlock = (key: BlockKey) => {
     set((prev) => ({ ...prev, blocks: { ...prev.blocks, [key]: !prev.blocks[key] } }));

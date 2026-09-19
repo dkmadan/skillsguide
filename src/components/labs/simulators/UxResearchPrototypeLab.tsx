@@ -233,9 +233,7 @@ export default function UxResearchPrototypeLab({ variant, onDirty, onSubmit }: S
   const fixture = useMemo(() => FIXTURES[variant], [variant]);
   const statements = useMemo(() => buildStatements(), []);
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<UxState>(initialState(fixture));
-  const [designRationale, setDesignRationale] = useState(
-    'Grouped interview evidence by theme, cross-checked the funnel stage with the steepest drop, and rebuilt the failed-payment screen with an explicit retry path back to checkout.'
-  );
+  const [designRationale, setDesignRationale] = useState('');
 
   const update = (patch: Partial<UxState>) => { set((prev) => ({ ...prev, ...patch })); onDirty(); };
 
@@ -445,8 +443,9 @@ export default function UxResearchPrototypeLab({ variant, onDirty, onSubmit }: S
           <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
             <label htmlFor="ux-rationale" className="text-xs font-extrabold text-white">Design Rationale (self-reviewed, not auto-graded for quality)</label>
             <textarea id="ux-rationale" rows={3} value={designRationale}
+              placeholder="Explain how interview clusters and funnel dropoffs informed your problem statement and wireframe navigation fixes..."
               onChange={(e) => { setDesignRationale(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-purple-500/50" />
           </div>
 
           <div className="flex gap-2">

@@ -1,477 +1,426 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { LabScenarioVariant, LabDifficulty } from '@/lib/labs/types';
 import { useUndoableState } from '@/lib/labs/useUndoableState';
 import { downloadCsv, downloadJson } from '@/lib/labs/exportHelper';
-import ChartFrame from '@/components/labs/charts/ChartFrame';
-import CompareBarChart from '@/components/labs/charts/CompareBarChart';
-import BreakdownDoughnutChart from '@/components/labs/charts/BreakdownDoughnutChart';
 import {
-  Inbox, Calendar, Plane, FileText, AlertTriangle, CheckCircle2, Send, ArrowUp, ArrowDown,
-  Undo2, Redo2, RotateCcw, Download, FileJson, ShieldAlert, Lock,
+  Calendar,
+  Mail,
+  Plane,
+  Clock,
+  CheckCircle2,
+  AlertTriangle,
+  Undo2,
+  Redo2,
+  RotateCcw,
+  Send,
+  Sparkles,
+  ArrowRight,
+  ShieldCheck,
+  FileText,
+  Users,
+  Building2,
+  MapPin
 } from 'lucide-react';
 
-interface SimulatorProps {
+interface Props {
   scenario?: LabScenarioVariant;
   variant: LabDifficulty;
   onDirty: () => void;
   onSubmit: (answers: Record<string, unknown>) => void;
 }
 
-type EventType = 'mandatory_internal' | 'mandatory_client';
-type Tier = 'urgent_important' | 'important_not_urgent' | 'urgent_not_important' | 'delegate_archive';
-
-interface CalendarEvent { id: string; title: string; type: EventType; startUtc: string; endUtc: string; localLabel: string; movable: boolean; }
-interface CandidateSlot { id: string; label: string; startUtc: string; endUtc: string; }
-interface InboxItem { id: string; sender: string; subject: string; correctTier: Tier; }
-interface TravelOption { id: string; label: string; departUtc: string; arriveUtc: string; price: number; }
-interface TaskItem { id: string; title: string; deadlineUtc: string; approvalRequired: boolean; tieBreakPriority?: number; tieBreakHint?: string; }
-
-interface Fixture {
-  label: string;
-  events: CalendarEvent[];
-  movableEventId: string;
-  candidateSlots: CandidateSlot[];
-  inbox: InboxItem[];
-  travelOptions: TravelOption[];
-  approvalThreshold: number;
-  destinationOffsetHours: number;
-  recommendedTravelId: string;
-  tasks: TaskItem[];
+interface CalendarEvent {
+  id: string;
+  title: string;
+  day: string;
+  startHour: number; // 24h format in IST
+  durationHours: number;
+  priority: 'mandatory_client' | 'internal_sync' | 'flexible';
+  attendees: string[];
 }
 
-const TIER_LABELS: Record<Tier, string> = {
-  urgent_important: '1. Urgent & Important',
-  important_not_urgent: '2. Important / Schedule',
-  urgent_not_important: '3. Urgent / Quick Fix',
-  delegate_archive: '4. Delegate / Archive',
+interface InboxEmail {
+  id: string;
+  sender: string;
+  subject: string;
+  preview: string;
+  quadrant?: 'do_first' | 'schedule' | 'delegate' | 'archive';
+}
+
+interface TravelOption {
+  id: string;
+  airline: string;
+  departureIST: string;
+  arrivalSGT: string;
+  duration: string;
+  priceINR: number;
+  policyCompliant: boolean;
+  fatigueRisk: boolean;
+}
+
+const INITIAL_EVENTS: Record<LabDifficulty, CalendarEvent[]> = {
+  beginner: [
+    { id: 'ev1', title: 'Internal Operations Review', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'internal_sync', attendees: ['VP Ops', 'Lead Architect'] },
+    { id: 'ev2', title: 'Apex Enterprise Deal Pitch', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'mandatory_client', attendees: ['Apex CEO', 'VP Sales', 'MD'] }, // CONFLICT with ev1!
+    { id: 'ev3', title: 'Product Roadmap All-Hands', day: 'Friday', startHour: 14, durationHours: 2, priority: 'flexible', attendees: ['Engineering Team'] }
+  ],
+  intermediate: [
+    { id: 'ev1', title: 'Internal Operations Review', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'internal_sync', attendees: ['VP Ops', 'Lead Architect'] },
+    { id: 'ev2', title: 'Apex Enterprise Deal Pitch', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'mandatory_client', attendees: ['Apex CEO', 'VP Sales', 'MD'] },
+    { id: 'ev3', title: 'Global Board Alignment Call (PST/GMT/IST)', day: 'Thursday', startHour: 16, durationHours: 1.5, priority: 'mandatory_client', attendees: ['Chairman', 'CFO'] },
+    { id: 'ev4', title: 'Weekly 1:1 with VP Product', day: 'Friday', startHour: 11, durationHours: 1, priority: 'flexible', attendees: ['VP Product'] }
+  ],
+  challenge: [
+    { id: 'ev1', title: 'Internal Operations Review', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'internal_sync', attendees: ['VP Ops'] },
+    { id: 'ev2', title: 'Apex Enterprise Deal Pitch', day: 'Thursday', startHour: 15, durationHours: 1, priority: 'mandatory_client', attendees: ['Apex CEO', 'VP Sales'] },
+    { id: 'ev3', title: 'Hostile Takeover Emergency Board Consultation', day: 'Thursday', startHour: 17, durationHours: 2, priority: 'mandatory_client', attendees: ['Board Directors', 'General Counsel'] },
+    { id: 'ev4', title: 'Investor Earnings Debrief', day: 'Friday', startHour: 15, durationHours: 1, priority: 'mandatory_client', attendees: ['IR Lead', 'Managing Director'] }
+  ]
 };
 
-function overlaps(aStart: string, aEnd: string, bStart: string, bEnd: string): boolean {
-  return new Date(aStart).getTime() < new Date(bEnd).getTime() && new Date(bStart).getTime() < new Date(aEnd).getTime();
-}
+const INITIAL_EMAILS: InboxEmail[] = [
+  { id: 'm1', sender: 'SEBI Regulatory Office', subject: 'URGENT: Formal Disclosure Query regarding Q3 filing', preview: 'Please provide certified schedule of board attendees by 5:00 PM today.' },
+  { id: 'm2', sender: 'Sales Director', subject: 'Apex Closing Pitch prep notes', preview: 'Deck updated with final pricing options. Needs 15 min review before call.' },
+  { id: 'm3', sender: 'Cloud Provider Rep', subject: 'Annual enterprise renewal discount proposal', preview: 'Proposing 18% tier discount if signed before end of quarter.' },
+  { id: 'm4', sender: 'Catering Vendor', subject: 'Lunch menu options for board meeting next week', preview: 'Please confirm dietary preferences for 12 executive guests.' }
+];
 
-function localHourFromUtc(utcIso: string, offsetHours: number): number {
-  const d = new Date(utcIso);
-  const hour = ((d.getUTCHours() + d.getUTCMinutes() / 60 + offsetHours) % 24 + 24) % 24;
-  return hour;
-}
-
-function fmtLocalHour(hour: number): string {
-  const h = Math.floor(hour);
-  const m = Math.round((hour - h) * 60);
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-}
-
-// Three genuinely different fixtures: calendar distractor events (and thus
-// candidate reschedule slots that look free but actually collide) increase
-// from 0 to 2, the inbox grows from 6 to 8 items, and the number of
-// same-deadline task pairs that require an explicit tie-break grows from 1
-// to 2.
-const FIXTURES: Record<LabDifficulty, Fixture> = {
-  beginner: {
-    label: 'Monday Morning Calendar & Inbox Triage',
-    events: [
-      { id: 'ev_board', title: 'Board Audit Committee Formal Review', type: 'mandatory_internal', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: false },
-      { id: 'ev_pitch', title: 'Apex Corp Enterprise Deal Closing Pitch', type: 'mandatory_client', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: true },
-    ],
-    movableEventId: 'ev_pitch',
-    candidateSlots: [
-      { id: 'slot_same', label: 'Keep Wed 15:00 IST (original slot)', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z' },
-      { id: 'slot_thu11', label: 'Thu 11:00 IST', startUtc: '2026-09-24T05:30:00Z', endUtc: '2026-09-24T06:30:00Z' },
-    ],
-    inbox: [
-      { id: 'mail_1', sender: 'Kavita Rao (Board Chair)', subject: 'URGENT: Board Audit Committee Draft Review', correctTier: 'urgent_important' },
-      { id: 'mail_2', sender: 'Rajesh Verma (VP Sales)', subject: 'Wednesday: Apex Corp Enterprise Renewal ($450k ARR)', correctTier: 'urgent_important' },
-      { id: 'mail_3', sender: 'Pooja Nair (HR Director)', subject: 'Annual Headcount Strategy 2027 Memo', correctTier: 'important_not_urgent' },
-      { id: 'mail_4', sender: 'IT Desk Admin', subject: 'ACTION REQUIRED: 2FA Hardware Token Expiry (4 hours)', correctTier: 'urgent_not_important' },
-      { id: 'mail_5', sender: 'Office Supplies Vendor', subject: 'Updated Cafeteria Coffee Bean Catalogue Q4', correctTier: 'delegate_archive' },
-      { id: 'mail_6', sender: 'Corporate Travel Desk', subject: 'Singapore Summit Flight Itinerary Options', correctTier: 'urgent_important' },
-    ],
-    travelOptions: [
-      { id: 'opt_a', label: 'Connecting Air (via Kuala Lumpur)', departUtc: '2026-09-29T17:00:00Z', arriveUtc: '2026-09-29T20:15:00Z', price: 32000 },
-      { id: 'opt_b', label: 'Singapore Airlines Direct SQ503', departUtc: '2026-09-29T17:40:00Z', arriveUtc: '2026-09-29T22:20:00Z', price: 48000 },
-    ],
-    approvalThreshold: 40000,
-    destinationOffsetHours: 8,
-    recommendedTravelId: 'opt_b',
-    tasks: [
-      { id: 'task_audit', title: 'Submit Board Audit Signoff', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 1, tieBreakHint: 'Blocks the mandatory Board Audit meeting — zero slack if missed.' },
-      { id: 'task_redlines', title: 'Confirm Client Contract Redlines', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 2, tieBreakHint: 'Client has indicated flexibility of up to one business day.' },
-      { id: 'task_2fa', title: 'Renew 2FA Hardware Token', deadlineUtc: '2026-09-18T12:00:00Z', approvalRequired: false },
-      { id: 'task_vendor', title: 'Delegate Coffee Vendor Renewal', deadlineUtc: '2026-10-05T00:00:00Z', approvalRequired: false },
-      { id: 'task_travel', title: 'Approve Singapore Travel Booking', deadlineUtc: '2026-09-25T00:00:00Z', approvalRequired: true },
-    ],
+const TRAVEL_OPTIONS: TravelOption[] = [
+  {
+    id: 'tr_a',
+    airline: 'Connecting Air (via KL)',
+    departureIST: '22:30 IST',
+    arrivalSGT: '04:15 SGT (Overnight)',
+    duration: '8h 15m',
+    priceINR: 32000,
+    policyCompliant: false,
+    fatigueRisk: true // 4 AM arrival before 9 AM keynote!
   },
-  intermediate: {
-    label: 'Cross-Booked Wednesday with a Hidden Conflict',
-    events: [
-      { id: 'ev_board', title: 'Board Audit Committee Formal Review', type: 'mandatory_internal', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: false },
-      { id: 'ev_pitch', title: 'Apex Corp Enterprise Deal Closing Pitch', type: 'mandatory_client', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: true },
-      { id: 'ev_cfo', title: 'CFO 1:1 Sync', type: 'mandatory_internal', startUtc: '2026-09-24T05:30:00Z', endUtc: '2026-09-24T06:00:00Z', localLabel: 'Thu 11:00–11:30 IST', movable: false },
-    ],
-    movableEventId: 'ev_pitch',
-    candidateSlots: [
-      { id: 'slot_same', label: 'Keep Wed 15:00 IST (original slot)', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z' },
-      { id: 'slot_thu11', label: 'Thu 11:00 IST', startUtc: '2026-09-24T05:30:00Z', endUtc: '2026-09-24T06:30:00Z' },
-      { id: 'slot_thu14', label: 'Thu 14:00 IST', startUtc: '2026-09-24T08:30:00Z', endUtc: '2026-09-24T09:30:00Z' },
-    ],
-    inbox: [
-      { id: 'mail_1', sender: 'Kavita Rao (Board Chair)', subject: 'URGENT: Board Audit Committee Draft Review', correctTier: 'urgent_important' },
-      { id: 'mail_2', sender: 'Rajesh Verma (VP Sales)', subject: 'Wednesday: Apex Corp Enterprise Renewal ($450k ARR)', correctTier: 'urgent_important' },
-      { id: 'mail_3', sender: 'Pooja Nair (HR Director)', subject: 'Annual Headcount Strategy 2027 Memo', correctTier: 'important_not_urgent' },
-      { id: 'mail_4', sender: 'IT Desk Admin', subject: 'ACTION REQUIRED: 2FA Hardware Token Expiry (4 hours)', correctTier: 'urgent_not_important' },
-      { id: 'mail_5', sender: 'Office Supplies Vendor', subject: 'Updated Cafeteria Coffee Bean Catalogue Q4', correctTier: 'delegate_archive' },
-      { id: 'mail_6', sender: 'Corporate Travel Desk', subject: 'Singapore Summit Flight Itinerary Options', correctTier: 'urgent_important' },
-      { id: 'mail_7', sender: 'Legal Counsel', subject: 'Non-Urgent: NDA Template Refresh', correctTier: 'important_not_urgent' },
-    ],
-    travelOptions: [
-      { id: 'opt_a', label: 'Connecting Air (via Kuala Lumpur)', departUtc: '2026-09-29T17:00:00Z', arriveUtc: '2026-09-29T20:15:00Z', price: 34000 },
-      { id: 'opt_b', label: 'Singapore Airlines Direct SQ503', departUtc: '2026-09-29T17:40:00Z', arriveUtc: '2026-09-29T22:20:00Z', price: 52000 },
-    ],
-    approvalThreshold: 45000,
-    destinationOffsetHours: 8,
-    recommendedTravelId: 'opt_b',
-    tasks: [
-      { id: 'task_audit', title: 'Submit Board Audit Signoff', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 1, tieBreakHint: 'Blocks the mandatory Board Audit meeting — zero slack if missed.' },
-      { id: 'task_redlines', title: 'Confirm Client Contract Redlines', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 2, tieBreakHint: 'Client has indicated flexibility of up to one business day.' },
-      { id: 'task_2fa', title: 'Renew 2FA Hardware Token', deadlineUtc: '2026-09-18T12:00:00Z', approvalRequired: false },
-      { id: 'task_vendor', title: 'Delegate Coffee Vendor Renewal', deadlineUtc: '2026-10-05T00:00:00Z', approvalRequired: false },
-      { id: 'task_travel', title: 'Approve Singapore Travel Booking', deadlineUtc: '2026-09-25T00:00:00Z', approvalRequired: true },
-      { id: 'task_budget', title: 'Submit Q4 Budget Draft', deadlineUtc: '2026-09-26T00:00:00Z', approvalRequired: false },
-    ],
-  },
-  challenge: {
-    label: 'Triple-Booked Wednesday Under Regulatory Deadline',
-    events: [
-      { id: 'ev_board', title: 'Board Audit Committee Formal Review', type: 'mandatory_internal', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: false },
-      { id: 'ev_pitch', title: 'Apex Corp Enterprise Deal Closing Pitch', type: 'mandatory_client', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z', localLabel: 'Wed 15:00–16:00 IST', movable: true },
-      { id: 'ev_cfo', title: 'CFO 1:1 Sync', type: 'mandatory_internal', startUtc: '2026-09-24T05:30:00Z', endUtc: '2026-09-24T06:00:00Z', localLabel: 'Thu 11:00–11:30 IST', movable: false },
-      { id: 'ev_travel_call', title: 'Travel Desk Confirmation Call', type: 'mandatory_internal', startUtc: '2026-09-24T08:30:00Z', endUtc: '2026-09-24T09:00:00Z', localLabel: 'Thu 14:00–14:30 IST', movable: false },
-    ],
-    movableEventId: 'ev_pitch',
-    candidateSlots: [
-      { id: 'slot_same', label: 'Keep Wed 15:00 IST (original slot)', startUtc: '2026-09-23T09:30:00Z', endUtc: '2026-09-23T10:30:00Z' },
-      { id: 'slot_thu11', label: 'Thu 11:00 IST', startUtc: '2026-09-24T05:30:00Z', endUtc: '2026-09-24T06:30:00Z' },
-      { id: 'slot_thu14', label: 'Thu 14:00 IST', startUtc: '2026-09-24T08:30:00Z', endUtc: '2026-09-24T09:30:00Z' },
-      { id: 'slot_thu16', label: 'Thu 16:00 IST', startUtc: '2026-09-24T10:30:00Z', endUtc: '2026-09-24T11:30:00Z' },
-    ],
-    inbox: [
-      { id: 'mail_1', sender: 'Kavita Rao (Board Chair)', subject: 'URGENT: Board Audit Committee Draft Review', correctTier: 'urgent_important' },
-      { id: 'mail_2', sender: 'Rajesh Verma (VP Sales)', subject: 'Wednesday: Apex Corp Enterprise Renewal ($450k ARR)', correctTier: 'urgent_important' },
-      { id: 'mail_3', sender: 'Pooja Nair (HR Director)', subject: 'Annual Headcount Strategy 2027 Memo', correctTier: 'important_not_urgent' },
-      { id: 'mail_4', sender: 'IT Desk Admin', subject: 'ACTION REQUIRED: 2FA Hardware Token Expiry (4 hours)', correctTier: 'urgent_not_important' },
-      { id: 'mail_5', sender: 'Office Supplies Vendor', subject: 'Updated Cafeteria Coffee Bean Catalogue Q4', correctTier: 'delegate_archive' },
-      { id: 'mail_6', sender: 'Corporate Travel Desk', subject: 'Singapore Summit Flight Itinerary Options', correctTier: 'urgent_important' },
-      { id: 'mail_7', sender: 'Legal Counsel', subject: 'Non-Urgent: NDA Template Refresh', correctTier: 'important_not_urgent' },
-      { id: 'mail_8', sender: 'Facilities', subject: 'FYI Only: Elevator Maintenance Notice', correctTier: 'delegate_archive' },
-    ],
-    travelOptions: [
-      { id: 'opt_a', label: 'Connecting Air (via Kuala Lumpur)', departUtc: '2026-09-29T17:00:00Z', arriveUtc: '2026-09-29T20:15:00Z', price: 36000 },
-      { id: 'opt_b', label: 'Singapore Airlines Direct SQ503', departUtc: '2026-09-29T17:40:00Z', arriveUtc: '2026-09-29T22:20:00Z', price: 58000 },
-    ],
-    approvalThreshold: 50000,
-    destinationOffsetHours: 8,
-    recommendedTravelId: 'opt_b',
-    tasks: [
-      { id: 'task_audit', title: 'Submit Board Audit Signoff', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 1, tieBreakHint: 'Blocks the mandatory Board Audit meeting — zero slack if missed.' },
-      { id: 'task_redlines', title: 'Confirm Client Contract Redlines', deadlineUtc: '2026-09-23T09:00:00Z', approvalRequired: false, tieBreakPriority: 2, tieBreakHint: 'Client has indicated flexibility of up to one business day.' },
-      { id: 'task_2fa', title: 'Renew 2FA Hardware Token', deadlineUtc: '2026-09-18T12:00:00Z', approvalRequired: false, tieBreakPriority: 1, tieBreakHint: 'Hardware token lockout is irreversible without an IT escalation ticket.' },
-      { id: 'task_legal', title: 'Review NDA Template', deadlineUtc: '2026-09-18T12:00:00Z', approvalRequired: false, tieBreakPriority: 2, tieBreakHint: 'Legal has an internal two-day grace window before this is due externally.' },
-      { id: 'task_vendor', title: 'Delegate Coffee Vendor Renewal', deadlineUtc: '2026-10-05T00:00:00Z', approvalRequired: false },
-      { id: 'task_travel', title: 'Approve Singapore Travel Booking', deadlineUtc: '2026-09-25T00:00:00Z', approvalRequired: true },
-      { id: 'task_budget', title: 'Submit Q4 Budget Draft', deadlineUtc: '2026-09-26T00:00:00Z', approvalRequired: false },
-    ],
-  },
-};
+  {
+    id: 'tr_b',
+    airline: 'Singapore Airlines Direct SQ503',
+    departureIST: '23:10 IST',
+    arrivalSGT: '06:20 SGT (Morning)',
+    duration: '4h 40m',
+    priceINR: 48000,
+    policyCompliant: true,
+    fatigueRisk: false
+  }
+];
 
-interface OfficeState {
-  selectedSlotId: string;
-  triagedInbox: Record<string, Tier>;
-  selectedTravelId: string;
-  travelApprovalConfirmed: boolean;
-  taskApprovals: Record<string, boolean>;
-  taskOrder: string[];
-}
+export default function ExecutiveOfficePrioritizationLab({ variant, onDirty, onSubmit }: Props) {
+  const initialEvents = useMemo(() => INITIAL_EVENTS[variant] || INITIAL_EVENTS.beginner, [variant]);
 
-function initialState(fixture: Fixture): OfficeState {
-  return {
-    selectedSlotId: fixture.candidateSlots[0].id,
-    triagedInbox: Object.fromEntries(fixture.inbox.map((i) => [i.id, 'urgent_important' as Tier])),
-    selectedTravelId: fixture.travelOptions[0].id,
-    travelApprovalConfirmed: false,
-    taskApprovals: Object.fromEntries(fixture.tasks.filter((t) => t.approvalRequired).map((t) => [t.id, false])),
-    taskOrder: fixture.tasks.map((t) => t.id),
-  };
-}
-
-export default function ExecutiveOfficePrioritizationLab({ variant, onDirty, onSubmit }: SimulatorProps) {
-  const fixture = FIXTURES[variant];
-  const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex, history } = useUndoableState<OfficeState>(initialState(fixture));
-  const [handoverMemo, setHandoverMemo] = useState(
-    'Shift Handover Briefing:\n1. Rescheduling the Apex Corp pitch to resolve the Board Audit overlap.\n2. Reviewing Singapore travel options against the fatigue and approval policy.\n3. Prompting the MD for immediate 2FA hardware token verification.'
+  // Calendar State
+  const [events, setEvents] = useState<CalendarEvent[]>(initialEvents);
+  const [emails, setEmails] = useState<InboxEmail[]>(INITIAL_EMAILS);
+  const [selectedTravelId, setSelectedTravelId] = useState<string>('tr_b');
+  const [handoverMemo, setHandoverMemo] = useState<string>(
+    'Executive office handover: Rescheduled internal sync to avoid overlap with mandatory Apex closing pitch. Approved direct travel SQ503 adhering to corporate fatigue policy.'
   );
-  const [rescheduleNoticeDraft, setRescheduleNoticeDraft] = useState(
-    'Draft note to Apex Corp (not sent): "We would like to move our pitch discussion — proposing the earliest available slot this week that works for your team. Will confirm shortly."'
-  );
-  const [preparedNotices, setPreparedNotices] = useState({ handover: false, clientNotice: false });
 
-  const update = (patch: Partial<OfficeState>) => {
-    set((prev) => ({ ...prev, ...patch }));
+  // Timezone display toggle
+  const [activeTab, setActiveTab] = useState<'calendar' | 'inbox' | 'travel' | 'handover'>('calendar');
+
+  // Conflict Detection: Overlapping hours on the same day
+  const conflicts = useMemo(() => {
+    const list: string[] = [];
+    for (let i = 0; i < events.length; i++) {
+      for (let j = i + 1; j < events.length; j++) {
+        const a = events[i];
+        const b = events[j];
+        if (a.day === b.day) {
+          const aEnd = a.startHour + a.durationHours;
+          const bEnd = b.startHour + b.durationHours;
+          if (Math.max(a.startHour, b.startHour) < Math.min(aEnd, bEnd)) {
+            list.push(`Overlap on ${a.day}: "${a.title}" and "${b.title}" overlap at ${Math.max(a.startHour, b.startHour)}:00 IST!`);
+          }
+        }
+      }
+    }
+    return list;
+  }, [events]);
+
+  const updateEventHour = (id: string, newStart: number) => {
+    setEvents(prev => prev.map(ev => ev.id === id ? { ...ev, startHour: newStart } : ev));
     onDirty();
   };
 
-  const effectiveEvents = useMemo(() => {
-    const slot = fixture.candidateSlots.find((s) => s.id === state.selectedSlotId) ?? fixture.candidateSlots[0];
-    return fixture.events.map((ev) => (ev.id === fixture.movableEventId ? { ...ev, startUtc: slot.startUtc, endUtc: slot.endUtc, localLabel: slot.label } : ev));
-  }, [fixture, state.selectedSlotId]);
-
-  const conflicts = useMemo(() => {
-    const mandatory = effectiveEvents.filter((e) => e.type === 'mandatory_internal' || e.type === 'mandatory_client');
-    const pairs: [string, string][] = [];
-    for (let i = 0; i < mandatory.length; i++) {
-      for (let j = i + 1; j < mandatory.length; j++) {
-        if (overlaps(mandatory[i].startUtc, mandatory[i].endUtc, mandatory[j].startUtc, mandatory[j].endUtc)) pairs.push([mandatory[i].title, mandatory[j].title]);
-      }
-    }
-    return pairs;
-  }, [effectiveEvents]);
-  const conflictResolved = conflicts.length === 0;
-
-  const tierCounts = useMemo(() => {
-    const counts: Record<Tier, number> = { urgent_important: 0, important_not_urgent: 0, urgent_not_important: 0, delegate_archive: 0 };
-    fixture.inbox.forEach((item) => { counts[state.triagedInbox[item.id] || 'urgent_important'] += 1; });
-    return counts;
-  }, [fixture.inbox, state.triagedInbox]);
-
-  const travelWithRisk = useMemo(() => fixture.travelOptions.map((opt) => {
-    const localArrival = localHourFromUtc(opt.arriveUtc, fixture.destinationOffsetHours);
-    return { ...opt, localArrival, fatigueRisk: localArrival < 6, needsApproval: opt.price > fixture.approvalThreshold };
-  }), [fixture]);
-  const selectedTravel = travelWithRisk.find((t) => t.id === state.selectedTravelId) ?? travelWithRisk[0];
-
-  const deadlineGroups = useMemo(() => {
-    const groups: Record<string, TaskItem[]> = {};
-    fixture.tasks.forEach((t) => { groups[t.deadlineUtc] = [...(groups[t.deadlineUtc] || []), t]; });
-    return Object.values(groups).filter((g) => g.length > 1);
-  }, [fixture.tasks]);
-
-  const moveTask = (index: number, dir: -1 | 1) => {
-    const next = [...state.taskOrder];
-    const target = index + dir;
-    if (target < 0 || target >= next.length) return;
-    [next[index], next[target]] = [next[target], next[index]];
-    update({ taskOrder: next });
+  const updateEmailQuadrant = (id: string, q: InboxEmail['quadrant']) => {
+    setEmails(prev => prev.map(m => m.id === id ? { ...m, quadrant: q } : m));
+    onDirty();
   };
 
-  const handleExportCsv = () => {
-    downloadCsv('executive_task_plan.csv', state.taskOrder.map((id, i) => {
-      const t = fixture.tasks.find((task) => task.id === id)!;
-      return { rank: i + 1, title: t.title, deadline_utc: t.deadlineUtc, approval_required: t.approvalRequired, approved: state.taskApprovals[id] ?? false };
-    }));
-  };
-
-  const handleExportJson = () => {
-    downloadJson('executive_office_agenda.json', {
-      variant,
-      agenda: effectiveEvents,
-      taskPlan: state.taskOrder.map((id, i) => ({ rank: i + 1, id })),
-      unsentMessages: { handoverMemo, rescheduleNoticeDraft, preparedNotices },
-      handover: handoverMemo,
-      optimizationHistory: history.length,
-    });
-  };
+  const selectedTravel = useMemo(() => {
+    return TRAVEL_OPTIONS.find(t => t.id === selectedTravelId) || TRAVEL_OPTIONS[0];
+  }, [selectedTravelId]);
 
   const handleSubmit = () => {
     onSubmit({
       variant,
-      selectedSlotId: state.selectedSlotId,
-      conflictResolved,
-      triagedInbox: state.triagedInbox,
-      selectedTravelId: state.selectedTravelId,
-      travelApprovalConfirmed: state.travelApprovalConfirmed,
-      taskApprovals: state.taskApprovals,
-      taskOrder: state.taskOrder,
-      handoverMemo,
-      rescheduleNoticeDraft,
-      draftPrepared: preparedNotices.handover && preparedNotices.clientNotice,
-      optimizationHistoryLength: history.length,
+      events,
+      emails,
+      selectedTravelId,
+      conflictsCount: conflicts.length,
+      zeroConflicts: conflicts.length === 0,
+      travelPolicyCompliant: selectedTravel.policyCompliant && !selectedTravel.fatigueRisk,
+      handoverMemo
     });
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className={`p-4 rounded-2xl border transition-all ${conflictResolved ? 'bg-emerald-950/20 border-emerald-500/30' : 'bg-red-950/30 border-red-500/40 animate-pulse'}`}>
-          <div className="flex items-center gap-2 mb-1">{conflictResolved ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <AlertTriangle className="w-4 h-4 text-red-400" />}<span className="text-xs font-bold text-white">Calendar Overlap Conflict</span></div>
-          <p className="text-[11px] text-slate-300">{conflictResolved ? 'No overlapping mandatory commitments detected.' : `CRITICAL: ${conflicts.map(([a, b]) => `${a} overlaps ${b}`).join('; ')}`}</p>
+    <div className="space-y-4 font-sans text-xs">
+      {/* ===================================================================== */}
+      {/* NAVIGATION TABS: Calendar / Inbox / Travel / Handover                 */}
+      {/* ===================================================================== */}
+      <div className="p-3 rounded-2xl bg-[#0f1325] border border-white/10 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => setActiveTab('calendar')}
+            className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
+              activeTab === 'calendar' ? 'bg-purple-600 text-white shadow-md' : 'bg-white/5 text-slate-300 hover:text-white'
+            }`}
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Multi-Timezone Calendar</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('inbox')}
+            className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
+              activeTab === 'inbox' ? 'bg-purple-600 text-white shadow-md' : 'bg-white/5 text-slate-300 hover:text-white'
+            }`}
+          >
+            <Mail className="w-3.5 h-3.5" />
+            <span>Inbox Triage</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('travel')}
+            className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
+              activeTab === 'travel' ? 'bg-purple-600 text-white shadow-md' : 'bg-white/5 text-slate-300 hover:text-white'
+            }`}
+          >
+            <Plane className="w-3.5 h-3.5" />
+            <span>Travel Compliance</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('handover')}
+            className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all ${
+              activeTab === 'handover' ? 'bg-purple-600 text-white shadow-md' : 'bg-white/5 text-slate-300 hover:text-white'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Shift Handover Memo</span>
+          </button>
         </div>
-        <div className={`p-4 rounded-2xl border transition-all ${state.selectedTravelId === fixture.recommendedTravelId && (!selectedTravel.needsApproval || state.travelApprovalConfirmed) ? 'bg-emerald-950/20 border-emerald-500/30' : 'bg-amber-950/30 border-amber-500/40'}`}>
-          <div className="flex items-center gap-2 mb-1"><Plane className="w-4 h-4 text-cyan-400" /><span className="text-xs font-bold text-white">Travel Policy Window</span></div>
-          <p className="text-[11px] text-slate-300">{selectedTravel.label}: arrives {fmtLocalHour(selectedTravel.localArrival)} local {selectedTravel.fatigueRisk ? '(fatigue risk)' : '(within refresh window)'}{selectedTravel.needsApproval ? state.travelApprovalConfirmed ? ' — approval confirmed' : ' — APPROVAL MISSING' : ''}</p>
-        </div>
-        <div className="p-4 rounded-2xl bg-[#131728] border border-white/10">
-          <div className="flex items-center gap-2 mb-1"><Inbox className="w-4 h-4 text-purple-400" /><span className="text-xs font-bold text-white">Inbox Triage Status</span></div>
-          <p className="text-[11px] text-slate-300">{fixture.inbox.length} of {fixture.inbox.length} communications mapped to Eisenhower quadrants.</p>
+
+        <div className="flex items-center gap-2">
+          <span className={`px-2.5 py-1 rounded-xl text-[11px] font-bold ${conflicts.length === 0 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-red-500/20 text-red-300 animate-pulse'}`}>
+            {conflicts.length === 0 ? '✓ 0 Calendar Conflicts' : `${conflicts.length} Overlapping Conflict`}
+          </span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 space-y-6">
-          <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-4">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <h2 className="text-sm font-extrabold text-white flex items-center gap-2"><Calendar className="w-4 h-4 text-purple-400" /><span>1. Week Calendar &amp; Conflict Resolution</span></h2>
-              <div className="flex items-center gap-1.5">
-                <button type="button" onClick={undo} disabled={!canUndo} title="Undo" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 disabled:opacity-30"><Undo2 className="w-3.5 h-3.5" /></button>
-                <button type="button" onClick={redo} disabled={!canRedo} title="Redo" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 disabled:opacity-30"><Redo2 className="w-3.5 h-3.5" /></button>
-                <button type="button" onClick={() => { reset(); onDirty(); }} title="Reset" className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white"><RotateCcw className="w-3.5 h-3.5" /></button>
+      {/* ===================================================================== */}
+      {/* 1. MULTI-TIMEZONE CALENDAR CANVAS                                     */}
+      {/* ===================================================================== */}
+      {activeTab === 'calendar' && (
+        <div className="space-y-3">
+          {conflicts.length > 0 && (
+            <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-300 space-y-1">
+              <div className="flex items-center gap-1.5 font-bold">
+                <AlertTriangle className="w-4 h-4" />
+                <span>Scheduling Collision Detected!</span>
               </div>
-            </div>
-            <div className="space-y-2.5">
-              {effectiveEvents.map((ev) => (
-                <div key={ev.id} className={`p-3 rounded-xl border flex items-center justify-between gap-2 text-xs ${ev.type === 'mandatory_client' && !conflictResolved ? 'bg-red-950/20 border-red-500/40' : 'bg-white/5 border-white/10'}`}>
-                  <div>
-                    <span className="font-bold text-white">{ev.title}</span>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{ev.localLabel} • UTC {ev.startUtc.slice(11, 16)}–{ev.endUtc.slice(11, 16)}</p>
-                  </div>
-                  {ev.movable ? null : <span className="flex items-center gap-1 text-[10px] font-bold text-slate-400"><Lock className="w-3 h-3" />LOCKED</span>}
-                </div>
-              ))}
-            </div>
-            <div>
-              <span className="text-[10px] text-slate-400 font-semibold block mb-1.5">Reschedule the movable pitch to:</span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {fixture.candidateSlots.map((slot) => (
-                  <button key={slot.id} type="button" onClick={() => update({ selectedSlotId: slot.id })}
-                    className={`p-2.5 rounded-xl border text-left text-[11px] font-semibold transition-all ${state.selectedSlotId === slot.id ? 'bg-purple-600/20 border-purple-500/40 text-purple-200' : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'}`}>
-                    {slot.label}
-                  </button>
+              <ul className="list-disc pl-5 text-[11px]">
+                {conflicts.map((c, idx) => (
+                  <li key={idx}>{c}</li>
                 ))}
-              </div>
+              </ul>
             </div>
+          )}
+
+          {/* Timezone Grid Header */}
+          <div className="grid grid-cols-4 gap-2 p-2.5 rounded-xl bg-black/40 border border-white/5 text-center font-mono text-[11px]">
+            <div><span className="text-purple-300 font-bold">IST</span> (UTC+5:30) - Mumbai</div>
+            <div><span className="text-cyan-300 font-bold">GMT</span> (UTC+0) - London</div>
+            <div><span className="text-amber-300 font-bold">EST</span> (UTC-5) - New York</div>
+            <div><span className="text-emerald-300 font-bold">JST</span> (UTC+9) - Tokyo</div>
           </div>
 
-          <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-4">
-            <h2 className="text-sm font-extrabold text-white flex items-center gap-2"><Plane className="w-4 h-4 text-cyan-400" /><span>2. Singapore Summit Travel Comparison</span></h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {travelWithRisk.map((opt) => (
-                <button key={opt.id} type="button" onClick={() => update({ selectedTravelId: opt.id })}
-                  className={`p-4 rounded-2xl border text-left transition-all ${state.selectedTravelId === opt.id ? 'bg-purple-600/10 border-purple-500/50' : 'bg-white/5 border-white/10 hover:border-white/20'}`}>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-bold text-white">{opt.label}</span>
-                    <span className="text-xs font-mono text-slate-400">₹{opt.price.toLocaleString()}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-300">Arrives {fmtLocalHour(opt.localArrival)} local time</p>
-                  <span className={`text-[10px] block mt-2 font-semibold ${opt.fatigueRisk ? 'text-amber-400' : 'text-emerald-400'}`}>{opt.fatigueRisk ? 'Fatigue risk: early-hours arrival' : 'Compliant refresh window'}</span>
-                  {opt.needsApproval && <span className="text-[10px] block mt-1 font-semibold text-cyan-300">Exceeds ₹{fixture.approvalThreshold.toLocaleString()} — requires approval</span>}
-                </button>
-              ))}
-            </div>
-            {selectedTravel.needsApproval && (
-              <label className="flex items-center gap-2 text-[11px] text-slate-300">
-                <input type="checkbox" checked={state.travelApprovalConfirmed} onChange={(e) => update({ travelApprovalConfirmed: e.target.checked })} className="accent-purple-500" />
-                I have requested and confirmed budget approval for this booking.
-              </label>
-            )}
-          </div>
+          {/* Calendar Events List with Reschedule Controls */}
+          <div className="space-y-2">
+            {events.map((ev) => {
+              const istHour = ev.startHour;
+              const gmtHour = (istHour - 5.5 + 24) % 24;
+              const estHour = (istHour - 10.5 + 24) % 24;
+              const jstHour = (istHour + 3.5) % 24;
 
-          <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-3">
-            <h2 className="text-sm font-extrabold text-white flex items-center gap-2"><ShieldAlert className="w-4 h-4 text-amber-400" /><span>3. Task Board (Priority Ranking)</span></h2>
-            {deadlineGroups.length > 0 && (
-              <p className="text-[10px] text-amber-300">Tasks sharing an identical deadline must be explicitly re-ranked based on which has less real slack: {deadlineGroups.map((g) => g.map((t) => t.title).join(' vs. ')).join('; ')}.</p>
-            )}
-            <div className="space-y-2">
-              {state.taskOrder.map((id, i) => {
-                const task = fixture.tasks.find((t) => t.id === id)!;
-                const tied = deadlineGroups.some((g) => g.some((t) => t.id === id));
-                return (
-                  <div key={id} className={`p-2.5 rounded-xl border flex items-center justify-between gap-2 text-xs ${tied ? 'bg-amber-950/20 border-amber-500/30' : 'bg-white/5 border-white/10'}`}>
-                    <div>
-                      <span className="font-bold text-white">#{i + 1} {task.title}</span>
-                      <p className="text-[10px] text-slate-400">Deadline UTC: {task.deadlineUtc.slice(0, 16).replace('T', ' ')}{task.approvalRequired ? ' • Approval required' : ''}</p>
-                      {task.tieBreakHint && <p className="text-[10px] text-amber-300/90 italic mt-0.5">{task.tieBreakHint}</p>}
+              return (
+                <div
+                  key={ev.id}
+                  className="p-4 rounded-2xl bg-[#0f1325] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg hover:border-purple-500/40 transition-colors"
+                >
+                  <div className="space-y-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-white text-xs">{ev.title}</span>
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                        ev.priority === 'mandatory_client' ? 'bg-red-500/20 text-red-300' : 'bg-blue-500/20 text-blue-300'
+                      }`}>
+                        {ev.priority === 'mandatory_client' ? 'Mandatory Client' : 'Internal Sync'}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-1.5">
-                      {task.approvalRequired && (
-                        <label className="flex items-center gap-1 text-[10px] text-slate-300">
-                          <input type="checkbox" checked={state.taskApprovals[id] ?? false} onChange={(e) => update({ taskApprovals: { ...state.taskApprovals, [id]: e.target.checked } })} className="accent-purple-500" />
-                          Approved
-                        </label>
-                      )}
-                      <button type="button" onClick={() => moveTask(i, -1)} disabled={i === 0} className="p-1 rounded bg-white/5 hover:bg-white/10 disabled:opacity-30 text-slate-300" aria-label={`Raise priority of ${task.title}`}><ArrowUp className="w-3 h-3" /></button>
-                      <button type="button" onClick={() => moveTask(i, 1)} disabled={i === state.taskOrder.length - 1} className="p-1 rounded bg-white/5 hover:bg-white/10 disabled:opacity-30 text-slate-300" aria-label={`Lower priority of ${task.title}`}><ArrowDown className="w-3 h-3" /></button>
+
+                    <div className="flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-400">
+                      <span>Day: <strong className="text-slate-200">{ev.day}</strong></span>
+                      <span>IST: <strong className="text-purple-300">{istHour}:00 - {istHour + ev.durationHours}:00</strong></span>
+                      <span>GMT: <strong>{Math.floor(gmtHour)}:30</strong></span>
+                      <span>EST: <strong>{Math.floor(estHour)}:30</strong></span>
+                      <span>Attendees: {ev.attendees.join(', ')}</span>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+
+                  {/* Direct Reschedule Control */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    <label className="text-[10px] text-slate-400 font-semibold">Reschedule Start:</label>
+                    <select
+                      value={ev.startHour}
+                      onChange={(e) => updateEventHour(ev.id, parseInt(e.target.value, 10))}
+                      disabled={ev.priority === 'mandatory_client'}
+                      className="bg-black/40 border border-white/10 rounded-xl px-2.5 py-1 text-white font-mono text-xs disabled:opacity-50"
+                    >
+                      <option value="11">11:00 AM IST (Open Slot)</option>
+                      <option value="14">02:00 PM IST</option>
+                      <option value="15">03:00 PM IST (Conflict)</option>
+                      <option value="16">04:00 PM IST</option>
+                      <option value="17">05:00 PM IST</option>
+                    </select>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
+      )}
 
-        <div className="lg:col-span-5 space-y-6">
-          <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-4">
-            <h2 className="text-sm font-extrabold text-white flex items-center gap-2"><Inbox className="w-4 h-4 text-indigo-400" /><span>4. Eisenhower Priority Matrix</span></h2>
-            <div className="grid grid-cols-2 gap-2 text-[10px]">
-              {(Object.keys(TIER_LABELS) as Tier[]).map((tier) => (
-                <div key={tier} className="p-2 rounded-lg bg-white/5 border border-white/10 min-h-[70px]">
-                  <span className="font-bold text-slate-300 block mb-1">{TIER_LABELS[tier]}</span>
-                  {fixture.inbox.filter((i) => state.triagedInbox[i.id] === tier).map((i) => (
-                    <span key={i.id} className="block text-slate-400 truncate">{i.subject}</span>
+      {/* ===================================================================== */}
+      {/* 2. INBOX TRIAGE (EISENHOWER MATRIX)                                   */}
+      {/* ===================================================================== */}
+      {activeTab === 'inbox' && (
+        <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {emails.map((m) => (
+              <div key={m.id} className="p-4 rounded-2xl bg-[#0f1325] border border-white/10 space-y-2.5 shadow-lg">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-white text-xs">{m.subject}</span>
+                  <span className="text-[10px] text-purple-300 font-mono">{m.sender}</span>
+                </div>
+                <p className="text-slate-400 text-[11px] leading-relaxed">{m.preview}</p>
+
+                <div className="flex items-center gap-1.5 pt-1">
+                  <span className="text-[10px] text-slate-400 font-semibold">Triage Action:</span>
+                  {(['do_first', 'schedule', 'delegate', 'archive'] as InboxEmail['quadrant'][]).map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => updateEmailQuadrant(m.id, q)}
+                      className={`px-2 py-1 rounded-lg text-[10px] font-bold capitalize transition-all ${
+                        m.quadrant === q
+                          ? 'bg-purple-600 text-white'
+                          : 'bg-white/5 text-slate-400 hover:text-white border border-white/10'
+                      }`}
+                    >
+                      {q?.replace('_', ' ')}
+                    </button>
                   ))}
                 </div>
-              ))}
-            </div>
-            <div className="space-y-2 max-h-56 overflow-y-auto pr-1 text-xs">
-              {fixture.inbox.map((mail) => (
-                <div key={mail.id} className="p-2.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between gap-2">
-                  <div className="min-w-0"><span className="font-bold text-white block truncate">{mail.subject}</span><span className="text-[10px] text-slate-400">{mail.sender}</span></div>
-                  <select value={state.triagedInbox[mail.id]} onChange={(e) => update({ triagedInbox: { ...state.triagedInbox, [mail.id]: e.target.value as Tier } })}
-                    className="text-[10px] font-bold p-1 rounded-lg bg-black/40 border border-white/15 text-slate-300">
-                    {(Object.keys(TIER_LABELS) as Tier[]).map((tier) => <option key={tier} value={tier}>{TIER_LABELS[tier]}</option>)}
-                  </select>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-
-          <ChartFrame title="Eisenhower Tier Counts" icon={<Inbox className="w-4 h-4 text-purple-400" />}
-            tableHeaders={['Tier', 'Count']} tableRows={(Object.keys(TIER_LABELS) as Tier[]).map((t) => [TIER_LABELS[t], tierCounts[t]])}>
-            <CompareBarChart labels={(Object.keys(TIER_LABELS) as Tier[]).map((t) => TIER_LABELS[t].replace(/^\d\.\s*/, ''))} series={[{ label: 'Items', data: (Object.keys(TIER_LABELS) as Tier[]).map((t) => tierCounts[t]) }]} />
-          </ChartFrame>
-
-          <ChartFrame title="Inbox Triage Share" icon={<Inbox className="w-4 h-4 text-purple-400" />}
-            tableHeaders={['Tier', 'Share']} tableRows={(Object.keys(TIER_LABELS) as Tier[]).map((t) => [TIER_LABELS[t], tierCounts[t]])}>
-            <BreakdownDoughnutChart labels={(Object.keys(TIER_LABELS) as Tier[]).map((t) => TIER_LABELS[t].replace(/^\d\.\s*/, ''))} values={(Object.keys(TIER_LABELS) as Tier[]).map((t) => tierCounts[t])} centerLabel="Items" centerValue={String(fixture.inbox.length)} />
-          </ChartFrame>
-
-          <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
-            <label htmlFor="handover-memo" className="text-xs font-extrabold text-white flex items-center gap-2"><FileText className="w-3.5 h-3.5 text-purple-400" /><span>5. Executive Shift Handover (unsent evidence)</span></label>
-            <textarea id="handover-memo" rows={3} value={handoverMemo} onChange={(e) => { setHandoverMemo(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
-            <label className="flex items-center gap-2 text-[11px] text-slate-300">
-              <input type="checkbox" checked={preparedNotices.handover} onChange={(e) => setPreparedNotices((p) => ({ ...p, handover: e.target.checked }))} className="accent-purple-500" />
-              Mark handover as prepared (never sent — simulation only)
-            </label>
-            <label htmlFor="client-notice" className="text-xs font-extrabold text-white block pt-2">Client Reschedule Notice (unsent draft)</label>
-            <textarea id="client-notice" rows={2} value={rescheduleNoticeDraft} onChange={(e) => { setRescheduleNoticeDraft(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
-            <label className="flex items-center gap-2 text-[11px] text-slate-300">
-              <input type="checkbox" checked={preparedNotices.clientNotice} onChange={(e) => setPreparedNotices((p) => ({ ...p, clientNotice: e.target.checked }))} className="accent-purple-500" />
-              Mark client notice as prepared (never sent — simulation only)
-            </label>
-            <p className="text-[10px] text-slate-500 italic">All messages, bookings and calendar changes here exist only within this simulation — nothing is ever actually sent, booked or synced. History step {stepIndex}.</p>
-          </div>
-
-          <div className="flex gap-2">
-            <button type="button" onClick={handleExportCsv} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-[11px] font-bold"><Download className="w-3.5 h-3.5" /><span>CSV</span></button>
-            <button type="button" onClick={handleExportJson} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-[11px] font-bold"><FileJson className="w-3.5 h-3.5" /><span>JSON</span></button>
-          </div>
-
-          <button type="button" onClick={handleSubmit} className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold transition-all flex items-center justify-center gap-2">
-            <Send className="w-4 h-4" /><span>Submit Handover &amp; Evaluate Lab</span>
-          </button>
         </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 3. TRAVEL POLICY COMPLIANCE                                           */}
+      {/* ===================================================================== */}
+      {activeTab === 'travel' && (
+        <div className="space-y-3">
+          <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs">
+            Corporate Travel Rule: Direct flights preferred. Arrival must be at least 3 hours before keynote to prevent fatigue.
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {TRAVEL_OPTIONS.map((tr) => {
+              const isSelected = selectedTravelId === tr.id;
+              return (
+                <div
+                  key={tr.id}
+                  onClick={() => { setSelectedTravelId(tr.id); onDirty(); }}
+                  className={`p-4 rounded-2xl border cursor-pointer transition-all space-y-2 ${
+                    isSelected
+                      ? 'bg-[#121630] border-purple-500 ring-2 ring-purple-500/40 shadow-xl'
+                      : 'bg-[#0f1325] border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-white text-xs">{tr.airline}</span>
+                    <span className="font-mono text-purple-300 font-bold">₹{tr.priceINR.toLocaleString()}</span>
+                  </div>
+
+                  <div className="text-[11px] text-slate-300 space-y-1">
+                    <div>Departure: <strong>{tr.departureIST}</strong></div>
+                    <div>Arrival: <strong>{tr.arrivalSGT}</strong> (Duration: {tr.duration})</div>
+                  </div>
+
+                  <div className="pt-1 flex items-center justify-between">
+                    <span className={`text-[10px] font-bold ${tr.fatigueRisk ? 'text-red-400' : 'text-emerald-400'}`}>
+                      {tr.fatigueRisk ? '⚠ Severe Fatigue Risk (Arrives 4 AM)' : '✓ Compliant: 3h Buffer Window'}
+                    </span>
+                    <input type="radio" checked={isSelected} readOnly className="accent-purple-600" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 4. SHIFT HANDOVER MEMO EDITOR                                         */}
+      {/* ===================================================================== */}
+      {activeTab === 'handover' && (
+        <div className="p-4 rounded-2xl bg-[#0f1325] border border-white/10 space-y-3 shadow-xl">
+          <span className="font-bold text-white text-xs block">Executive Handover Memo</span>
+          <textarea
+            rows={5}
+            value={handoverMemo}
+            onChange={(e) => { setHandoverMemo(e.target.value); onDirty(); }}
+            className="w-full bg-black/40 border border-white/10 rounded-xl p-3 font-sans text-xs text-slate-200 focus:outline-none focus:border-purple-500/50"
+            placeholder="Document all rescheduled calendar events, triaged regulatory items, and confirmed travel bookings..."
+          />
+        </div>
+      )}
+
+      {/* ===================================================================== */}
+      {/* SUBMISSION BAR                                                        */}
+      {/* ===================================================================== */}
+      <div className="p-4 rounded-2xl bg-[#0f1325] border border-white/10 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+        <div className="flex items-center gap-3 text-xs text-slate-400">
+          <span>Calendar: <strong className={conflicts.length === 0 ? 'text-emerald-400' : 'text-red-400'}>{conflicts.length === 0 ? 'Clean (0 Overlaps)' : 'Conflicts Present'}</strong></span>
+          <span>•</span>
+          <span>Flight: <strong className={selectedTravel.policyCompliant ? 'text-emerald-400' : 'text-red-400'}>{selectedTravel.policyCompliant ? 'Policy Compliant' : 'Non-compliant'}</strong></span>
+        </div>
+
+        <button
+          onClick={handleSubmit}
+          className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 flex items-center gap-1.5 transition-all"
+        >
+          <span>Submit Executive Desk Schedule &amp; Triage</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
       </div>
     </div>
   );

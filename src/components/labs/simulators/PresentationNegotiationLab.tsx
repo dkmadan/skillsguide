@@ -221,9 +221,9 @@ function initialState(fixture: Fixture): PlannerState {
   return {
     outline: fixture.outline,
     questionResponses: {},
-    negotiationChoice: fixture.negotiationOptions[0].id,
+    negotiationChoice: '',
     scopeConfirmed: false,
-    agreedTerms: `Deliver the core scope on the agreed date; defer non-critical items to a documented follow-up phase so quality is never silently cut.`,
+    agreedTerms: '',
     rehearsalLog: [],
   };
 }
@@ -265,8 +265,10 @@ export default function PresentationNegotiationLab({ variant, onDirty, onSubmit 
     setClockStep(0);
   };
 
-  const negotiationOption = fixture.negotiationOptions.find((o) => o.id === state.negotiationChoice) ?? fixture.negotiationOptions[0];
-  const agreementSeries = fixture.agreementEmphasis[state.negotiationChoice] ?? fixture.agreementEmphasis[fixture.negotiationOptions[0].id];
+  const negotiationOption = fixture.negotiationOptions.find((o) => o.id === state.negotiationChoice);
+  const agreementSeries = state.negotiationChoice && fixture.agreementEmphasis[state.negotiationChoice]
+    ? fixture.agreementEmphasis[state.negotiationChoice]
+    : [0, 0, 0, 0, 0];
 
   const handleExportCsv = () => {
     downloadCsv('presentation_outline.csv', state.outline.map((c, i) => ({ order: i + 1, heading: c.heading, word_count: c.body.trim().split(/\s+/).filter(Boolean).length, body: c.body })));
@@ -444,9 +446,10 @@ export default function PresentationNegotiationLab({ variant, onDirty, onSubmit 
             <div className="pt-2 border-t border-slate-800">
               <label className="text-slate-400 block mb-1">Final Negotiated Term Sheet (Agreement Draft)</label>
               <textarea rows={3} value={state.agreedTerms} onChange={(e) => update({ agreedTerms: e.target.value })}
-                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none" />
+                placeholder="Draft the final agreed terms: core delivery commitments, scope concessions or phased timelines, quality protections, and escalation paths..."
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 placeholder:text-slate-600 focus:outline-none" />
             </div>
-            <p className="text-[10px] text-slate-500 italic">Selected stance: {negotiationOption.label}. Pace and delivery are estimated from typed word count and your manually entered rehearsal duration only — no microphone, camera, transcription or speech analysis is used.</p>
+            <p className="text-[10px] text-slate-500 italic">Selected stance: {negotiationOption ? negotiationOption.label : 'None selected'}. Pace and delivery are estimated from typed word count and your manually entered rehearsal duration only — no microphone, camera, transcription or speech analysis is used.</p>
           </div>
 
           <div className="flex gap-2">

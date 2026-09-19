@@ -162,9 +162,7 @@ export default function AiEvaluationCasebookLab({ variant, onDirty, onSubmit }: 
   const { state: annotations, set: setAnnotations, undo, redo, reset, canUndo, canRedo } = useUndoableState<Annotations>({});
   const [selectedCaseId, setSelectedCaseId] = useState<string>(cases[0].id);
   const [releaseDecision, setReleaseDecision] = useState<'hold' | 'conditional' | 'deploy'>('hold');
-  const [releaseMemo, setReleaseMemo] = useState<string>(
-    'System A stays grounded in the reference facts across most cases and only drifts on partial answers. System B fabricates or omits key details far more often — hold System B and consider a conditional pilot for System A pending disagreement review.'
-  );
+  const [releaseMemo, setReleaseMemo] = useState<string>('');
 
   const activeCase = cases.find((cs) => cs.id === selectedCaseId) ?? cases[0];
 

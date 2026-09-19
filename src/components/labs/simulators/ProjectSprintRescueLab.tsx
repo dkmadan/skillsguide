@@ -161,7 +161,7 @@ export default function ProjectSprintRescueLab({ variant, onDirty, onSubmit }: S
   const fixture = useMemo(() => FIXTURES[variant], [variant]);
   const baseline = useMemo(() => computeSchedule(fixture.tasks), [fixture.tasks]);
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<SprintState>(initialState(fixture));
-  const [retro, setRetro] = useState('Rebalanced dev1\'s overallocation, kept the dependency graph acyclic, and logged the compliance scope request for next sprint.');
+  const [retro, setRetro] = useState('');
   const [riskNotes, setRiskNotes] = useState<Record<string, string>>({});
 
   const update = (patch: Partial<SprintState>) => { set((prev) => ({ ...prev, ...patch })); onDirty(); };
@@ -394,7 +394,8 @@ export default function ProjectSprintRescueLab({ variant, onDirty, onSubmit }: S
           <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
             <label className="text-xs font-extrabold text-white">Sprint Retrospective</label>
             <textarea rows={4} value={retro} onChange={(e) => { setRetro(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-amber-500/50" />
+              placeholder="Reflect on owner workload distribution, critical path tradeoffs, and your decision on the incoming scope change..."
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-amber-500/50" />
           </div>
 
           <div className="flex gap-2">

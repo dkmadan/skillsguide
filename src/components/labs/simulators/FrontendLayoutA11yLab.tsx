@@ -1,12 +1,27 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { LabScenarioVariant, LabDifficulty } from '@/lib/labs/types';
 import { useUndoableState } from '@/lib/labs/useUndoableState';
-import { downloadCsv, downloadJson } from '@/lib/labs/exportHelper';
-import ChartFrame from '@/components/labs/charts/ChartFrame';
-import CompareBarChart from '@/components/labs/charts/CompareBarChart';
-import { Undo2, Redo2, RotateCcw, Download, FileJson, BarChart3 } from 'lucide-react';
+import { evaluateContrast, ContrastEvaluation } from '@/lib/labs/colorUtils';
+import { downloadJson } from '@/lib/labs/exportHelper';
+import {
+  Monitor,
+  Smartphone,
+  CheckCircle2,
+  AlertTriangle,
+  Undo2,
+  Redo2,
+  Sparkles,
+  ArrowRight,
+  Eye,
+  Sliders,
+  Keyboard,
+  ShieldCheck,
+  Palette,
+  Layers,
+  FileText
+} from 'lucide-react';
 
 interface Props {
   scenario?: LabScenarioVariant;
@@ -15,329 +30,390 @@ interface Props {
   onSubmit: (answers: Record<string, unknown>) => void;
 }
 
-interface ComponentNode {
+export interface UIComponentItem {
   id: string;
-  type: 'navbar' | 'hero' | 'cardGrid' | 'ctaButton' | 'secondaryButton';
-  title: string;
+  name: string;
+  tag: 'header' | 'nav' | 'section' | 'article' | 'button' | 'footer' | 'div';
+  text: string;
+  fgColor: string; // hex
+  bgColor: string; // hex
+  paddingPx: number;
+  mobileWrap: boolean;
+  tabIndex: number;
   ariaLabel: string;
-  contrastRatio: number;
-  mobileStack: boolean;
-  tabIndex: number; // intended focus order — should equal visual DOM position + 1
-  interactive: boolean;
-  touchTargetPx: number; // WCAG 2.2 minimum target size is 44px for interactive elements
+  touchTargetPx: number;
 }
 
-// Three fixtures with increasing accessibility ambiguity, all sharing the
-// same defect *types* from beginner onward (contrast, missing label, mobile
-// overflow, focus-order mismatch, undersized touch target) — higher tiers
-// add borderline/near-miss values that are harder to eyeball.
-const NODE_POOLS: Record<LabDifficulty, ComponentNode[]> = {
-  beginner: [
-    { id: 'node-1', type: 'navbar', title: 'Header Navigation', ariaLabel: 'Main Navigation', contrastRatio: 5.2, mobileStack: true, tabIndex: 1, interactive: true, touchTargetPx: 48 },
-    { id: 'node-2', type: 'hero', title: 'Course Hero Banner', ariaLabel: 'Course Overview', contrastRatio: 7.1, mobileStack: true, tabIndex: 2, interactive: false, touchTargetPx: 48 },
-    { id: 'node-3', type: 'cardGrid', title: 'Curriculum Modules Grid', ariaLabel: 'Module List', contrastRatio: 4.6, mobileStack: false, tabIndex: 3, interactive: false, touchTargetPx: 48 }, // mobileStack bug
-    { id: 'node-4', type: 'ctaButton', title: 'Enroll Now CTA Button', ariaLabel: '', contrastRatio: 2.8, mobileStack: true, tabIndex: 4, interactive: true, touchTargetPx: 48 }, // missing label + contrast bug
-  ],
-  intermediate: [
-    { id: 'node-1', type: 'navbar', title: 'Header Navigation', ariaLabel: 'Main Navigation', contrastRatio: 5.2, mobileStack: true, tabIndex: 1, interactive: true, touchTargetPx: 48 },
-    { id: 'node-2', type: 'hero', title: 'Course Hero Banner', ariaLabel: 'Course Overview', contrastRatio: 4.4, mobileStack: true, tabIndex: 2, interactive: false, touchTargetPx: 48 }, // borderline fail (4.4 < 4.5)
-    { id: 'node-3', type: 'cardGrid', title: 'Curriculum Modules Grid', ariaLabel: 'Module List', contrastRatio: 4.6, mobileStack: false, tabIndex: 4, interactive: false, touchTargetPx: 48 }, // mobileStack bug + focus-order mismatch (should be 3rd)
-    { id: 'node-4', type: 'ctaButton', title: 'Enroll Now CTA Button', ariaLabel: '', contrastRatio: 2.8, mobileStack: true, tabIndex: 3, interactive: true, touchTargetPx: 32 }, // missing label, contrast bug, undersized target, focus-order mismatch
-    { id: 'node-5', type: 'secondaryButton', title: 'View Syllabus Button', ariaLabel: 'View course syllabus PDF', contrastRatio: 5.0, mobileStack: true, tabIndex: 5, interactive: true, touchTargetPx: 44 },
-  ],
-  challenge: [
-    { id: 'node-1', type: 'navbar', title: 'Header Navigation', ariaLabel: 'Main Navigation', contrastRatio: 5.2, mobileStack: true, tabIndex: 1, interactive: true, touchTargetPx: 48 },
-    { id: 'node-2', type: 'hero', title: 'Course Hero Banner', ariaLabel: 'Course Overview', contrastRatio: 4.4, mobileStack: true, tabIndex: 3, interactive: false, touchTargetPx: 48 }, // borderline fail + focus-order mismatch (should be 2nd)
-    { id: 'node-3', type: 'cardGrid', title: 'Curriculum Modules Grid', ariaLabel: 'Module List', contrastRatio: 4.6, mobileStack: false, tabIndex: 2, interactive: false, touchTargetPx: 48 }, // mobileStack bug + focus-order mismatch
-    { id: 'node-4', type: 'ctaButton', title: 'Enroll Now CTA Button', ariaLabel: '   ', contrastRatio: 2.8, mobileStack: true, tabIndex: 6, interactive: true, touchTargetPx: 32 }, // whitespace-only label (must count as missing), contrast bug, undersized target, focus-order mismatch
-    { id: 'node-5', type: 'secondaryButton', title: 'View Syllabus Button', ariaLabel: 'View course syllabus PDF', contrastRatio: 4.5, mobileStack: true, tabIndex: 5, interactive: true, touchTargetPx: 44 }, // borderline PASS exactly at threshold
-    { id: 'node-6', type: 'ctaButton', title: 'Share Progress Button', ariaLabel: 'Share course progress', contrastRatio: 6.0, mobileStack: false, tabIndex: 4, interactive: true, touchTargetPx: 40 }, // mobileStack bug + undersized target + focus-order mismatch
-  ],
-};
-
-interface FrontendState {
-  nodes: ComponentNode[];
+interface PageState {
+  components: UIComponentItem[];
   previewMode: 'desktop' | 'mobile';
 }
 
-const AA_MIN_CONTRAST = 4.5;
-const MIN_TOUCH_TARGET = 44;
-
-function hasNonEmptyLabel(label: string): boolean {
-  return label.trim().length > 0;
-}
+const INITIAL_COMPONENTS: Record<LabDifficulty, UIComponentItem[]> = {
+  beginner: [
+    { id: 'c1', name: 'Header Navigation', tag: 'nav', text: 'SkillsGuide Academy', fgColor: '#e2e8f0', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 1, ariaLabel: 'Main Navigation', touchTargetPx: 48 },
+    { id: 'c2', name: 'Hero Banner Title', tag: 'section', text: 'Master Autonomous AI & Engineering', fgColor: '#ffffff', bgColor: '#1e1b4b', paddingPx: 32, mobileWrap: true, tabIndex: 2, ariaLabel: 'Hero Section', touchTargetPx: 48 },
+    { id: 'c3', name: 'Enrollment CTA Button', tag: 'button', text: 'Enroll Now (Free)', fgColor: '#888888', bgColor: '#3b82f6', paddingPx: 12, mobileWrap: true, tabIndex: 4, ariaLabel: '', touchTargetPx: 48 }, // low contrast + missing ARIA label + tabIndex out of order!
+    { id: 'c4', name: 'Curriculum Module Card', tag: 'article', text: 'Module 1: Advanced Full-Stack Architecture', fgColor: '#cbd5e1', bgColor: '#1e293b', paddingPx: 20, mobileWrap: false, tabIndex: 3, ariaLabel: 'Course Module', touchTargetPx: 48 },
+    { id: 'c5', name: 'Footer Copyright', tag: 'footer', text: '© 2026 SkillsGuide Learning Directory', fgColor: '#94a3b8', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 5, ariaLabel: 'Site Footer', touchTargetPx: 44 }
+  ],
+  intermediate: [
+    { id: 'c1', name: 'Header Navigation', tag: 'nav', text: 'SkillsGuide Academy', fgColor: '#e2e8f0', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 1, ariaLabel: 'Main Navigation', touchTargetPx: 48 },
+    { id: 'c2', name: 'Hero Banner Title', tag: 'section', text: 'Master Cloud & System Design', fgColor: '#e0e7ff', bgColor: '#1e1b4b', paddingPx: 32, mobileWrap: true, tabIndex: 2, ariaLabel: 'Hero Section', touchTargetPx: 48 },
+    { id: 'c3', name: 'Enrollment CTA Button', tag: 'button', text: 'Enroll Now', fgColor: '#60a5fa', bgColor: '#1e3a8a', paddingPx: 8, mobileWrap: true, tabIndex: 5, ariaLabel: '', touchTargetPx: 32 }, // low contrast + undersized target + tabIndex mismatch
+    { id: 'c4', name: 'Curriculum Module Card', tag: 'article', text: 'Module 1: High Availability Distributed Systems', fgColor: '#cbd5e1', bgColor: '#1e293b', paddingPx: 20, mobileWrap: false, tabIndex: 3, ariaLabel: 'Course Module', touchTargetPx: 48 },
+    { id: 'c5', name: 'Secondary Outline Button', tag: 'button', text: 'Download Syllabus', fgColor: '#93c5fd', bgColor: '#172554', paddingPx: 10, mobileWrap: true, tabIndex: 4, ariaLabel: 'Download Syllabus', touchTargetPx: 40 },
+    { id: 'c6', name: 'Footer Copyright', tag: 'footer', text: '© 2026 SkillsGuide', fgColor: '#94a3b8', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 6, ariaLabel: 'Site Footer', touchTargetPx: 44 }
+  ],
+  challenge: [
+    { id: 'c1', name: 'Header Navigation', tag: 'nav', text: 'SkillsGuide Academy', fgColor: '#e2e8f0', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 1, ariaLabel: 'Main Navigation', touchTargetPx: 48 },
+    { id: 'c2', name: 'Hero Banner Title', tag: 'section', text: 'FinOps & SRE Resilience', fgColor: '#cbd5e1', bgColor: '#0f172a', paddingPx: 32, mobileWrap: true, tabIndex: 4, ariaLabel: 'Hero', touchTargetPx: 48 }, // focus out of order
+    { id: 'c3', name: 'Enrollment CTA Button', tag: 'button', text: 'Enroll Now', fgColor: '#888888', bgColor: '#2563eb', paddingPx: 6, mobileWrap: false, tabIndex: 6, ariaLabel: '   ', touchTargetPx: 28 }, // whitespace aria, undersized, low contrast
+    { id: 'c4', name: 'Curriculum Module Card', tag: 'article', text: 'Module 1: Observability & Chaos Engineering', fgColor: '#cbd5e1', bgColor: '#1e293b', paddingPx: 20, mobileWrap: false, tabIndex: 2, ariaLabel: 'Module', touchTargetPx: 48 },
+    { id: 'c5', name: 'Footer Copyright', tag: 'footer', text: '© 2026 SkillsGuide', fgColor: '#64748b', bgColor: '#0f172a', paddingPx: 16, mobileWrap: true, tabIndex: 5, ariaLabel: 'Site Footer', touchTargetPx: 44 }
+  ]
+};
 
 export default function FrontendLayoutA11yLab({ variant, onDirty, onSubmit }: Props) {
-  const initialNodes = NODE_POOLS[variant];
-  const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<FrontendState>({ nodes: initialNodes, previewMode: 'desktop' });
-  const [showFocusOrder, setShowFocusOrder] = useState(false);
-  const [showTargetOverlay, setShowTargetOverlay] = useState(false);
-  const [selectedNodeId, setSelectedNodeId] = useState(initialNodes[initialNodes.length - 1].id);
-  const [simulationState, setSimulationState] = useState<'normal' | 'loading' | 'empty'>('normal');
-  const [visitedLoading, setVisitedLoading] = useState(false);
-  const [visitedEmpty, setVisitedEmpty] = useState(false);
+  const initial = useMemo<PageState>(() => ({
+    components: INITIAL_COMPONENTS[variant] || INITIAL_COMPONENTS.beginner,
+    previewMode: 'desktop'
+  }), [variant]);
 
-  const nodes = state.nodes;
-  const activeNode = nodes.find((n) => n.id === selectedNodeId) || nodes[0];
+  const { state, set, undo, redo, canUndo, canRedo } = useUndoableState<PageState>(initial);
+  const [selectedCompId, setSelectedCompId] = useState<string>('c3');
+  const [focusedTabIndex, setFocusedTabIndex] = useState<number | null>(null);
 
-  const update = (patch: Partial<FrontendState>) => {
-    set((prev) => ({ ...prev, ...patch }));
+  const selectedComponent = useMemo(() => {
+    return state.components.find(c => c.id === selectedCompId) || state.components[0];
+  }, [state.components, selectedCompId]);
+
+  const updateSelectedComponent = useCallback((patch: Partial<UIComponentItem>) => {
+    set(prev => ({
+      ...prev,
+      components: prev.components.map(c => c.id === selectedCompId ? { ...c, ...patch } : c)
+    }));
     onDirty();
-  };
+  }, [selectedCompId, set, onDirty]);
 
-  const updateActiveNode = (updates: Partial<ComponentNode>) => {
-    update({ nodes: nodes.map((n) => (n.id === selectedNodeId ? { ...n, ...updates } : n)) });
-  };
-
-  const handleToggleAriaFix = () => {
-    updateActiveNode({
-      ariaLabel: hasNonEmptyLabel(activeNode.ariaLabel) ? activeNode.ariaLabel : `${activeNode.title}`,
-      contrastRatio: activeNode.contrastRatio < AA_MIN_CONTRAST ? 5.8 : activeNode.contrastRatio,
-      touchTargetPx: activeNode.interactive && activeNode.touchTargetPx < MIN_TOUCH_TARGET ? 48 : activeNode.touchTargetPx,
+  // Evaluate WCAG contrast for all components
+  const contrastEvaluations = useMemo(() => {
+    const res: Record<string, ContrastEvaluation> = {};
+    state.components.forEach(c => {
+      res[c.id] = evaluateContrast(c.fgColor, c.bgColor);
     });
-  };
+    return res;
+  }, [state.components]);
 
-  const handleFixMobileStack = () => {
-    update({ nodes: nodes.map((n) => ({ ...n, mobileStack: true })) });
-  };
+  // Audit results summary
+  const auditSummary = useMemo(() => {
+    let contrastFails = 0;
+    let missingAria = 0;
+    let undersizedTouch = 0;
+    let focusOrderIssues = 0;
 
-  const handleFixFocusOrder = () => {
-    // Renumber tabIndex to match visual DOM order (array position + 1) —
-    // the deterministic, keyboard-verifiable notion of "correct" focus order.
-    update({ nodes: nodes.map((n, i) => ({ ...n, tabIndex: i + 1 })) });
-  };
-
-  const focusOrderCorrect = useMemo(() => nodes.every((n, i) => n.tabIndex === i + 1), [nodes]);
-  const allContrastOk = useMemo(() => nodes.every((n) => n.contrastRatio >= AA_MIN_CONTRAST), [nodes]);
-  const allLabelsOk = useMemo(() => nodes.every((n) => hasNonEmptyLabel(n.ariaLabel)), [nodes]);
-  const allStackedOnMobile = useMemo(() => nodes.every((n) => n.mobileStack), [nodes]);
-  const allTouchTargetsOk = useMemo(() => nodes.every((n) => !n.interactive || n.touchTargetPx >= MIN_TOUCH_TARGET), [nodes]);
-
-  const contrastChartData = useMemo(() => ({
-    labels: nodes.map((n) => n.type),
-    values: nodes.map((n) => n.contrastRatio),
-    statusOverride: nodes.map((n) => (n.contrastRatio >= AA_MIN_CONTRAST ? 'good' : 'critical') as 'good' | 'critical'),
-  }), [nodes]);
-
-  const handleExportJson = () => {
-    downloadJson('frontend_layout_a11y_config.json', {
-      variant,
-      layoutComponents: nodes,
-      previewMode: state.previewMode,
-      wcagPassed: allContrastOk && allLabelsOk && allStackedOnMobile && allTouchTargetsOk && focusOrderCorrect,
+    state.components.forEach((c, idx) => {
+      const evalResult = contrastEvaluations[c.id];
+      if (evalResult && !evalResult.wcagAANormal) contrastFails++;
+      if (c.ariaLabel.trim().length === 0) missingAria++;
+      if (c.tag === 'button' && c.touchTargetPx < 44) undersizedTouch++;
+      // Check if tabIndex matches expected reading position (idx + 1)
+      if (c.tabIndex !== idx + 1) focusOrderIssues++;
     });
+
+    return {
+      totalDefects: contrastFails + missingAria + undersizedTouch + focusOrderIssues,
+      contrastFails,
+      missingAria,
+      undersizedTouch,
+      focusOrderIssues
+    };
+  }, [state.components, contrastEvaluations]);
+
+  // Step keyboard focus sequentially
+  const handleNextFocus = () => {
+    const sorted = [...state.components].sort((a, b) => a.tabIndex - b.tabIndex);
+    if (focusedTabIndex === null) {
+      setFocusedTabIndex(sorted[0].tabIndex);
+    } else {
+      const currentIdx = sorted.findIndex(c => c.tabIndex === focusedTabIndex);
+      const nextIdx = (currentIdx + 1) % sorted.length;
+      setFocusedTabIndex(sorted[nextIdx].tabIndex);
+    }
   };
 
-  const handleExportChecklistCsv = () => {
-    downloadCsv('frontend_a11y_checklist.csv', nodes.map((n) => ({
-      component: n.title, type: n.type, contrast_ratio: n.contrastRatio, contrast_pass: n.contrastRatio >= AA_MIN_CONTRAST,
-      aria_label_present: hasNonEmptyLabel(n.ariaLabel), mobile_stack: n.mobileStack, tab_index: n.tabIndex,
-      touch_target_px: n.touchTargetPx, touch_target_pass: !n.interactive || n.touchTargetPx >= MIN_TOUCH_TARGET,
-    })));
-  };
-
-  const handleFinalSubmit = () => {
+  const handleSubmit = () => {
     onSubmit({
       variant,
-      nodes,
-      previewMode: state.previewMode,
-      simulationState,
-      showFocusOrder,
-      focusOrderCorrect,
-      allContrastOk,
-      allLabelsOk,
-      allStackedOnMobile,
-      allTouchTargetsOk,
-      visitedLoadingState: visitedLoading,
-      visitedEmptyState: visitedEmpty,
+      componentsState: state.components,
+      auditSummary,
+      passedWCAG: auditSummary.totalDefects === 0,
+      activePreview: state.previewMode
     });
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-xl backdrop-blur-sm">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-              Lab 09 • Modern Frontend Architecture
-            </span>
-            <h2 className="text-xl font-bold text-white mt-2">Frontend Layout, Responsive Grid &amp; WCAG 2.2 Accessibility</h2>
-            <p className="text-sm text-slate-400 mt-1">
-              Assemble developer-approved component tokens. Eliminate low-contrast elements (4.5:1 minimum), ensure mobile card stacking, correct keyboard focus order, and meet the 44px minimum touch target.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button type="button" onClick={undo} disabled={!canUndo} title="Undo" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 disabled:opacity-30"><Undo2 className="w-4 h-4" /></button>
-            <button type="button" onClick={redo} disabled={!canRedo} title="Redo" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 disabled:opacity-30"><Redo2 className="w-4 h-4" /></button>
-            <button type="button" onClick={() => { reset(); onDirty(); }} title="Reset layout" className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700"><RotateCcw className="w-4 h-4" /></button>
-            <button type="button" onClick={handleExportJson} className="px-3 py-1.5 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">Export Tokens</button>
-            <button type="button" onClick={handleFinalSubmit} className="px-4 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition shadow-lg shadow-cyan-500/20">Submit Layout</button>
-          </div>
-        </div>
-      </div>
-
-      {/* Control Bar: Viewport & Simulation State */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/60 border border-slate-800 rounded-xl p-3">
+    <div className="space-y-4 font-sans text-xs">
+      {/* ===================================================================== */}
+      {/* TOOLBAR: Desktop / Mobile Preview & Focus Simulation Controls         */}
+      {/* ===================================================================== */}
+      <div className="p-3 rounded-2xl bg-[#0f1325] border border-white/10 flex flex-wrap items-center justify-between gap-3 shadow-xl">
         <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-400 font-medium">Viewport:</span>
-          <button type="button" onClick={() => update({ previewMode: 'desktop' })} className={`px-3 py-1 text-xs font-semibold rounded-lg transition ${state.previewMode === 'desktop' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-300'}`}>Desktop (1280px)</button>
-          <button type="button" onClick={() => update({ previewMode: 'mobile' })} className={`px-3 py-1 text-xs font-semibold rounded-lg transition ${state.previewMode === 'mobile' ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-300'}`}>Mobile (390px Stack)</button>
+          <div className="inline-flex p-0.5 rounded-xl bg-white/5 border border-white/10">
+            <button
+              onClick={() => set(prev => ({ ...prev, previewMode: 'desktop' }))}
+              className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all ${
+                state.previewMode === 'desktop' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Monitor className="w-3.5 h-3.5" />
+              <span>Desktop (1280px)</span>
+            </button>
+
+            <button
+              onClick={() => set(prev => ({ ...prev, previewMode: 'mobile' }))}
+              className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition-all ${
+                state.previewMode === 'mobile' ? 'bg-purple-600 text-white shadow-sm' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Mobile (375px)</span>
+            </button>
+          </div>
+
+          <button
+            onClick={handleNextFocus}
+            className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white flex items-center gap-1.5 transition-all font-semibold"
+            title="Simulate Tab key press to inspect focus progression"
+          >
+            <Keyboard className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Step Keyboard Focus {focusedTabIndex !== null ? `(Focus: Tab ${focusedTabIndex})` : ''}</span>
+          </button>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
-          <button type="button" onClick={() => setShowFocusOrder(!showFocusOrder)}
-            className={`px-3 py-1 text-xs font-semibold rounded-lg border transition ${showFocusOrder ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
-            {showFocusOrder ? 'Hide Focus Order' : 'Show Focus Order (#)'}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-white/5 border border-white/10 text-[11px]">
+            <span className="text-slate-400">A11y Audit:</span>
+            <span className={`font-bold ${auditSummary.totalDefects === 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+              {auditSummary.totalDefects === 0 ? '✓ WCAG AA Certified' : `${auditSummary.totalDefects} Issues Detected`}
+            </span>
+          </div>
+
+          <button onClick={undo} disabled={!canUndo} className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 disabled:opacity-30 border border-white/10 text-slate-300">
+            <Undo2 className="w-3.5 h-3.5" />
           </button>
-          <button type="button" onClick={() => setShowTargetOverlay(!showTargetOverlay)}
-            className={`px-3 py-1 text-xs font-semibold rounded-lg border transition ${showTargetOverlay ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
-            {showTargetOverlay ? 'Hide Target Overlay' : 'Show Target Size Overlay'}
+          <button onClick={redo} disabled={!canRedo} className="p-1.5 rounded-xl bg-white/5 hover:bg-white/10 disabled:opacity-30 border border-white/10 text-slate-300">
+            <Redo2 className="w-3.5 h-3.5" />
           </button>
-          <div className="flex items-center gap-1 text-xs">
-            <span className="text-slate-400">State:</span>
-            {(['normal', 'loading', 'empty'] as const).map((st) => (
-              <button key={st} type="button" onClick={() => { setSimulationState(st); if (st === 'loading') setVisitedLoading(true); if (st === 'empty') setVisitedEmpty(true); onDirty(); }}
-                className={`px-2.5 py-1 rounded capitalize font-medium ${simulationState === st ? 'bg-slate-700 text-white font-bold' : 'bg-slate-800/60 text-slate-400'}`}>
-                {st}
+        </div>
+      </div>
+
+      {/* ===================================================================== */}
+      {/* SPLIT VIEW: Live Rendered Canvas & Direct Inspector                   */}
+      {/* ===================================================================== */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        {/* Rendered Live Canvas Container */}
+        <div className="lg:col-span-8 flex justify-center bg-[#070914] p-4 sm:p-6 rounded-3xl border border-white/10 overflow-x-auto min-h-[420px] shadow-2xl">
+          <div
+            className={`transition-all duration-300 flex flex-col space-y-3 bg-[#0a0d1d] p-4 rounded-2xl border border-white/10 ${
+              state.previewMode === 'mobile' ? 'w-[375px] max-w-[375px] shadow-2xl ring-4 ring-slate-800' : 'w-full max-w-3xl'
+            }`}
+          >
+            {state.components.map((comp) => {
+              const isSelected = selectedCompId === comp.id;
+              const hasFocus = focusedTabIndex === comp.tabIndex;
+              const evalRes = contrastEvaluations[comp.id];
+              const contrastPass = evalRes?.wcagAANormal;
+
+              return (
+                <div
+                  key={comp.id}
+                  onClick={() => setSelectedCompId(comp.id)}
+                  style={{
+                    color: comp.fgColor,
+                    backgroundColor: comp.bgColor,
+                    padding: `${comp.paddingPx}px`,
+                    minHeight: `${comp.touchTargetPx}px`
+                  }}
+                  className={`rounded-xl cursor-pointer relative transition-all flex flex-col justify-between ${
+                    isSelected ? 'ring-2 ring-purple-500 shadow-lg' : 'hover:ring-1 hover:ring-white/20'
+                  } ${hasFocus ? 'outline-2 outline-cyan-400 outline-offset-2' : ''}`}
+                >
+                  {/* Accessibility & Diagnostic Badges Header */}
+                  <div className="flex items-center justify-between gap-1 mb-1 text-[10px] font-mono opacity-85">
+                    <span className="px-1.5 py-0.5 rounded bg-black/40 text-slate-300 font-bold">
+                      &lt;{comp.tag}&gt; Tab: {comp.tabIndex}
+                    </span>
+
+                    <div className="flex items-center gap-1">
+                      <span className={`px-1.5 py-0.5 rounded font-bold ${contrastPass ? 'bg-emerald-500/30 text-emerald-200' : 'bg-red-500/40 text-red-200 animate-pulse'}`}>
+                        {evalRes?.ratioFormatted || '--'} {contrastPass ? 'AA' : 'FAIL'}
+                      </span>
+                      {comp.ariaLabel.trim() === '' && (
+                        <span className="px-1.5 py-0.5 rounded bg-amber-500/40 text-amber-200 font-bold" title="Missing ARIA label">
+                          NO ARIA
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Component Rendered Text */}
+                  <div className="font-semibold text-xs sm:text-sm leading-snug">
+                    {comp.text}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Component Property Inspector Panel */}
+        <div className="lg:col-span-4 space-y-3">
+          <div className="p-4 rounded-3xl bg-[#0f1325] border border-white/10 space-y-3 shadow-xl">
+            <div className="flex items-center justify-between border-b border-white/5 pb-2">
+              <span className="font-bold text-white text-xs flex items-center gap-1.5">
+                <Sliders className="w-3.5 h-3.5 text-purple-400" />
+                <span>Selected: {selectedComponent.name}</span>
+              </span>
+              <span className="font-mono text-[10px] text-purple-300">ID: {selectedComponent.id}</span>
+            </div>
+
+            {/* Content Text */}
+            <div className="space-y-1">
+              <label className="text-[10px] text-slate-400 block font-semibold">Element Content Text:</label>
+              <input
+                type="text"
+                value={selectedComponent.text}
+                onChange={(e) => updateSelectedComponent({ text: e.target.value })}
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-2.5 py-1.5 text-white font-medium text-xs"
+              />
+            </div>
+
+            {/* Colors (Foreground & Background Hex) */}
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <label className="text-[10px] text-slate-400 block font-semibold">Text Color (FG):</label>
+                <div className="flex items-center gap-1.5">
+                  <input
+                    type="color"
+                    value={selectedComponent.fgColor.startsWith('#') ? selectedComponent.fgColor : '#ffffff'}
+                    onChange={(e) => updateSelectedComponent({ fgColor: e.target.value })}
+                    className="w-7 h-7 rounded-lg cursor-pointer bg-transparent border-0"
+                  />
+                  <input
+                    type="text"
+                    value={selectedComponent.fgColor}
+                    onChange={(e) => updateSelectedComponent({ fgColor: e.target.value })}
+                    className="flex-1 bg-black/40 border border-white/10 rounded-xl px-2 py-1 font-mono text-[11px] text-white"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] text-slate-400 block font-semibold">Background (BG):</label>
+                <div className="flex items-center gap-1.5">
+                  <input
+                    type="color"
+                    value={selectedComponent.bgColor.startsWith('#') ? selectedComponent.bgColor : '#000000'}
+                    onChange={(e) => updateSelectedComponent({ bgColor: e.target.value })}
+                    className="w-7 h-7 rounded-lg cursor-pointer bg-transparent border-0"
+                  />
+                  <input
+                    type="text"
+                    value={selectedComponent.bgColor}
+                    onChange={(e) => updateSelectedComponent({ bgColor: e.target.value })}
+                    className="flex-1 bg-black/40 border border-white/10 rounded-xl px-2 py-1 font-mono text-[11px] text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Mathematical Contrast Ratio Card */}
+            {contrastEvaluations[selectedComponent.id] && (
+              <div className="p-3 rounded-2xl bg-black/40 border border-white/5 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-slate-400 font-semibold">WCAG 2.1 Contrast Ratio:</span>
+                  <span className={`font-mono font-bold text-xs ${contrastEvaluations[selectedComponent.id].wcagAANormal ? 'text-emerald-400' : 'text-red-400'}`}>
+                    {contrastEvaluations[selectedComponent.id].ratioFormatted}
+                  </span>
+                </div>
+                <div className="text-[10px] text-slate-400 flex items-center justify-between">
+                  <span>Status:</span>
+                  <span className="font-bold text-slate-200">{contrastEvaluations[selectedComponent.id].statusText}</span>
+                </div>
+                {!contrastEvaluations[selectedComponent.id].wcagAANormal && (
+                  <p className="text-[10px] text-red-300 pt-1 border-t border-white/5">
+                    Fails WCAG AA minimum 4.5:1 ratio. Adjust text color lighter or background darker.
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* ARIA Label & Focus Order */}
+            <div className="space-y-1">
+              <label className="text-[10px] text-slate-400 block font-semibold">ARIA Label (Accessibility):</label>
+              <input
+                type="text"
+                value={selectedComponent.ariaLabel}
+                onChange={(e) => updateSelectedComponent({ ariaLabel: e.target.value })}
+                placeholder="e.g. Enroll in Free Course"
+                className="w-full bg-black/40 border border-white/10 rounded-xl px-2.5 py-1.5 text-white text-xs"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-1">
+                <label className="text-[10px] text-slate-400 block font-semibold">Focus tabIndex:</label>
+                <input
+                  type="number"
+                  value={selectedComponent.tabIndex}
+                  onChange={(e) => updateSelectedComponent({ tabIndex: parseInt(e.target.value, 10) || 1 })}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-2.5 py-1.5 font-mono text-white text-xs"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[10px] text-slate-400 block font-semibold">Touch Target (px):</label>
+                <input
+                  type="number"
+                  value={selectedComponent.touchTargetPx}
+                  onChange={(e) => updateSelectedComponent({ touchTargetPx: parseInt(e.target.value, 10) || 24 })}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-2.5 py-1.5 font-mono text-white text-xs"
+                />
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => updateSelectedComponent({ fgColor: '#ffffff', ariaLabel: selectedComponent.name, touchTargetPx: 48, tabIndex: state.components.findIndex(c => c.id === selectedComponent.id) + 1 })}
+                className="w-full py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/30 text-purple-300 font-bold text-xs transition-colors"
+              >
+                Apply Remediation Preset
               </button>
-            ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Workspace Split: Visual Canvas & A11y Inspector */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-8 bg-slate-950 border border-slate-800 rounded-2xl p-6 min-h-[460px] flex flex-col items-center justify-start overflow-hidden">
-          <div className={`transition-all duration-300 ${state.previewMode === 'mobile' ? 'w-[360px] border-x border-slate-800 shadow-2xl px-3 py-4' : 'w-full'}`}>
-            <div className={state.previewMode === 'mobile' ? 'space-y-4' : 'space-y-4'}>
-              {nodes.map((node) => {
-                const isSelected = node.id === selectedNodeId;
-                const overflowBug = !node.mobileStack && state.previewMode === 'mobile';
-                const targetBug = node.interactive && node.touchTargetPx < MIN_TOUCH_TARGET;
-                const hasA11yBug = !hasNonEmptyLabel(node.ariaLabel) || node.contrastRatio < AA_MIN_CONTRAST || overflowBug || targetBug;
-
-                if (simulationState === 'loading' && node.type === 'cardGrid') {
-                  return (
-                    <div key={node.id} className="animate-pulse bg-slate-800/60 border border-slate-700/50 rounded-xl p-6 space-y-3">
-                      <div className="h-4 bg-slate-700 rounded w-1/3" />
-                      <div className="h-10 bg-slate-700/50 rounded" />
-                    </div>
-                  );
-                }
-                if (simulationState === 'empty' && node.type === 'cardGrid') {
-                  return (
-                    <div key={node.id} className="bg-slate-900 border border-dashed border-slate-700 rounded-xl p-8 text-center text-slate-400">
-                      <p className="text-sm font-semibold">No modules published yet</p>
-                      <p className="text-xs text-slate-500 mt-1">Empty state triggered deterministically.</p>
-                    </div>
-                  );
-                }
-
-                return (
-                  <div key={node.id} role="button" tabIndex={0} onClick={() => setSelectedNodeId(node.id)}
-                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelectedNodeId(node.id); }}
-                    className={`relative p-4 rounded-xl border transition cursor-pointer ${isSelected ? 'bg-slate-900 border-cyan-500 shadow-lg shadow-cyan-500/10' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700'}`}>
-                    {showFocusOrder && (
-                      <span className="absolute -top-2 -left-2 w-6 h-6 rounded-full bg-amber-500 text-slate-950 font-mono font-bold text-xs flex items-center justify-center shadow">{node.tabIndex}</span>
-                    )}
-                    {showTargetOverlay && node.interactive && (
-                      <span className={`absolute -top-2 -right-2 px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ${targetBug ? 'bg-rose-500 text-white' : 'bg-emerald-500 text-slate-950'}`}>{node.touchTargetPx}px</span>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono font-semibold text-cyan-400 uppercase tracking-wide">{node.type}</span>
-                          {hasA11yBug && <span className="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30">A11y Warning</span>}
-                        </div>
-                        <h4 className="text-sm font-semibold text-white mt-1">{node.title}</h4>
-                      </div>
-                      <div className="text-right text-xs">
-                        <div className="text-slate-400">Contrast: <span className={node.contrastRatio < AA_MIN_CONTRAST ? 'text-rose-400 font-bold' : 'text-emerald-400'}>{node.contrastRatio.toFixed(1)}:1</span></div>
-                        <div className="text-slate-500 text-[11px]">ARIA: {hasNonEmptyLabel(node.ariaLabel) ? 'OK' : 'Missing'}</div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+      {/* ===================================================================== */}
+      {/* SUBMISSION BAR                                                        */}
+      {/* ===================================================================== */}
+      <div className="p-4 rounded-2xl bg-[#0f1325] border border-white/10 flex flex-wrap items-center justify-between gap-3 shadow-xl">
+        <div className="flex items-center gap-3 text-xs text-slate-400">
+          <span>Contrast Failures: <strong className={auditSummary.contrastFails === 0 ? 'text-emerald-400' : 'text-red-400'}>{auditSummary.contrastFails}</strong></span>
+          <span>•</span>
+          <span>Missing ARIA Labels: <strong className={auditSummary.missingAria === 0 ? 'text-emerald-400' : 'text-amber-400'}>{auditSummary.missingAria}</strong></span>
+          <span>•</span>
+          <span>Undersized Touch Targets: <strong className={auditSummary.undersizedTouch === 0 ? 'text-emerald-400' : 'text-red-400'}>{auditSummary.undersizedTouch}</strong></span>
         </div>
 
-        {/* Component Inspector & A11y Auditor */}
-        <div className="lg:col-span-4 space-y-4">
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-white mb-3">Component Inspector</h3>
-            <div className="space-y-3 text-xs">
-              <div>
-                <label className="text-slate-400 block mb-1">Selected Element</label>
-                <div className="p-2 rounded bg-slate-950 text-cyan-400 font-mono font-semibold">{activeNode.title} ({activeNode.type})</div>
-              </div>
-
-              <div>
-                <label htmlFor="aria-label-input" className="text-slate-400 block mb-1">Accessible Label (`aria-label`)</label>
-                <input id="aria-label-input" type="text" value={activeNode.ariaLabel} onChange={(e) => updateActiveNode({ ariaLabel: e.target.value })}
-                  placeholder="e.g. Enroll in curriculum" className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-cyan-500" />
-              </div>
-
-              <div>
-                <label htmlFor="contrast-range" className="text-slate-400 block mb-1">Text Contrast Ratio (WCAG AA &gt;= 4.5:1)</label>
-                <div className="flex items-center gap-3">
-                  <input id="contrast-range" type="range" min="2.0" max="12.0" step="0.1" value={activeNode.contrastRatio}
-                    onChange={(e) => updateActiveNode({ contrastRatio: parseFloat(e.target.value) })} className="flex-1 accent-cyan-500" />
-                  <span className={`font-mono font-bold ${activeNode.contrastRatio < AA_MIN_CONTRAST ? 'text-rose-400' : 'text-emerald-400'}`}>{activeNode.contrastRatio.toFixed(1)}:1</span>
-                </div>
-              </div>
-
-              {activeNode.interactive && (
-                <div>
-                  <label htmlFor="target-range" className="text-slate-400 block mb-1">Touch Target Size (WCAG 2.2 &gt;= 44px)</label>
-                  <div className="flex items-center gap-3">
-                    <input id="target-range" type="range" min="24" max="56" step="2" value={activeNode.touchTargetPx}
-                      onChange={(e) => updateActiveNode({ touchTargetPx: parseInt(e.target.value, 10) })} className="flex-1 accent-cyan-500" />
-                    <span className={`font-mono font-bold ${activeNode.touchTargetPx < MIN_TOUCH_TARGET ? 'text-rose-400' : 'text-emerald-400'}`}>{activeNode.touchTargetPx}px</span>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <label htmlFor="tabindex-input" className="text-slate-400 block mb-1">Focus Order (tabIndex)</label>
-                <input id="tabindex-input" type="number" min={1} max={nodes.length} value={activeNode.tabIndex}
-                  onChange={(e) => updateActiveNode({ tabIndex: parseInt(e.target.value, 10) || 1 })}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-slate-200 focus:outline-none focus:border-cyan-500" />
-              </div>
-
-              <div className="pt-2 border-t border-slate-800 space-y-2">
-                <button type="button" onClick={handleToggleAriaFix} className="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-semibold transition">Apply WCAG AA Fix</button>
-                <button type="button" onClick={handleFixMobileStack} className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-semibold transition">Enable Mobile Card Stacking</button>
-                <button type="button" onClick={handleFixFocusOrder} className="w-full py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-semibold transition">Fix Focus Order to Match Visual Layout</button>
-              </div>
-
-              <div className="pt-2 border-t border-slate-800 grid grid-cols-2 gap-1.5 text-[10px]">
-                <span className={`px-2 py-1 rounded ${allContrastOk ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>Contrast {allContrastOk ? 'OK' : 'FAIL'}</span>
-                <span className={`px-2 py-1 rounded ${allLabelsOk ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>Labels {allLabelsOk ? 'OK' : 'FAIL'}</span>
-                <span className={`px-2 py-1 rounded ${allStackedOnMobile ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>Mobile Stack {allStackedOnMobile ? 'OK' : 'FAIL'}</span>
-                <span className={`px-2 py-1 rounded ${focusOrderCorrect ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>Focus Order {focusOrderCorrect ? 'OK' : 'FAIL'}</span>
-                <span className={`px-2 py-1 rounded col-span-2 ${allTouchTargetsOk ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'}`}>Touch Targets {allTouchTargetsOk ? 'OK' : 'FAIL'}</span>
-              </div>
-            </div>
-          </div>
-
-          <ChartFrame
-            title="Contrast Ratio by Component"
-            icon={<BarChart3 className="w-4 h-4 text-cyan-400" />}
-            tableHeaders={['Component', 'Contrast Ratio']}
-            tableRows={nodes.map((n) => [n.type, n.contrastRatio.toFixed(1)])}
-          >
-            <CompareBarChart labels={contrastChartData.labels} series={[{ label: 'Contrast Ratio', data: contrastChartData.values, statusOverride: contrastChartData.statusOverride }]} yLabel="Contrast Ratio" />
-          </ChartFrame>
-
-          <div className="flex gap-2">
-            <button type="button" onClick={handleExportChecklistCsv} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-bold"><Download className="w-3.5 h-3.5" /><span>Checklist CSV</span></button>
-            <button type="button" onClick={handleExportJson} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-bold"><FileJson className="w-3.5 h-3.5" /><span>Layout JSON</span></button>
-          </div>
-          <div className="text-[10px] text-slate-500 font-mono">Edit step {stepIndex} · {visitedLoading && visitedEmpty ? 'Loading & empty states reviewed' : 'Review the loading and empty states above'}</div>
-        </div>
+        <button
+          onClick={handleSubmit}
+          className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg shadow-emerald-600/20 flex items-center gap-1.5 transition-all"
+        >
+          <span>Submit Interface Layout for Verification</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </button>
       </div>
     </div>
   );

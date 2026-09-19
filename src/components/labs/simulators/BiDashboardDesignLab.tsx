@@ -171,9 +171,7 @@ export default function BiDashboardDesignLab({ variant, onDirty, onSubmit }: Sim
   const sales = SALES[variant];
 
   const { state, set, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<BiState>(INITIAL_STATE);
-  const [biObservations, setBiObservations] = useState(
-    '1. Enterprise is the highest-revenue segment once duplicate customer signups are deduplicated — raw many-to-many joins overstate it.\n2. A correctly keyed 1:many model preserves total fact-table revenue exactly; only the duplicate/near-duplicate dimension keys change the number.'
-  );
+  const [biObservations, setBiObservations] = useState('');
 
   const update = (patch: Partial<BiState>) => {
     set((prev) => ({ ...prev, ...patch }));

@@ -129,7 +129,7 @@ export default function SeoSnapshotAuditLab({ variant, onDirty, onSubmit }: Simu
   const { state: pages, set: setPages, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<SeoPage[]>(initialPages);
   const [activeTab, setActiveTab] = useState<'issues' | 'pages' | 'serp'>('issues');
   const [selectedPageId, setSelectedPageId] = useState('p4');
-  const [auditNotes, setAuditNotes] = useState('Fixed duplicate titles, authored the missing meta description, repaired the broken internal link, and confirmed the orphan page now receives an inbound link.');
+  const [auditNotes, setAuditNotes] = useState('');
 
   const initialIssues = useMemo(() => computeIssues(initialPages), [initialPages]);
   const issues = useMemo(() => computeIssues(pages), [pages]);
@@ -307,7 +307,8 @@ export default function SeoSnapshotAuditLab({ variant, onDirty, onSubmit }: Simu
             <div className="p-5 rounded-3xl bg-[#111425] border border-white/10 space-y-2">
               <label htmlFor="audit-notes" className="text-xs font-extrabold text-white">Technical Audit Log</label>
               <textarea id="audit-notes" rows={3} value={auditNotes} onChange={(e) => { setAuditNotes(e.target.value); onDirty(); }}
-                className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
+                placeholder="Log your technical SEO audit findings: duplicate title resolution, missing descriptions, orphan page linking, and crawl health..."
+                className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-purple-500/50" />
             </div>
             <div className="flex gap-2">
               <button type="button" onClick={handleExportCsv} className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 text-[11px] font-bold"><Download className="w-3.5 h-3.5" /><span>Audit CSV</span></button>

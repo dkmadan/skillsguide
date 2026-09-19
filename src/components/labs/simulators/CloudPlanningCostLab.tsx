@@ -145,9 +145,7 @@ export default function CloudPlanningCostLab({ variant, onDirty, onSubmit }: Sim
   const fixture = FIXTURES[variant];
   const { state: resources, set: setResources, undo, redo, reset, canUndo, canRedo, stepIndex } = useUndoableState<ResourceItem[]>(fixture.resources);
   const [monthIndex, setMonthIndex] = useState(0);
-  const [planNotes, setPlanNotes] = useState(
-    `Auditing ${fixture.narrative.toLowerCase()} for idle waste, public exposure, missing backups, and redundancy gaps on critical-tier resources.`
-  );
+  const [planNotes, setPlanNotes] = useState('');
 
   const updateResource = (id: string, updates: Partial<ResourceItem>) => {
     setResources((prev) => prev.map((r) => (r.id === id ? { ...r, ...updates } : r)));
@@ -428,8 +426,9 @@ export default function CloudPlanningCostLab({ variant, onDirty, onSubmit }: Sim
               <span>FinOps Plan Notes</span>
             </label>
             <textarea id="plan-notes" rows={3} value={planNotes}
+              placeholder="Document your FinOps rationale: idle waste decommission, public exposure containment, backup policies, and critical redundancy..."
               onChange={(e) => { setPlanNotes(e.target.value); onDirty(); }}
-              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 focus:outline-none focus:border-purple-500/50" />
+              className="w-full text-xs p-3 rounded-xl bg-black/30 border border-white/15 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-purple-500/50" />
           </div>
 
           <div className="flex gap-2">
