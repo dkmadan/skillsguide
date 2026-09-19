@@ -54,7 +54,6 @@ export default function LabShell({
 
   useEffect(() => {
     if (!dirty || !onSaveDraft) return;
-    setSaveStatus('unsaved');
 
     const timer = setTimeout(async () => {
       setSaveStatus('saving');
@@ -256,7 +255,7 @@ export default function LabShell({
           scenario: initialScenario || undefined,
           variant,
           saveStatus,
-          markDirty: () => setDirty(true),
+          markDirty: () => { setDirty(true); setSaveStatus('unsaved'); },
           triggerSubmit: handleTriggerSubmit
         })}
       </main>

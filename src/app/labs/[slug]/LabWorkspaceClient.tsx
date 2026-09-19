@@ -143,65 +143,65 @@ export default function LabWorkspaceClient({ lab, initialScenario }: Props) {
         // Dispatch all 30 labs to their respective simulators
         switch (lab.slug) {
           case 'business-analyst-desk':
-            return <BusinessAnalystDeskLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <BusinessAnalystDeskLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'spreadsheet-formula-and-mis-lab':
-            return <SpreadsheetMisLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <SpreadsheetMisLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'sql-query-logic-lab':
-            return <SqlQueryLogicLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <SqlQueryLogicLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'bi-dashboard-design-lab':
-            return <BiDashboardDesignLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <BiDashboardDesignLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'python-logic-and-debugging-lab':
-            return <PythonLogicDebuggingLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <PythonLogicDebuggingLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'prompt-design-and-response-critique-lab':
-            return <PromptDesignCritiqueLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <PromptDesignCritiqueLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'agent-workflow-logic-lab':
-            return <AgentWorkflowLogicLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <AgentWorkflowLogicLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'ai-evaluation-casebook':
-            return <AiEvaluationCasebookLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <AiEvaluationCasebookLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'frontend-layout-and-accessibility-lab':
-            return <FrontendLayoutA11yLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <FrontendLayoutA11yLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'api-and-full-stack-flow-designer':
-            return <ApiFlowDesignerLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <ApiFlowDesignerLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'system-design-tradeoff-simulator':
-            return <SystemDesignTradeoffLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <SystemDesignTradeoffLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'cloud-planning-and-cost-lab':
-            return <CloudPlanningCostLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <CloudPlanningCostLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'devops-pipeline-diagnosis-lab':
-            return <DevOpsPipelineDiagnosisLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <DevOpsPipelineDiagnosisLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'production-incident-decision-room':
-            return <ProductionIncidentRoomLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <ProductionIncidentRoomLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'defensive-soc-case-lab':
-            return <DefensiveSocCaseLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <DefensiveSocCaseLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'ux-research-and-prototype-lab':
-            return <UxResearchPrototypeLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <UxResearchPrototypeLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'product-prioritization-lab':
-            return <ProductPrioritizationLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <ProductPrioritizationLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'project-and-sprint-rescue-lab':
-            return <ProjectSprintRescueLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <ProjectSprintRescueLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'marketing-budget-simulator':
-            return <MarketingBudgetSimLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <MarketingBudgetSimLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'seo-snapshot-audit-lab':
-            return <SeoSnapshotAuditLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <SeoSnapshotAuditLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'b2b-discovery-conversation-lab':
-            return <B2bDiscoveryConversationLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <B2bDiscoveryConversationLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'crm-data-quality-and-forecast-lab':
-            return <CrmDataQualityForecastLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <CrmDataQualityForecastLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'business-financial-model-lab':
-            return <BusinessFinancialModelLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <BusinessFinancialModelLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'bookkeeping-and-tax-reconciliation-lab':
-            return <BookkeepingTaxReconciliationLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <BookkeepingTaxReconciliationLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'editorial-structure-and-fact-check-lab':
-            return <EditorialFactCheckLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <EditorialFactCheckLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'social-content-calendar-lab':
-            return <SocialContentCalendarLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <SocialContentCalendarLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'presentation-and-negotiation-planner':
-            return <PresentationNegotiationLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <PresentationNegotiationLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'teaching-and-curriculum-studio':
-            return <TeachingCurriculumStudioLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <TeachingCurriculumStudioLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'executive-office-prioritization-lab':
-            return <ExecutiveOfficePrioritizationLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <ExecutiveOfficePrioritizationLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           case 'clean-energy-data-explorer':
-            return <CleanEnergyDataExplorerLab scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
+            return <CleanEnergyDataExplorerLab key={variant} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
           default:
             return <GenericComingSoonLab lab={lab} scenario={scenario} variant={variant} onDirty={markDirty} onSubmit={triggerSubmit} />;
         }
