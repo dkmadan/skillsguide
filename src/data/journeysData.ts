@@ -1,3 +1,5 @@
+import { moreLearnerJourneys } from './moreJourneys';
+
 export interface LearnerJourney {
   slug: string;
   title: string;
@@ -799,7 +801,8 @@ export const learnerJourneys: LearnerJourney[] = [
       hardwareRequirements: 'Standard office laptop with Excel and PDF tools.',
       opportunityCostAdvice: 'ESG compliance is a high-demand white-collar field with starting packages of ₹7.0L to ₹15.0L LPA across Big 4 and corporate headquarters.'
     }
-  }
+  },
+  ...moreLearnerJourneys
 ];
 
 export const getLearnerJourneyBySlug = (slug: string): LearnerJourney | undefined => {

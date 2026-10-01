@@ -47,11 +47,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: journey.heroSummary,
     keywords: [
       journey.title,
+      journey.badge,
+      ...journey.recommendedTracks.map((t) => t.title),
       'career transition plan',
       'upskilling strategy',
       'portfolio guidelines',
       'indian job market'
     ],
+    alternates: {
+      canonical: `https://skillsguide.in/journeys/${journey.slug}`,
+    },
     openGraph: {
       title: `${journey.title} - Career Strategy`,
       description: journey.heroSummary,
