@@ -67,18 +67,18 @@ export default function BookmarksDrawer({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex justify-end">
-      <div className="glass-card w-full max-w-md h-full p-6 shadow-floating border-l border-white/10 flex flex-col justify-between animate-in slide-in-from-right duration-200 bg-[#121526]/95">
+      <div className="w-full max-w-md h-full p-6 shadow-2xl border-l border-[#1b2d63] flex flex-col justify-between animate-in slide-in-from-right duration-200 bg-[#0F1E4A] text-white">
         
         <div>
           {/* Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div className="flex items-center justify-between pb-4 border-b border-white/10">
             <div className="flex items-center gap-2">
-              <Bookmark className="w-5 h-5 text-purple-400 fill-purple-400/20" />
-              <h3 className="text-base font-black text-white">Your Saved Roadmaps ({savedItems.length})</h3>
+              <Bookmark className="w-5 h-5 text-[#F2B33D] fill-[#F2B33D]/20" />
+              <h3 className="text-base font-serif font-bold text-white">Your Saved Roadmaps ({savedItems.length})</h3>
             </div>
             <button 
               onClick={onClose} 
-              className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
+              className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
               aria-label="Close saved drawer"
             >
               <X className="w-5 h-5" />

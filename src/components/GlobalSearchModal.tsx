@@ -119,22 +119,22 @@ export default function GlobalSearchModal({ isOpen, onClose }: GlobalSearchModal
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-start justify-center p-4 pt-16 sm:pt-24">
-      <div className="glass-card rounded-3xl max-w-2xl w-full p-6 shadow-floating border border-white/15 relative animate-in fade-in zoom-in-95 duration-150 bg-[#121526]/95">
+      <div className="rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-[#1b2d63] relative animate-in fade-in zoom-in-95 duration-150 bg-[#0F1E4A] text-white">
         
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 pb-3 border-b border-slate-800">
-          <Search className="w-5 h-5 text-slate-400" />
+        <div className="flex items-center gap-3 pb-3 border-b border-white/15">
+          <Search className="w-5 h-5 text-[#F2B33D]" />
           <input 
             ref={inputRef}
             type="text" 
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by skill name, tool, or roadmap (e.g. SQL, Next.js, Tally, RAG, Python)..." 
-            className="w-full text-sm font-semibold text-white placeholder-slate-500 focus:outline-none bg-transparent"
+            className="w-full text-sm font-semibold text-white placeholder-slate-400 focus:outline-none bg-transparent"
           />
           <button 
             onClick={onClose} 
-            className="text-slate-400 hover:text-white text-xs font-bold px-2 py-1 bg-slate-800 rounded-lg"
+            className="text-slate-300 hover:text-white text-xs font-bold px-2 py-1 bg-white/10 hover:bg-white/20 rounded-lg border border-white/10 cursor-pointer"
           >
             ESC
           </button>

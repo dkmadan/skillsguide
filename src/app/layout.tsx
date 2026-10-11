@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
-import { Outfit, Plus_Jakarta_Sans, Space_Grotesk } from 'next/font/google';
+import { Outfit, Plus_Jakarta_Sans, Space_Grotesk, Newsreader } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import LayoutClientWrapper from '@/components/LayoutClientWrapper';
+
+const newsreader = Newsreader({
+  subsets: ['latin'],
+  variable: '--font-newsreader',
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic']
+});
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -80,11 +87,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${outfit.variable} ${plusJakarta.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`scroll-smooth ${newsreader.variable} ${outfit.variable} ${plusJakarta.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="canonical" href="https://skillsguide.in" />
       </head>
-      <body className="font-sans antialiased selection:bg-purple-600 selection:text-white min-h-screen flex flex-col justify-between relative bg-[#0d0f18] text-slate-100">
+      <body className="font-sans antialiased selection:bg-[#F2B33D] selection:text-[#0F1E4A] min-h-screen flex flex-col justify-between relative bg-[#F7F5EF] text-[#14182B]">
         
         {/* Google tag (gtag.js) */}
         <Script
@@ -101,10 +108,10 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Ambient Floating Glow Orbs */}
-        <div className="fixed top-10 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
-        <div className="fixed top-1/3 right-10 w-[450px] h-[450px] bg-indigo-600/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
-        <div className="fixed bottom-20 left-10 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        {/* Ambient Subtle Warm Glows */}
+        <div className="fixed top-10 left-1/4 w-96 h-96 bg-[#F2B33D]/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+        <div className="fixed top-1/3 right-10 w-[450px] h-[450px] bg-[#0F1E4A]/5 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+        <div className="fixed bottom-20 left-10 w-96 h-96 bg-[#1E3A8A]/4 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
         <LayoutClientWrapper>
           {children}

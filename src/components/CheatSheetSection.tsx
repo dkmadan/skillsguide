@@ -26,19 +26,19 @@ export default function CheatSheetSection() {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-10 border-t border-slate-800/80 bg-slate-900/20">
+    <section className="py-16 px-4 sm:px-6 lg:px-10 border-t border-[#E4E0D4] bg-white">
       <div className="max-w-7xl mx-auto">
         
         {/* Section Title */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold mb-3">
-            <Copy className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold mb-3">
+            <Copy className="w-3.5 h-3.5 text-[#9A5B00]" />
             <span>Instant Productivity Boosters</span>
           </div>
-          <h2 className="text-3xl font-black text-white tracking-tight">
-            Free Curated Cheat Sheets & Workplace Kits
+          <h2 className="text-3xl font-serif font-bold text-[#0F1E4A] tracking-tight">
+            Free Curated Cheat Sheets &amp; Workplace Kits
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm mt-1">
+          <p className="text-[#555] text-xs sm:text-sm mt-1">
             Copy battle-tested templates directly into your daily workflow with a single click.
           </p>
         </div>
@@ -50,32 +50,32 @@ export default function CheatSheetSection() {
             return (
               <div 
                 key={sheet.id}
-                className="glass-card p-6 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all flex flex-col justify-between group"
+                className="bg-[#FAF8F3] p-6 rounded-3xl border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all flex flex-col justify-between group hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-2xl bg-white border border-[#E4E0D4] flex items-center justify-center">
                       {getIcon(sheet.id)}
                     </div>
-                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-white text-[#0F1E4A] border border-[#E4E0D4]">
                       {sheet.badge}
                     </span>
                   </div>
 
-                  <h4 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                  <h4 className="text-base font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                     {sheet.title}
                   </h4>
-                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                  <p className="text-xs text-[#555] mt-2 leading-relaxed">
                     {sheet.description}
                   </p>
                 </div>
 
                 <button 
                   onClick={() => handleCopy(sheet.id, sheet.content)}
-                  className={`mt-6 w-full py-2.5 rounded-xl font-bold text-xs border transition-all flex items-center justify-center gap-2 ${
+                  className={`mt-6 w-full py-2.5 rounded-xl font-bold text-xs border transition-all flex items-center justify-center gap-2 cursor-pointer ${
                     isCopied 
-                      ? 'bg-emerald-600 text-white border-emerald-500 shadow-glow-btn' 
-                      : 'bg-slate-800/90 hover:bg-purple-600 text-white border-slate-700 hover:border-purple-500'
+                      ? 'bg-emerald-700 text-white border-emerald-600 shadow-sm' 
+                      : 'bg-white hover:bg-[#0F1E4A] text-[#0F1E4A] hover:text-[#F2B33D] border-[#E4E0D4] shadow-sm'
                   }`}
                 >
                   {isCopied ? (

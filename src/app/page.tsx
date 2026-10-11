@@ -55,74 +55,74 @@ export default function HomePage() {
     <>
       <JsonLd data={jsonLdData} />
 
-      {/* Hero Section matching provided HTML markup */}
-      <section id="hero" className="relative pt-8 pb-16 md:pt-14 md:pb-24 px-4 sm:px-6 lg:px-10 overflow-hidden">
+      {/* Hero Section matching EducationPath Academic Ivory & Navy Aesthetic */}
+      <section id="hero" className="relative pt-8 pb-16 md:pt-14 md:pb-24 px-4 sm:px-6 lg:px-10 overflow-hidden bg-[#F7F5EF]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Typography, Badges & CTAs */}
           <div className="lg:col-span-6 space-y-6 text-left relative z-10">
             
             {/* Pill Indicator */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#F2B33D] animate-pulse"></span>
               <span>E-Learning &amp; High-ROI Skilling Platform</span>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[58px] font-black text-white tracking-tight leading-[1.12]">
+            <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-serif font-black text-[#0F1E4A] tracking-tight leading-[1.14]">
               Empower Your <br />
               Learning Journey <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-purple-400 to-indigo-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0F1E4A] via-[#1E3A8A] to-[#F2B33D]">
                 With Modern Skills.
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed font-normal">
-              Upgrade your career with practical roadmaps, interactive Indian salary benchmarks, and actionable blueprints—spanning <strong>Generative AI &amp; Agents, Cloud Platform IaC, EV &amp; Battery Systems, Modern No-Code, and UI/UX Design Systems</strong>.
+            <p className="text-sm sm:text-base text-[#4A5568] max-w-xl leading-relaxed font-normal">
+              Upgrade your career with practical roadmaps, interactive Indian salary benchmarks, and actionable blueprints—spanning <strong className="text-[#0F1E4A]">Generative AI &amp; Agents, Cloud Platform IaC, EV &amp; Battery Systems, Modern No-Code, and UI/UX Design Systems</strong>.
             </p>
 
             {/* Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
               <Link 
                 href="/tools/career-compass"
-                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs sm:text-sm shadow-glow-btn hover:scale-105 transition-all flex items-center gap-2.5"
+                className="px-8 py-3.5 rounded-full bg-[#F2B33D] hover:bg-[#E09F26] text-[#0F1E4A] font-bold text-xs sm:text-sm shadow-md hover:scale-105 transition-all flex items-center gap-2.5"
               >
                 <span>Take Career Compass Free</span>
-                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-full bg-[#0F1E4A]/10 flex items-center justify-center">
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </div>
               </Link>
               
               <a 
                 href="#skills-catalog" 
-                className="px-7 py-3.5 rounded-full glass-card hover:bg-slate-800/80 text-white font-semibold text-xs sm:text-sm transition-all border border-slate-700"
+                className="px-7 py-3.5 rounded-full bg-white hover:bg-[#FAF8F3] text-[#0F1E4A] font-semibold text-xs sm:text-sm transition-all border border-[#E4E0D4] shadow-sm hover:border-[#1E3A8A]"
               >
                 Explore Tracks
               </a>
             </div>
 
             {/* Live Metric Stats Bar */}
-            <div className="pt-8 grid grid-cols-3 gap-4 border-t border-slate-800/80 max-w-lg">
+            <div className="pt-8 grid grid-cols-3 gap-4 border-t border-[#E4E0D4] max-w-lg">
               <div>
-                <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
-                  <Bookmark className="w-3.5 h-3.5 text-purple-400" />
+                <div className="flex items-center gap-1.5 text-[#0F1E4A] text-xs font-semibold mb-1">
+                  <Bookmark className="w-3.5 h-3.5 text-[#1E3A8A]" />
                   <span>{trackCount} Tracks</span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium">Free Career Guides</p>
+                <p className="text-xs text-[#555] font-medium">Free Career Guides</p>
               </div>
               <div>
-                <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
-                  <Users className="w-3.5 h-3.5 text-indigo-400" />
+                <div className="flex items-center gap-1.5 text-[#0F1E4A] text-xs font-semibold mb-1">
+                  <Users className="w-3.5 h-3.5 text-[#1E3A8A]" />
                   <span>Open access</span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium">For Indian Learners</p>
+                <p className="text-xs text-[#555] font-medium">For Indian Learners</p>
               </div>
               <div>
-                <div className="flex items-center gap-1.5 text-slate-400 text-xs font-semibold mb-1">
-                  <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="flex items-center gap-1.5 text-[#0F1E4A] text-xs font-semibold mb-1">
+                  <IndianRupee className="w-3.5 h-3.5 text-[#9A5B00]" />
                   <span>Source-linked</span>
                 </div>
-                <p className="text-xs text-slate-300 font-medium">Salary Explorer</p>
+                <p className="text-xs text-[#555] font-medium">Salary Explorer</p>
               </div>
             </div>
 
@@ -135,30 +135,30 @@ export default function HomePage() {
               
               {/* Left Image Box */}
               <div className="relative w-1/2 space-y-3">
-                <div className="hero-img-box-1 p-2 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
+                <div className="hero-img-box-1 p-2 pb-0 overflow-hidden shadow-xl relative border border-[#E4E0D4]">
                   <img 
                     src="/images/hero-learner-avatar.jpg" 
                     alt="Young Indian Learner Avatar" 
                     className="w-full h-72 object-cover object-top rounded-t-2xl filter contrast-105"
                   />
-                  <div className="absolute top-3 left-3 bg-purple-900/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-white border border-purple-500/40">
+                  <div className="absolute top-3 left-3 bg-[#0F1E4A]/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-[#F2B33D] border border-[#F2B33D]/30">
                     ⚡ 2026 Ready
                   </div>
                 </div>
 
                 {/* Mentor Card */}
-                <div className="glass-card p-2.5 rounded-2xl flex items-center gap-2.5 border border-white/10 bg-[#161926]/90 backdrop-blur-md">
+                <div className="bg-white p-3 rounded-2xl flex items-center gap-2.5 border border-[#E4E0D4] shadow-sm">
                   <img 
                     src="/images/hero-mentor-avatar.jpg" 
                     alt="Ananya Verma Mentor Avatar" 
-                    className="w-11 h-11 rounded-xl object-cover border border-purple-400/40 shrink-0"
+                    className="w-11 h-11 rounded-xl object-cover border border-[#E4E0D4] shrink-0"
                   />
                   <div className="overflow-hidden">
-                    <h4 className="text-xs font-bold text-white truncate">Ananya Verma</h4>
-                    <p className="text-[10px] text-purple-300 truncate">Lead Data Architect</p>
-                    <div className="flex items-center text-amber-400 text-[9px] gap-0.5 mt-0.5">
+                    <h4 className="text-xs font-bold text-[#0F1E4A] truncate">Ananya Verma</h4>
+                    <p className="text-[10px] text-[#555] truncate">Lead Data Architect</p>
+                    <div className="flex items-center text-[#F2B33D] text-[9px] gap-0.5 mt-0.5">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-2.5 h-2.5 fill-amber-400" />
+                        <Star key={i} className="w-2.5 h-2.5 fill-[#F2B33D]" />
                       ))}
                     </div>
                   </div>
@@ -167,12 +167,12 @@ export default function HomePage() {
 
               {/* Right Image Box */}
               <div className="relative w-1/2 space-y-3">
-                <div className="hero-img-box-2 p-2 pb-0 overflow-hidden shadow-2xl relative border border-white/20">
+                <div className="hero-img-box-2 p-2 pb-0 overflow-hidden shadow-xl relative border border-[#E4E0D4]">
                   
                   {/* Slanted Frosted Tag */}
                   <div className="absolute bottom-6 right-2 left-2 z-20">
-                    <div className="glass-tag px-3 py-1.5 rounded-full flex items-center justify-center gap-1.5 text-[10px] font-bold text-white shadow-lg backdrop-blur-md">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-purple-300" />
+                    <div className="bg-[#0F1E4A]/90 px-3 py-1.5 rounded-full flex items-center justify-center gap-1.5 text-[10px] font-bold text-white shadow-lg backdrop-blur-md border border-[#F2B33D]/30">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#F2B33D]" />
                       <span>Personalized Learning Paths</span>
                     </div>
                   </div>
@@ -195,30 +195,28 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* VIRTUAL & INTERACTIVE LABS SHOWCASE                                       */}
       {/* ========================================================================= */}
-      <section className="py-14 px-4 sm:px-6 lg:px-10 border-t border-purple-500/20 bg-gradient-to-b from-purple-950/20 via-[#0d101e] to-slate-950/30 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-
+      <section className="py-14 px-4 sm:px-6 lg:px-10 border-t border-[#E4E0D4] bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-8">
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 text-xs font-bold mb-2">
-                <FlaskConical className="w-3.5 h-3.5 text-purple-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-bold mb-2">
+                <FlaskConical className="w-3.5 h-3.5 text-[#9A5B00]" />
                 <span>Zero-Setup Interactive Workspaces</span>
-                <span className="w-1 h-1 rounded-full bg-purple-400" />
-                <span className="text-[10px] font-mono uppercase text-emerald-400 font-extrabold">30 Labs</span>
+                <span className="w-1 h-1 rounded-full bg-[#F2B33D]" />
+                <span className="text-[10px] font-mono uppercase text-[#0F1E4A] font-extrabold">30 Labs</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-[#0F1E4A] tracking-tight">
                 Virtual &amp; Interactive Practice Labs
               </h2>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#555] mt-1 max-w-2xl leading-relaxed">
                 Test concepts through deterministic browser simulations. Instant objective evaluation against standard 60/25/15 rubrics, authored hints, and exportable portfolio reports.
               </p>
             </div>
 
             <Link
               href="/labs"
-              className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-extrabold shadow-glow-btn flex items-center gap-2 shrink-0 transition-all self-start md:self-auto"
+              className="px-5 py-2.5 rounded-2xl bg-[#0F1E4A] hover:bg-[#1E3A8A] text-[#F2B33D] text-xs font-extrabold shadow-sm flex items-center gap-2 shrink-0 transition-all self-start md:self-auto"
             >
               <span>Explore All 30 Labs</span>
               <ArrowRight className="w-4 h-4" />
@@ -228,34 +226,34 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             
             {/* Showcase 1: Marketing Budget Simulator */}
-            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+            <div className="p-6 rounded-3xl bg-[#F7F5EF] border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all duration-300 flex flex-col justify-between group shadow-sm">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#0F1E4A]/10 text-[#0F1E4A] font-mono text-[10px] font-extrabold uppercase">
                     Lab 19 • Digital Marketing
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
                     Live Pilot
                   </span>
                 </div>
-                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-lg font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                   Marketing Budget Simulator
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[#555] leading-relaxed">
                   Allocate 100k credits across Meta, Google Search, and LinkedIn. Test creative variants, advance simulated days, and hit 150 qualified leads below 700 CPL.
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Budget Sliders</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Funnel CPM/CTR</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">30-Day Clock</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Budget Sliders</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Funnel CPM/CTR</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">30-Day Clock</span>
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+              <div className="pt-5 mt-4 border-t border-[#E4E0D4] flex items-center justify-between">
+                <span className="text-xs text-[#555] font-medium">20 mins • 3 Tiers</span>
                 <Link
                   href="/labs/marketing-budget-simulator"
-                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                  className="px-3.5 py-1.5 rounded-xl bg-white group-hover:bg-[#0F1E4A] text-[#0F1E4A] group-hover:text-[#F2B33D] border border-[#E4E0D4] text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
                 >
                   <span>Launch Simulator</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -264,34 +262,34 @@ export default function HomePage() {
             </div>
 
             {/* Showcase 2: SEO Snapshot Audit Lab */}
-            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+            <div className="p-6 rounded-3xl bg-[#F7F5EF] border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all duration-300 flex flex-col justify-between group shadow-sm">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#0F1E4A]/10 text-[#0F1E4A] font-mono text-[10px] font-extrabold uppercase">
                     Lab 20 • SEO &amp; Growth
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
                     Live Pilot
                   </span>
                 </div>
-                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-lg font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                   SEO Snapshot Audit Lab
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[#555] leading-relaxed">
                   Audit a 20-page fictional site snapshot. Eliminate duplicate title tags, author missing descriptions, re-link orphan pages, and repair dead 404 links.
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">20-Page Tree</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">SERP Preview</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Orphan Linker</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">20-Page Tree</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">SERP Preview</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Orphan Linker</span>
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+              <div className="pt-5 mt-4 border-t border-[#E4E0D4] flex items-center justify-between">
+                <span className="text-xs text-[#555] font-medium">20 mins • 3 Tiers</span>
                 <Link
                   href="/labs/seo-snapshot-audit-lab"
-                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                  className="px-3.5 py-1.5 rounded-xl bg-white group-hover:bg-[#0F1E4A] text-[#0F1E4A] group-hover:text-[#F2B33D] border border-[#E4E0D4] text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
                 >
                   <span>Launch Audit</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -300,34 +298,34 @@ export default function HomePage() {
             </div>
 
             {/* Showcase 3: Executive Office Prioritization Lab */}
-            <div className="p-6 rounded-3xl bg-[#13172b] border border-purple-500/30 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between group shadow-xl">
+            <div className="p-6 rounded-3xl bg-[#F7F5EF] border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all duration-300 flex flex-col justify-between group shadow-sm">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 font-mono text-[10px] font-extrabold uppercase">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[#0F1E4A]/10 text-[#0F1E4A] font-mono text-[10px] font-extrabold uppercase">
                     Lab 29 • Executive Office
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                  <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full">
                     Live Pilot
                   </span>
                 </div>
-                <h3 className="text-lg font-black text-white group-hover:text-purple-300 transition-colors">
+                <h3 className="text-lg font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                   Executive Office Prioritization
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[#555] leading-relaxed">
                   Triage incoming executive mail via Eisenhower Matrix, resolve overlapping Wednesday board &amp; client meeting conflicts, and enforce travel policies.
                 </p>
                 <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Inbox Triage</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Calendar Conflicts</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-slate-400">Handover Memo</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Inbox Triage</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Calendar Conflicts</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-white text-[#555] border border-[#E4E0D4]">Handover Memo</span>
                 </div>
               </div>
 
-              <div className="pt-5 mt-4 border-t border-white/5 flex items-center justify-between">
-                <span className="text-xs text-slate-400 font-medium">20 mins • 3 Tiers</span>
+              <div className="pt-5 mt-4 border-t border-[#E4E0D4] flex items-center justify-between">
+                <span className="text-xs text-[#555] font-medium">20 mins • 3 Tiers</span>
                 <Link
                   href="/labs/executive-office-prioritization-lab"
-                  className="px-3.5 py-1.5 rounded-xl bg-white/10 group-hover:bg-purple-600 text-slate-200 group-hover:text-white text-xs font-bold transition-all flex items-center gap-1"
+                  className="px-3.5 py-1.5 rounded-xl bg-white group-hover:bg-[#0F1E4A] text-[#0F1E4A] group-hover:text-[#F2B33D] border border-[#E4E0D4] text-xs font-bold transition-all flex items-center gap-1 shadow-sm"
                 >
                   <span>Launch Triage</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -341,19 +339,19 @@ export default function HomePage() {
       </section>
 
       {/* NEW HIGH-DEMAND SUBJECT DOMAINS SHOWCASE */}
-      <section className="py-12 px-4 sm:px-6 lg:px-10 border-t border-slate-800/80 bg-slate-950/20">
+      <section className="py-14 px-4 sm:px-6 lg:px-10 border-t border-[#E4E0D4] bg-[#F7F5EF]">
         <div className="max-w-7xl mx-auto">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold mb-2">
-                <Sparkles className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-[#9A5B00]" />
                 <span>2026 Core Subject Domains</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#0F1E4A] tracking-tight">
                 High-Demand Career Tracks by Domain
               </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+              <p className="text-xs sm:text-sm text-[#555] mt-1">
                 Explore specialized career clusters designed for high hiring growth, remote USD compensation, and industrial transformation.
               </p>
             </div>
@@ -364,33 +362,33 @@ export default function HomePage() {
               <Link 
                 key={cat.slug}
                 href={`/category/${cat.slug}`}
-                className="glass-card p-6 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-b from-[#14182b]/80 to-[#0e1120]/90"
+                className="bg-white p-6 rounded-3xl border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-md"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center border border-slate-800 group-hover:scale-105 transition-transform">
-                      {domainIcons[cat.slug] || <Layers className="w-5 h-5 text-purple-400" />}
+                    <div className="w-10 h-10 rounded-2xl bg-[#F7F5EF] flex items-center justify-center border border-[#E4E0D4] group-hover:scale-105 transition-transform">
+                      {domainIcons[cat.slug] || <Layers className="w-5 h-5 text-[#0F1E4A]" />}
                     </div>
-                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                    <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-[#FFF8E7] text-[#9A5B00] border border-[#F2B33D]/40">
                       {cat.cagrGrowth}
                     </span>
                   </div>
 
                   <div>
-                    <h3 className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
+                    <h3 className="text-base font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                       {cat.title}
                     </h3>
-                    <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-[#555] mt-1 line-clamp-2 leading-relaxed">
                       {cat.shortDesc}
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
-                  <span className="text-[11px] text-emerald-400 font-bold">
+                <div className="pt-4 mt-4 border-t border-[#E4E0D4] flex items-center justify-between">
+                  <span className="text-[11px] text-emerald-700 font-bold">
                     {cat.averageSalary}
                   </span>
-                  <span className="text-xs font-bold text-purple-400 group-hover:text-purple-300 flex items-center gap-1">
+                  <span className="text-xs font-bold text-[#1E3A8A] group-hover:text-[#0F1E4A] flex items-center gap-1">
                     <span>Explore</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
