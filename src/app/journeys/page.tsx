@@ -39,7 +39,6 @@ export const metadata: Metadata = {
 
 export default function JourneysPage() {
   const breadcrumbs = [
-    { name: 'Home', url: '/' },
     { name: 'Learner Journeys' }
   ];
 
@@ -67,14 +66,14 @@ export default function JourneysPage() {
 
       {/* Hero Header */}
       <section className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-300 text-xs font-semibold">
-          <Compass className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold">
+          <Compass className="w-3.5 h-3.5 text-[#9A5B00]" />
           <span>Tailored to Your Starting Point</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-[#0F1E4A] tracking-tight leading-tight">
           Career Journeys Built Around Your Reality
         </h1>
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#555] leading-relaxed">
           Generic advice doesn’t work when your background, available time, and hardware differ. Choose the journey that matches your situation for realistic prerequisite bridges, project portfolios, and transition budgets.
         </p>
       </section>
@@ -84,37 +83,37 @@ export default function JourneysPage() {
         {learnerJourneys.map((journey) => (
           <div 
             key={journey.slug}
-            className="glass-card p-6 sm:p-7 rounded-3xl border border-white/10 hover:border-purple-500/40 transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 hover:shadow-2xl bg-gradient-to-b from-[#161a2e]/60 to-[#0e111f]/80"
+            className="bg-white p-6 sm:p-7 rounded-3xl border border-[#E4E0D4] hover:border-[#1E3A8A] transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1 shadow-sm hover:shadow-md"
           >
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300">
+                <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00]">
                   {journey.badge}
                 </span>
-                <span className="text-[11px] text-slate-400 font-medium">
+                <span className="text-[11px] text-[#555] font-semibold">
                   {journey.financialAndTransitionPlanning.timeToFirstIncome}
                 </span>
               </div>
 
               <div>
-                <h2 className="text-lg sm:text-xl font-black text-white group-hover:text-purple-300 transition-colors">
+                <h2 className="text-lg sm:text-xl font-serif font-bold text-[#0F1E4A] group-hover:text-[#1E3A8A] transition-colors">
                   {journey.title}
                 </h2>
-                <p className="text-xs text-purple-400 font-medium mt-0.5">
+                <p className="text-xs text-[#1E3A8A] font-semibold mt-0.5">
                   {journey.subtitle}
                 </p>
               </div>
 
-              <p className="text-xs text-slate-300 line-clamp-3 leading-relaxed">
+              <p className="text-xs text-[#555] line-clamp-3 leading-relaxed">
                 {journey.heroSummary}
               </p>
 
               {/* Recommended Tracks Quick List */}
-              <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Recommended Tracks:</span>
+              <div className="pt-2 border-t border-[#E4E0D4] space-y-1.5">
+                <span className="text-[10px] uppercase font-bold text-[#666] block">Recommended Tracks:</span>
                 <div className="flex flex-wrap gap-1.5">
                   {journey.recommendedTracks.map((trk, i) => (
-                    <span key={i} className="text-[11px] px-2 py-0.5 rounded-md bg-slate-900 text-slate-300 border border-slate-800">
+                    <span key={i} className="text-[11px] px-2.5 py-1 rounded-lg bg-[#FAF8F3] text-[#0F1E4A] border border-[#E4E0D4]">
                       {trk.title}
                     </span>
                   ))}
@@ -122,13 +121,13 @@ export default function JourneysPage() {
               </div>
             </div>
 
-            <div className="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between">
-              <span className="text-[11px] text-slate-400">
+            <div className="pt-6 mt-6 border-t border-[#E4E0D4] flex items-center justify-between">
+              <span className="text-[11px] text-[#666] font-medium">
                 {journey.actionPlanSteps.length} Step Action Plan
               </span>
               <Link
                 href={`/journeys/${journey.slug}`}
-                className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn flex items-center gap-1.5 transition-all group-hover:scale-105"
+                className="px-4 py-2 rounded-xl bg-[#F2B33D] hover:bg-[#E09F26] text-[#0F1E4A] text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all group-hover:scale-105"
               >
                 <span>View Journey</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -139,8 +138,8 @@ export default function JourneysPage() {
       </div>
 
       {/* Career Compass Integration CTA */}
-      <section className="p-8 sm:p-10 rounded-3xl glass-card border border-purple-500/30 bg-gradient-to-br from-purple-950/40 via-indigo-950/30 to-slate-950 text-center max-w-4xl mx-auto space-y-4">
-        <h3 className="text-xl sm:text-2xl font-black text-white">
+      <section className="p-8 sm:p-10 rounded-3xl bg-[#0F1E4A] border border-[#1b2d63] text-center max-w-4xl mx-auto space-y-4 shadow-xl text-white">
+        <h3 className="text-xl sm:text-2xl font-serif font-bold text-white">
           Not Sure Which Journey Fits Your Background?
         </h3>
         <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto">
@@ -148,7 +147,7 @@ export default function JourneysPage() {
         </p>
         <Link
           href="/tools/career-compass"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-glow-btn transition-all"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#F2B33D] hover:bg-[#E09F26] text-[#0F1E4A] text-xs font-bold shadow-md transition-all"
         >
           <Compass className="w-4 h-4" />
           <span>Launch Career Compass Assessment</span>

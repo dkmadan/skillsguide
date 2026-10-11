@@ -822,8 +822,8 @@ export default function Navbar({
               href="/journeys" 
               className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 pathname.startsWith('/journeys')
-                  ? 'bg-purple-600 text-white shadow-glow-btn' 
-                  : 'text-slate-300 hover:text-white hover:bg-white/5'
+                  ? 'bg-[#F2B33D] text-[#0F1E4A] font-bold shadow-sm' 
+                  : 'text-slate-200 hover:text-[#F2B33D] hover:bg-white/10'
               }`}
             >
               Journeys
