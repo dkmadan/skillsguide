@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { learnerJourneys, getLearnerJourneyBySlug } from '@/data/journeysData';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JsonLd from '@/components/JsonLd';
@@ -62,6 +63,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: journey.heroSummary,
       url: `https://skillsguide.in/journeys/${journey.slug}`,
       type: 'article',
+      ...(journey.image
+        ? {
+            images: [
+              {
+                url: `https://skillsguide.in${journey.image}`,
+                alt: journey.imageAlt ?? journey.title,
+              },
+            ],
+          }
+        : {}),
     }
   };
 }
@@ -84,6 +95,7 @@ export default async function JourneyDetailPage({ params }: Props) {
     '@type': 'Article',
     headline: journey.title,
     description: journey.heroSummary,
+    ...(journey.image ? { image: `https://skillsguide.in${journey.image}` } : {}),
     author: {
       '@type': 'Organization',
       name: 'SkillsGuide.in'
@@ -104,22 +116,41 @@ export default async function JourneyDetailPage({ params }: Props) {
       <section className="bg-white rounded-3xl p-6 sm:p-10 border border-[#E4E0D4] shadow-sm relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#F2B33D]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold">
-            <span>{journey.badge}</span>
+        <div className={journey.image ? 'grid lg:grid-cols-12 gap-8 items-center relative z-10' : 'max-w-3xl relative z-10'}>
+          <div className={journey.image ? 'lg:col-span-7 space-y-4' : 'space-y-4'}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF8E7] border border-[#F2B33D]/40 text-[#9A5B00] text-xs font-semibold">
+              <span>{journey.badge}</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-[#0F1E4A] tracking-tight leading-tight">
+              {journey.title}
+            </h1>
+
+            <p className="text-base text-[#1E3A8A] font-semibold">
+              {journey.subtitle}
+            </p>
+
+            <p className="text-xs sm:text-sm text-[#555] leading-relaxed pt-1">
+              {journey.heroSummary}
+            </p>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-[#0F1E4A] tracking-tight leading-tight">
-            {journey.title}
-          </h1>
-
-          <p className="text-base text-[#1E3A8A] font-semibold">
-            {journey.subtitle}
-          </p>
-
-          <p className="text-xs sm:text-sm text-[#555] leading-relaxed pt-1">
-            {journey.heroSummary}
-          </p>
+          {journey.image && (
+            <div className="lg:col-span-5">
+              <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-[#E4E0D4] shadow-md bg-[#FAF8F3]">
+                <Image
+                  src={journey.image}
+                  alt={journey.imageAlt ?? journey.title}
+                  fill
+                  unoptimized={journey.image.endsWith('.svg')}
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Quick Info Grid */}

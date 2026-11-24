@@ -1,5 +1,6 @@
 import { moreLearnerJourneys } from './moreJourneys';
 import { additionalLearnerJourneys } from './additionalJourneys';
+import { featuredLearnerJourneys } from './featuredJourneys';
 
 export interface LearnerJourney {
   slug: string;
@@ -7,6 +8,8 @@ export interface LearnerJourney {
   subtitle: string;
   badge: string;
   badgeColor: 'purple' | 'emerald' | 'amber' | 'cyan' | 'rose' | 'teal';
+  image?: string;
+  imageAlt?: string;
   heroSummary: string;
   targetAudience: string;
   keyChallengesAddressed: string[];
@@ -47,6 +50,7 @@ export interface LearnerJourney {
 }
 
 export const learnerJourneys: LearnerJourney[] = [
+  ...featuredLearnerJourneys,
   {
     slug: 'bcom-ba-graduates',
     title: 'B.Com / BA Graduate Career Transition',

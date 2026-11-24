@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" fill="none">
+  <defs>
+    <linearGradient id="bg-soc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#091533" />
+      <stop offset="55%" stop-color="#0F1E4A" />
+      <stop offset="100%" stop-color="#0B2E47" />
+    </linearGradient>
+    <radialGradient id="glow-soc" cx="76%" cy="26%" r="48%">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.34" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-soc-gold" cx="18%" cy="84%" r="38%">
+      <stop offset="0%" stop-color="#F2B33D" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#F2B33D" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="accent-soc" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" />
+      <stop offset="100%" stop-color="#F2B33D" />
+    </linearGradient>
+    <pattern id="grid-soc" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#94A3B8" fill-opacity="0.16" />
+    </pattern>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg-soc)" />
+  <rect width="960" height="540" fill="url(#grid-soc)" />
+  <rect width="960" height="540" fill="url(#glow-soc)" />
+  <rect width="960" height="540" fill="url(#glow-soc-gold)" />
+
+  <!-- Header -->
+  <g transform="translate(48, 42)">
+    <rect width="212" height="30" rx="15" fill="#06B6D4" fill-opacity="0.22" stroke="#22D3EE" stroke-opacity="0.6" stroke-width="1.2" />
+    <circle cx="18" cy="15" r="4" fill="#F2B33D" />
+    <text x="32" y="19" fill="#CFFAFE" font-size="11.5" font-weight="700" letter-spacing="0.8" font-family="system-ui, -apple-system, sans-serif">CYBERSECURITY PIVOT</text>
+    <text x="0" y="68" fill="#FAF8F3" font-size="27" font-weight="800" font-family="Georgia, serif">IT Support &amp; SysAdmin → SOC Analyst</text>
+    <text x="0" y="96" fill="#CBD5E1" font-size="14" font-weight="500" font-family="system-ui, -apple-system, sans-serif">SIEM Triage • Active Directory &amp; Linux Logs • MITRE ATT&amp;CK • Incident Response</text>
+  </g>
+
+  <!-- Stage 1 -->
+  <g transform="translate(48, 178)">
+    <rect width="246" height="236" rx="20" fill="#122350" fill-opacity="0.92" stroke="#31528F" stroke-width="1.5" />
+    <rect x="20" y="20" width="120" height="24" rx="8" fill="#1E3A8A" />
+    <text x="80" y="36" fill="#BFDBFE" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">INFRA ADVANTAGE</text>
+    <!-- Server Stack Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#1E3A8A" fill-opacity="0.6" stroke="#60A5FA" stroke-opacity="0.5" />
+    <rect x="30" y="71" width="24" height="8" rx="2" stroke="#93C5FD" stroke-width="1.8" />
+    <rect x="30" y="84" width="24" height="8" rx="2" stroke="#93C5FD" stroke-width="1.8" />
+    <circle cx="34" cy="75" r="1.5" fill="#F2B33D" />
+    <circle cx="34" cy="88" r="1.5" fill="#22D3EE" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">Helpdesk / SysAdmin</text>
+    <text x="20" y="158" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Active Directory &amp; DNS</text>
+    <text x="20" y="182" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• TCP/IP &amp; Endpoint Patching</text>
+    <text x="20" y="206" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Windows / Linux Internals</text>
+  </g>
+
+  <path d="M302 296 L350 296" stroke="url(#accent-soc)" stroke-width="3" stroke-dasharray="6 4" />
+  <polygon points="348,289 360,296 348,303" fill="#22D3EE" />
+
+  <!-- Stage 2 -->
+  <g transform="translate(364, 178)">
+    <rect width="246" height="236" rx="20" fill="#0D2F45" fill-opacity="0.95" stroke="#06B6D4" stroke-width="2" />
+    <rect x="20" y="20" width="128" height="24" rx="8" fill="#0E7490" fill-opacity="0.7" />
+    <text x="84" y="36" fill="#CFFAFE" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">14-WEEK BLUE TEAM</text>
+    <!-- Shield Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#155E75" fill-opacity="0.6" stroke="#22D3EE" stroke-opacity="0.65" />
+    <path d="M42 69 L53 74 V82 C53 88.5 48.2 93.2 42 95.5 C35.8 93.2 31 88.5 31 82 V74 L42 69 Z" stroke="#67E8F9" stroke-width="2.2" fill="#06B6D4" fill-opacity="0.2" />
+    <path d="M37 82 L40.5 85.5 L47.5 78" stroke="#F2B33D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">Home SOC &amp; SIEM</text>
+    <text x="20" y="158" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• Wazuh / Sentinel Detection</text>
+    <text x="20" y="182" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• Wireshark PCAP &amp; Sysmon</text>
+    <text x="20" y="206" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• Phishing &amp; MITRE Playbooks</text>
+  </g>
+
+  <path d="M618 296 L666 296" stroke="url(#accent-soc)" stroke-width="3" stroke-dasharray="6 4" />
+  <polygon points="664,289 676,296 664,303" fill="#F2B33D" />
+
+  <!-- Stage 3 -->
+  <g transform="translate(680, 178)">
+    <rect width="232" height="236" rx="20" fill="#14264F" fill-opacity="0.96" stroke="#F2B33D" stroke-width="2" />
+    <rect x="20" y="20" width="120" height="24" rx="8" fill="#F2B33D" />
+    <text x="80" y="36" fill="#0F1E4A" font-size="10.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">TARGET ROLE</text>
+    <!-- Radar / Alert Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#F2B33D" fill-opacity="0.18" stroke="#F2B33D" stroke-opacity="0.6" />
+    <circle cx="42" cy="82" r="11" stroke="#67E8F9" stroke-width="1.8" stroke-dasharray="4 3" />
+    <circle cx="42" cy="82" r="5" stroke="#F2B33D" stroke-width="1.8" />
+    <circle cx="42" cy="82" r="2" fill="#F2B33D" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">SOC Tier 1 / Tier 2</text>
+    <text x="20" y="160" fill="#FDE68A" font-size="15" font-weight="800" font-family="system-ui, sans-serif">₹5.5L – ₹11L+ LPA</text>
+    <text x="20" y="186" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• BFSI, Big 4 &amp; Global MSSPs</text>
+    <text x="20" y="208" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Path to Cloud Sec (₹25L+)</text>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(48, 446)">
+    <rect width="864" height="54" rx="14" fill="#08132B" fill-opacity="0.9" stroke="#1E4B68" stroke-width="1.2" />
+    <text x="24" y="32" fill="#F2B33D" font-size="12" font-weight="800" font-family="system-ui, sans-serif">PORTFOLIO PROOF:</text>
+    <text x="164" y="32" fill="#E2E8F0" font-size="12.5" font-weight="600" font-family="system-ui, sans-serif">Wazuh Home SOC Repo  •  5 MITRE Incident Reports  •  PCAP Analysis Notes  •  Detection Rules</text>
+  </g>
+</svg>

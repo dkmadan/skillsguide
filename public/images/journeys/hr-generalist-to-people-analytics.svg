@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" fill="none">
+  <defs>
+    <linearGradient id="bg-hr" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1938" />
+      <stop offset="55%" stop-color="#0F234A" />
+      <stop offset="100%" stop-color="#0B332A" />
+    </linearGradient>
+    <radialGradient id="glow-hr" cx="78%" cy="26%" r="48%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-hr-gold" cx="16%" cy="84%" r="38%">
+      <stop offset="0%" stop-color="#F2B33D" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#F2B33D" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="accent-hr" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#F2B33D" />
+    </linearGradient>
+    <pattern id="grid-hr" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.2" fill="#94A3B8" fill-opacity="0.16" />
+    </pattern>
+  </defs>
+
+  <rect width="960" height="540" fill="url(#bg-hr)" />
+  <rect width="960" height="540" fill="url(#grid-hr)" />
+  <rect width="960" height="540" fill="url(#glow-hr)" />
+  <rect width="960" height="540" fill="url(#glow-hr-gold)" />
+
+  <!-- Header -->
+  <g transform="translate(48, 42)">
+    <rect width="194" height="30" rx="15" fill="#10B981" fill-opacity="0.22" stroke="#34D399" stroke-opacity="0.6" stroke-width="1.2" />
+    <circle cx="18" cy="15" r="4" fill="#F2B33D" />
+    <text x="32" y="19" fill="#D1FAE5" font-size="11.5" font-weight="700" letter-spacing="0.8" font-family="system-ui, -apple-system, sans-serif">HR &amp; PEOPLE TECH</text>
+    <text x="0" y="68" fill="#FAF8F3" font-size="27" font-weight="800" font-family="Georgia, serif">HR Generalist → People Analytics &amp; HR Tech</text>
+    <text x="0" y="96" fill="#CBD5E1" font-size="14" font-weight="500" font-family="system-ui, -apple-system, sans-serif">HRIS Automation • Attrition Cohort Modeling • Power BI Dashboards • AI Talent Ops</text>
+  </g>
+
+  <!-- Stage 1 -->
+  <g transform="translate(48, 178)">
+    <rect width="246" height="236" rx="20" fill="#112650" fill-opacity="0.92" stroke="#2F548C" stroke-width="1.5" />
+    <rect x="20" y="20" width="124" height="24" rx="8" fill="#1E3A8A" />
+    <text x="82" y="36" fill="#BFDBFE" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">PEOPLE CONTEXT</text>
+    <!-- People Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#1E3A8A" fill-opacity="0.6" stroke="#60A5FA" stroke-opacity="0.5" />
+    <circle cx="38" cy="76" r="4.5" stroke="#93C5FD" stroke-width="2" />
+    <path d="M30 91 C30 86 34 83 38 83 C42 83 46 86 46 91" stroke="#93C5FD" stroke-width="2" stroke-linecap="round" />
+    <circle cx="49" cy="78" r="3" stroke="#F2B33D" stroke-width="1.8" />
+    <path d="M47 84 C51 84 54 86.5 54 90" stroke="#F2B33D" stroke-width="1.8" stroke-linecap="round" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">HR &amp; Recruiting</text>
+    <text x="20" y="158" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Hiring, Payroll &amp; Onboarding</text>
+    <text x="20" y="182" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• PF, ESIC &amp; Statutory Rules</text>
+    <text x="20" y="206" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Stakeholder Intuition</text>
+  </g>
+
+  <path d="M302 296 L350 296" stroke="url(#accent-hr)" stroke-width="3" stroke-dasharray="6 4" />
+  <polygon points="348,289 360,296 348,303" fill="#34D399" />
+
+  <!-- Stage 2 -->
+  <g transform="translate(364, 178)">
+    <rect width="246" height="236" rx="20" fill="#0E332B" fill-opacity="0.95" stroke="#10B981" stroke-width="2" />
+    <rect x="20" y="20" width="128" height="24" rx="8" fill="#047857" fill-opacity="0.7" />
+    <text x="84" y="36" fill="#D1FAE5" font-size="10.5" font-weight="700" text-anchor="middle" font-family="system-ui, sans-serif">12-WEEK UPGRADE</text>
+    <!-- Trend Chart Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#065F46" fill-opacity="0.65" stroke="#34D399" stroke-opacity="0.65" />
+    <path d="M30 90 L37 82 L43 85 L53 73" stroke="#6EE7B7" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="53" cy="73" r="2.8" fill="#F2B33D" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">Analytics &amp; HRIS</text>
+    <text x="20" y="158" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• Attrition &amp; Compa-Ratio Math</text>
+    <text x="20" y="182" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• SQL &amp; Power BI HR Suites</text>
+    <text x="20" y="206" fill="#E2E8F0" font-size="12.5" font-family="system-ui, sans-serif">• Workday / Darwinbox + AI</text>
+  </g>
+
+  <path d="M618 296 L666 296" stroke="url(#accent-hr)" stroke-width="3" stroke-dasharray="6 4" />
+  <polygon points="664,289 676,296 664,303" fill="#F2B33D" />
+
+  <!-- Stage 3 -->
+  <g transform="translate(680, 178)">
+    <rect width="232" height="236" rx="20" fill="#13284F" fill-opacity="0.96" stroke="#F2B33D" stroke-width="2" />
+    <rect x="20" y="20" width="124" height="24" rx="8" fill="#F2B33D" />
+    <text x="82" y="36" fill="#0F1E4A" font-size="10.5" font-weight="800" text-anchor="middle" font-family="system-ui, sans-serif">STRATEGIC ROLE</text>
+    <!-- Executive Insight Icon -->
+    <rect x="20" y="60" width="44" height="44" rx="12" fill="#F2B33D" fill-opacity="0.18" stroke="#F2B33D" stroke-opacity="0.6" />
+    <circle cx="42" cy="82" r="10" stroke="#34D399" stroke-width="2" />
+    <path d="M42 72 V82 L49 87" stroke="#F2B33D" stroke-width="2.2" stroke-linecap="round" />
+    <text x="20" y="132" fill="#FFFFFF" font-size="17" font-weight="800" font-family="system-ui, sans-serif">People Analytics</text>
+    <text x="20" y="160" fill="#FDE68A" font-size="15" font-weight="800" font-family="system-ui, sans-serif">₹6.5L – ₹15.0L LPA</text>
+    <text x="20" y="186" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• Tech Firms &amp; Global GCCs</text>
+    <text x="20" y="208" fill="#CBD5E1" font-size="12.5" font-family="system-ui, sans-serif">• HRIS &amp; Talent Ops Partner</text>
+  </g>
+
+  <!-- Bottom Bar -->
+  <g transform="translate(48, 446)">
+    <rect width="864" height="54" rx="14" fill="#091529" fill-opacity="0.92" stroke="#1E5245" stroke-width="1.2" />
+    <text x="24" y="32" fill="#F2B33D" font-size="12" font-weight="800" font-family="system-ui, sans-serif">HIGH-SIGNAL PROOF:</text>
+    <text x="174" y="32" fill="#E2E8F0" font-size="12.5" font-weight="600" font-family="system-ui, sans-serif">Recruiting Funnel Model  •  Attrition Power BI Suite  •  CHRO Action Memo  •  Hire-to-Retire Dossier</text>
+  </g>
+</svg>
